@@ -4,6 +4,10 @@
 // Example 2: [9, 9]  -->  -1
 // There is no balance index because there are fewer than 3 indices! As a result, we return -1 to maintain a consistent datatype
 
+// ============================
+// Instructor's Solution
+// ============================
+
 function balanceIndex(arr) {
     var arrTotal = 0;
     var subSum = 0;
@@ -18,5 +22,16 @@ function balanceIndex(arr) {
         subSum += arr[i];
     }
     return -1;
-    
 }
+
+// ============================
+// Frame for Students
+// ============================
+
+function balanceIndex(arr) {
+    // your code here
+}
+
+// ============================
+// Student's Solutions
+// ============================
