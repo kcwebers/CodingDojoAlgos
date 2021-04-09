@@ -32,7 +32,6 @@ function balanceIndex(arr) {
 console.log(balancePoint([4,3,7,4,10])); // true
 console.log(balancePoint([4,3,7,4,11,2])); // false
 
-
 // ============================
 // Students' Solutions
 // ============================
