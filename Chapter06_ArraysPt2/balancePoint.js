@@ -137,3 +137,21 @@ function balancePoint(arr) {
     }
     return false;
   }
+
+// ============================
+
+  function balancePoint(arr) {
+    let sum = 0;
+    let checkSum = 0;
+    for (let i = 0; i < arr.length; i++) {
+      sum += arr[i];
+    }
+    for (let j = 0; j < arr.length; j++) {
+      if (checkSum === sum) {
+        return true;
+      }
+      sum -= arr[j];
+      checkSum += arr[j];
+    }
+    return false;
+  }
