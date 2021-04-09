@@ -32,6 +32,9 @@ function balanceIndex(arr) {
     // your code here
 }
 
+console.log(balanceIndex([-2, 5, 7, 0, 3])); // 2
+console.log(balanceIndex([9, 9])); // -1
+
 // ============================
-// Student's Solutions
+// Students' Solutions
 // ============================
