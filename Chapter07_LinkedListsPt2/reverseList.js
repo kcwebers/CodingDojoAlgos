@@ -89,7 +89,10 @@ list.addToBack(8);
 list.addToBack(67);
 list.addToBack(-27);
 list.addToBack(19);
-
+console.log("========================")
+list.printValues();
+console.log("========================")
+list.reverseList();
 list.printValues();
 
 
