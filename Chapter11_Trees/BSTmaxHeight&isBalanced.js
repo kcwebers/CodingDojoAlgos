@@ -49,6 +49,101 @@ class BST{
         // your code here
     }
 
+// ============================
+// Students' Solutions
+// ============================
+
+    maxHeight(n = this.root) {
+        return  n == null ? 0 : 1 + Math.max(this.maxHeight(n.left),this.maxHeight(n.right)); 
+    }
+    isBalanced(n = this.root) {
+        return n == null ? true : this.maxHeight(n.left) == this.maxHeight(n.right);
+    }
+
+// ============================
+
+    maxHeight(){
+        if(this.root == null){
+            return 0;
+        }
+        var max = this.findMax();
+        var min = this.findMin();
+        if(min == max){
+            return 1;
+        }
+        var height =1;
+        for(var x= min; x<= max; x++){
+            var current = this.root;
+            var count = 1;
+            while(current != null){
+                if(x< current.value){
+                    count +=1;
+                    current = current.left;
+                }else if(x> current.value){
+                    count += 1;
+                    current = current.right;
+                }else{
+                    if(count>height){
+                        height = count;
+                    }
+                    break;
+                }
+            }
+        }
+        return height;
+    }
+
+// ============================
+
+    add(value) {
+        // your code here
+        var newNode = new Node(value);
+        newNode.height = 0;
+        if(this.root == null){
+            this.root = newNode;
+            this.root.height = 0
+        } else{
+            var subroot = this.root;
+            while(subroot!=null){
+                if(subroot.value>value){
+                    if(subroot.left!=null){
+                        subroot= subroot.left;
+                    }
+                    else{
+                        subroot.left = newNode
+                        if(subroot.right==null){
+                            this.root.height++
+                        }
+                        return;
+                    }
+                } else if(subroot.value<value){
+                    if(subroot.right!=null){
+                        subroot = subroot.right;
+                    } else{
+                        subroot.right = newNode;
+                        if(subroot.left==null){
+                            this.root.height++
+                        }
+                        return;
+                    }
+                }
+                else{
+                    console.log("You can't insert duplicate values in a BST!");
+                    return;
+                }
+            }
+        }
+    }
+    maxHeight() {
+        // your code here
+        console.log("Max height is: "+this.root.height);
+        return this.root.height;
+    }
+
+// ============================
+
+
+
     // Extra Mini Challenge: Since these 2 algos make pre-order printing, can you do post-order?
     printBSTNodes(node = this.root) {
         if(node==null){
