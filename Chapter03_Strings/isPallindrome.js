@@ -17,3 +17,4 @@ function isPallindrome(str) {
 console.log(isPallindrome("racecar"));
 console.log(isPallindrome("Dud"));
 console.log(isPallindrome("oho!"));
+console.log(isPallindrome(" to "));
