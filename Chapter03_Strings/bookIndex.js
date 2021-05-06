@@ -2,6 +2,10 @@
 
 // Example: [1,3,4,5,6,7,8,10] --> "1, 3-8, 10"
 
+// ============================
+// Instructor's Solution
+// ============================
+
 function bookIndex(arr){
     var str = "";
     for (var i = 0 ; i < arr.length ; i++){
@@ -22,6 +26,15 @@ function bookIndex(arr){
     }
     return str;
 }
-var str = "hello"
-str.slice(1, 3)
+
+console.log(bookIndex([1,3,4,5,6,7,8,10]))
+
+// ============================
+// Frame for Students
+// ============================
+
+function bookIndex(arr){
+    // your code here
+}
+
 console.log(bookIndex([1,3,4,5,6,7,8,10]))
