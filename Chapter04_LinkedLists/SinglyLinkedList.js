@@ -48,12 +48,32 @@ class SLList{
     
     // remove the first node in the list
     removeFromFront() {
-        // your code here
+        if(!this.head) {
+            console.log("There is no list!");
+            return null;
+        }
+        var headToRemove = this.head;
+        var newHead = this.head.next;
+
+        this.head = newHead;
+        headToRemove.next = null;
     }
 
     // remove the last node in the list
     removeFromBack() {
-        // your code here
+        if(!this.head) {
+            console.log("There is no list!");
+            return null;
+        } 
+        if(this.head.next == null) {
+            this.head = null;
+            console.log("The list is now empty!")
+        }
+        var runner = this.head;
+        while(runner.next.next != null) {
+            runner = runner.next;
+        }
+        runner.next = null;
     }
     
     // print the singly linked list
@@ -79,4 +99,10 @@ sll.addToBack(5)
 sll.contains(5) // prints true
 sll.contains(6) // prints false
 console.log("==========================================")
+sll.printValues()
+console.log("==========================================")
+sll.removeFromFront()
+sll.printValues()
+console.log("==========================================")
+sll.removeFromBack()
 sll.printValues()
