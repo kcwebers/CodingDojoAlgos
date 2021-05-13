@@ -31,6 +31,42 @@ class SLList{
         runner.next = node;
     }
 
+    // takes in a value and a location, add a node to the list with the input value BEFORE the given location
+    prependValue(value, location) {
+        var node = new Node(value);
+        if(!this.head) {
+            this.head = node;
+            return this; 
+        } 
+        var count = 1;
+        var runner = this.head;
+        while(count+1 < location) {
+            runner = runner.next;
+            count ++;
+        }
+        node.next = runner.next;
+        runner.next = node;
+        return this;
+    }
+
+    // takes in a value and a location, add a node to the list with the input value AFTER the given location
+    appendValue(value, location) {
+        var node = new Node(value);
+        if(!this.head) {
+            this.head = node;
+            return this; 
+        } 
+        var count = 1;
+        var runner = this.head;
+        while(count < location) {
+            runner = runner.next;
+            count ++;
+        }
+        node.next = runner.next;
+        runner.next = node;
+        return this;
+    }
+
     // given a value, print whether the list contains that value
     contains(value) {
         if(!this.head) {
@@ -106,3 +142,6 @@ sll.printValues()
 console.log("==========================================")
 sll.removeFromBack()
 sll.printValues()
+console.log("==========================================")
+sll.prependValue(12, 3)
+sll.appendValue(12, 3)
