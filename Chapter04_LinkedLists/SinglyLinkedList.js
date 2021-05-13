@@ -37,10 +37,15 @@ class SLList{
         if(!this.head) {
             this.head = node;
             return this; 
+        }
+        if(location === 1) {
+            // this.addToFront(value);
+            node.next = this.head;
+            this.head = node;
         } 
         var count = 1;
         var runner = this.head;
-        while(count+1 < location) {
+        while(count+1 < location && runner.next != null) {
             runner = runner.next;
             count ++;
         }
@@ -58,7 +63,7 @@ class SLList{
         } 
         var count = 1;
         var runner = this.head;
-        while(count < location) {
+        while(count < location && runner.next != null) {
             runner = runner.next;
             count ++;
         }
