@@ -116,6 +116,16 @@ class SLList{
         }
         runner.next = null;
     }
+
+    // remove the second to last node in the list
+    removeSecondToLast(){
+        // your code here
+    }
+
+    // remove all nodes that have a negative value
+    removeNegatives(){
+        // your code here
+    }
     
     // print the singly linked list
     printValues() {
@@ -133,20 +143,25 @@ class SLList{
 
 const sll = new SLList();
 sll.addToFront(3)
-sll.addToFront(2)
+sll.addToFront(-2)
 sll.addToFront(1)
-sll.addToBack(4)
-sll.addToBack(5)
-sll.contains(5) // prints true
-sll.contains(6) // prints false
+sll.addToBack(-4)
+sll.addToBack(-5)
 console.log("==========================================")
 sll.printValues()
+// console.log("==========================================")
+// sll.removeFromFront()
+// sll.printValues()
+// console.log("==========================================")
+// sll.removeFromBack()
+// sll.printValues()
 console.log("==========================================")
-sll.removeFromFront()
+sll.prependValue(-12, 3)
+sll.appendValue(-12, 3)
 sll.printValues()
 console.log("==========================================")
-sll.removeFromBack()
+sll.removeSecondToLast()
 sll.printValues()
 console.log("==========================================")
-sll.prependValue(12, 3)
-sll.appendValue(12, 3)
+sll.removeNegatives()
+sll.printValues()
