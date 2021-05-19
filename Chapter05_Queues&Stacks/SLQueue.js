@@ -84,4 +84,66 @@ class SLQueue{
         }
     }
 
+    displayQueue(){
+        if (!this.head){
+            console.log("This queue is empty.");
+        }
+        else {
+            var runner = this.head;
+            var str = "";
+            while(runner){
+                str += runner.value + " -> ";
+                runner = runner.next;
+            }
+            str += "null";
+            console.log(str);
+        }
+    }
+
+        // Reorder SLQueue values to alternate first half values with second half values, in order. For example: (1,2,3,4,5) becomes (1,4,2,5,3). You may create one additional SLQueue, if needed.
+
+        // 1 --> 2 --> 3 --> 4 --> 5 --> 
+        // 1 --> 2 --> 3 -->    |      4 --> 5 --> 
+        // 1 --> 4 --> 2 --> 5 --> 3 --> 
+
+    size(){
+        var runner = this.head;
+        var count = 0;
+        while (runner){
+            count++;
+            runner = runner.next;
+        }
+        return count;
+    }
+
+    interleaveQueue(){
+        var midpt = Math.ceil(this.size()/2);
+        var tempQueue = new SLQueue();
+        for (var i = 1; i <= midpt; i++){
+            tempQueue.enqueue(this.dequeue());
+        }
+        
+        var length = tempQueue.size();
+        for (var j = 1; j <= length; j++){
+            tempQueue.enqueue(tempQueue.dequeue());
+            if (j < length){
+                tempQueue.enqueue(this.dequeue());
+            }
+        }
+        tempQueue.displayQueue();
+    }
+
 }
+
+
+var q = new SLQueue();
+q.enqueue(1);
+q.enqueue(2);
+q.enqueue(3);
+q.enqueue(4);
+q.enqueue(5);
+q.enqueue(6);
+q.enqueue(7);
+q.displayQueue();
+
+q.interleaveQueue();
