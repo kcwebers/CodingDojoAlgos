@@ -133,6 +133,13 @@ class SLQueue{
         tempQueue.displayQueue();
     }
 
+    // given a queue, determine whether or not the values therein are a pallindrome 
+    // Ex: 1 --> 2 --> 3 --> 2 --> 1 --> null
+    // any values that are in the same order going forwards as backwards is a pallindrome, doesn't need to just be letters
+    isPallindrome() {
+        // your code here
+    }
+
 }
 
 
@@ -140,10 +147,9 @@ var q = new SLQueue();
 q.enqueue(1);
 q.enqueue(2);
 q.enqueue(3);
-q.enqueue(4);
-q.enqueue(5);
-q.enqueue(6);
-q.enqueue(7);
+q.enqueue(3);
+q.enqueue(2);
+q.enqueue(1);
 q.displayQueue();
 
-q.interleaveQueue();
+q.isPallindrome();
