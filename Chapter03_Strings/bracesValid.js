@@ -6,6 +6,10 @@
 
 // hint: consider using an array or object to solve
 
+// ============================
+// Instructor's Solution
+// ============================
+
 function bracesValid(str) {
     var checker = [];
 
@@ -62,3 +66,7 @@ function bracesValid(str) {
 console.log(bracesValid("({[({})]})"));
 console.log(bracesValid("d(i{a}l[t]o)n{e!"));
 console.log(bracesValid("{{[a]}}(){bcd}{()}"));
+
+// ============================
+// Students' Solutions
+// ============================
