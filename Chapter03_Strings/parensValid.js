@@ -62,3 +62,26 @@ console.log(parensValid("n(0(p)3"));
 console.log(parensValid("n)0(t(o)k"));
 console.log(parensValid("((()))"));
 console.log(parensValid("()()()()()()("));
+
+// ============================
+// Students' Solutions
+// ============================
+
+function checkBracketStuff(str){
+    var yup = 0;
+    for(var i in str){   
+        if(str[i] == '('){
+            yup ++;
+        } else if(str[i] == ')') {
+            yup --;
+        }  
+        if (yup < 0) return false;
+    }
+    if(yup > 0) return false;
+    return true;
+}
+console.log(checkBracketStuff('y(3(p)p(3)r)s')); // true
+console.log(checkBracketStuff('n(0(p)3')); // false
+console.log(checkBracketStuff('n)0(t(o)k')); // false
+
+// ================================================================
