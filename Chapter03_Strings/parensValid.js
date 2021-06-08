@@ -12,6 +12,9 @@
 // never hit an closing parens before a opening parens
 // ONLY care about the parens in the string
 
+// ============================
+// Instructor's Solution
+// ============================
 
 function parensAreValid(str) {
     // use array to store just my opening parens
