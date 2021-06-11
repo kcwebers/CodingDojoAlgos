@@ -1,32 +1,40 @@
-// Create a function that, given an input string, returns a boolean true/false whether parentheses in that string are valid.
+// Given a dollar amount with change (an integer w/decimal) convert to change. Make sure to count the largest denomination first!
 
-// Example 1:"y(3(p)p(3)r)s" --> true
-// Example 2: "n(0(p)3" --> false
-// Example 3: "n)0(t(o)k" --> false
+// Example: 3.21 --> 12 quarters, 2 dimes, 1 penny
 
-// hint: consider using an array or object to solve / counter
+function generateCoinChange(input) {
 
-// check entire string, return true/false
-// every single opening parens has a closing
-// never hit an closing parens before a opening parens
-// ONLY care about the parens in the string
+    // option #1 for storing results
+    quarters = 0
+    dimes = 0
+    nickels = 0
+    pennies = 0
 
+    // option #2 for storing results
+    change = {
+        'quarters' : 0,
+        'dimes' : 0,
+        'nickels' : 0,
+        'pennies' : 0,
+    }
 
-function parensValid(str) {
-    // your code here
+    // input * 100 == a number without decimal places
+    // for example 3.21 * 100 == 321
+    // now quarters would be 25 instead .25
+
+    // loop through input
+    while(input > 0) {
+        // if you can take 25 from input, that means a quarter factors in, so we increase quarter count
+        if(input - 25 > 0) {
+            change['quarters'] += 1
+            // remove the counted quarter from the input and continue checking remaining amount (loop again)
+            input -= 25
+        }
+    }
+
+    // try and modify and use division or modulus instead!
+
+    // return a result that shows the # of each denomination
 }
 
-// ===========================
-// ===========================
-
-// Given a string, returns whether the sequence of various parentheses, braces and brackets within it are valid. 
-
-// Example 1: "({[({})]})" --> true
-// Example 2: "d(i{a}l[t]o)n{e!" --> false
-// Example 2: "{{[a]}}(){bcd}{()}" --> true
-
-// hint: consider using an array or object to solve
-
-function bracesValid(str) {
-    // your code here
-}
+console.log(generateCoinChange(0.77))

@@ -39,6 +39,9 @@ function bookIndex(arr){
 
 console.log(bookIndex([1,3,4,5,6,7,8,10]))
 
+// ============================
+// Students' Solutions 
+// ============================
 
 function bookIndex(arr) {
     var newArr = [];
