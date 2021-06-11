@@ -15,9 +15,6 @@
 //     // make sure to round down to get a whole number
 //     // subtract the (# of quarters * 25) from the overall input # and then check the next denomination
 //     // repeat for different denominations
-
-
-
 //     // print and then return the data you collected
 // }
 
@@ -59,3 +56,75 @@ function generateCoinChange(input) {
 
 
 console.log(generateCoinChange(0.77))
+
+// ============================
+// Students' Solutions
+// ============================
+
+function generateCoinChange(input) {
+
+    // option #2 for storing results
+    change = {
+        'quarters': 0,
+        'dimes': 0,
+        'nickels': 0,
+        'pennies': 0,
+    }
+
+    let convertedInput = input * 100;
+    console.log(convertedInput)
+    while (convertedInput > 0) {
+        if (convertedInput - 25 >= 0) {
+            change['quarters'] += 1
+            convertedInput -= 25
+        } else if (convertedInput - 10 >= 0) {
+            change['dimes'] += 1
+            convertedInput -= 10
+        } else if (convertedInput - 5 >= 0) {
+            change['nickels'] += 1
+            convertedInput -= 5
+        } else if (convertedInput - 1 >= 0) {
+            change['pennies'] += 1
+            convertedInput -= 1
+        }
+        // if (convertedInput == 0) {
+        //     break;
+        // }
+        console.log(convertedInput)
+    }
+    return change;
+}
+
+console.log(generateCoinChange(0.77))
+
+// ================================================ Modulus answer!
+
+function generateCoinChange(input) {
+    // object
+        change = {
+            'quarters': 0,
+            'dimes': 0,
+            'nickels': 0,
+            'pennies': 0
+        }
+    
+        input *= 100
+    
+            change['quarters'] = Math.floor(input / 25)
+            input = input % 25
+    
+            change['dimes'] = Math.floor(input / 10)
+            input = input % 10
+    
+            change['nickels'] = Math.floor(input / 5)
+            input = input % 5
+    
+            change['pennies'] = Math.floor(input / 1)
+            input = input % 1
+    
+        return change
+    }
+    
+    console.log(generateCoinChange(3.00))
+    console.log(generateCoinChange(4.17))
+    console.log(generateCoinChange(0.77))
