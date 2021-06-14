@@ -1,40 +1,79 @@
-// Given a dollar amount with change (an integer w/decimal) convert to change. Make sure to count the largest denomination first!
-
-// Example: 3.21 --> 12 quarters, 2 dimes, 1 penny
-
-function generateCoinChange(input) {
-
-    // option #1 for storing results
-    quarters = 0
-    dimes = 0
-    nickels = 0
-    pennies = 0
-
-    // option #2 for storing results
-    change = {
-        'quarters' : 0,
-        'dimes' : 0,
-        'nickels' : 0,
-        'pennies' : 0,
+class SLNode{
+    constructor(value){
+        this.value = value
+        this.next = null
     }
-
-    // input * 100 == a number without decimal places
-    // for example 3.21 * 100 == 321
-    // now quarters would be 25 instead .25
-
-    // loop through input
-    while(input > 0) {
-        // if you can take 25 from input, that means a quarter factors in, so we increase quarter count
-        if(input - 25 > 0) {
-            change['quarters'] += 1
-            // remove the counted quarter from the input and continue checking remaining amount (loop again)
-            input -= 25
-        }
-    }
-
-    // try and modify and use division or modulus instead!
-
-    // return a result that shows the # of each denomination
 }
 
-console.log(generateCoinChange(0.77))
+class SLList{
+    constructor(){
+        this.head = null
+    }
+
+    addToFront(value) {
+        var newNode = new SLNode(value)
+        if(this.head == null) {
+            // this means there's nothing in the list
+            this.head = newNode;
+        }
+        newNode.next = this.head
+        this.head = newNode
+    }
+
+    // given a value, add it to the back of your singly linked list
+    // what if the list is empty?
+    addToBack(value) {
+        var newNode = new SLNode(value) //creating new instance of a node with the given value
+        if(this.head == null) {
+            // this means there's nothing in the list
+            this.head = newNode;
+        }
+        var runner = this.head
+        while(runner.next != null) {
+            runner = runner.next
+        }
+        runner.next = newNode
+    }
+
+    // given a value, print and return whether the list contains that value
+    contains(value) {
+        if(this.head == null) {
+            console.log("False - this list is empty!")
+            return false
+        }
+        var runner = this.head
+        while(runner.next != null) {
+            if(runner.value == value) {
+                console.log("True - found the value!")
+                return true
+            }
+            runner = runner.next
+        }
+        console.log("False - made it through the list and didn't find anything!")
+        return false
+    }
+
+    // print the singly linked list
+    printValues() {
+        if(this.head == null) {
+            console.log("This list is empty!")
+        }
+        var runner = this.head
+        while(runner.next != null) {
+            console.log(`This node's value : ${runner.value} and the next node is ${runner.next}`)
+            runner = runner.next
+        }
+    }
+}
+
+const sll = new SLList();
+sll.addToFront(3)
+sll.addToFront(2)
+sll.addToFront(1)
+sll.addToBack(4)
+sll.addToBack(5)
+console.log("==========================================")
+sll.printValues()
+console.log("==========================================")
+sll.contians(6)
+sll.contians(2)
