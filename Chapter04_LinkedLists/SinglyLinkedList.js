@@ -117,14 +117,39 @@ class SLList{
         runner.next = null;
     }
 
-    // remove the second to last node in the list
-    removeSecondToLast(){
-        // your code here
+    // find and return the second to last value in your SLL
+    secondToLast() {
+        if(this.head == null || this.head.next == null) {
+            console.log("This list isn't long enough!")
+            return this
+        }
+    var runner = this.head
+        while(runner.next.next != null) {
+            runner = runner.next
+        }
+        console.log(`The second to last value is ${runner.value}`)
+        return this
     }
 
-    // remove all nodes that have a negative value
-    removeNegatives(){
-        // your code here
+    // given a list of integers, remove the negative values from the list
+    removeNegatives() {
+        if(this.head == null) {
+            console.log("There's nothing in this list!")
+            return this
+        }
+        while(this.head.value < 0) {
+            this.head = this.head.next
+        }
+        var runner = this.head
+        while(runner.next != null) {
+            if(runner.next.value < 0) {
+                runner.next = runner.next.next
+                
+            } else {
+                runner = runner.next
+            }
+        }
+        return this
     }
     
     // print the singly linked list
@@ -142,26 +167,17 @@ class SLList{
 }
 
 const sll = new SLList();
-sll.addToFront(3)
-sll.addToFront(-2)
-sll.addToFront(1)
-sll.addToBack(-4)
+sll.addToFront(-3)
+sll.addToFront(-122)
+sll.addToFront(41)
+sll.addToBack(48)
 sll.addToBack(-5)
+sll.addToBack(-15)
+sll.addToBack(14)
 console.log("==========================================")
-sll.printValues()
-// console.log("==========================================")
-// sll.removeFromFront()
-// sll.printValues()
-// console.log("==========================================")
-// sll.removeFromBack()
-// sll.printValues()
-console.log("==========================================")
-sll.prependValue(-12, 3)
-sll.appendValue(-12, 3)
-sll.printValues()
-console.log("==========================================")
-sll.removeSecondToLast()
 sll.printValues()
 console.log("==========================================")
 sll.removeNegatives()
 sll.printValues()
+console.log("==========================================")
+sll.secondToLast()
