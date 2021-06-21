@@ -13,16 +13,45 @@ class SLStack{
 
     // add a given value to your stack
     push(value){
-        // you code here
+        var newNode = new Node(value)
+        newNode.next = this.top
+        this.top = newNode
+        return this;
     }
     
     // remove and return the top value
     pop(){
-        // your code here
+        var removed = this.top
+        this.top = this.top.next
+        return removed.value
     }
 
     // return (don't remove) the top value of a stack
     returnTop() {
-        // your code here
+        if(!this.top) {
+            console.log("This stack is empty!")
+            return null
+        } else {
+            return this.top.value
+        }
+    }
+
+    printStack() {
+        var runner = this.top
+        while(runner != null) {
+            console.log(`The current value is: ${runner.value}`)
+            runner = runner.next
+        }
+        return this
     }
 }
+
+var sls = new SLStack()
+sls.push(3)
+sls.push(18)
+sls.push(12)
+sls.push(78)
+sls.push(56)
+console.log(sls.pop())
+console.log(sls.returnTop())
+sls.printStack()
