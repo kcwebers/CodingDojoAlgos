@@ -22,7 +22,7 @@ class SLStack{
     }
 
     // return (don't remove) the top value of a stack
-    top() {
+    returnTop() {
         // your code here
     }
 }

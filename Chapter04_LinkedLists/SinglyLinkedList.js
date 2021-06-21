@@ -123,7 +123,7 @@ class SLList{
             console.log("This list isn't long enough!")
             return this
         }
-    var runner = this.head
+        var runner = this.head
         while(runner.next.next != null) {
             runner = runner.next
         }
