@@ -126,9 +126,7 @@ class SLQueue{
         var length = tempQueue.size();
         for (var j = 1; j <= length; j++){
             tempQueue.enqueue(tempQueue.dequeue());
-            if (j < length){
-                tempQueue.enqueue(this.dequeue());
-            }
+            tempQueue.enqueue(this.dequeue());
         }
         tempQueue.displayQueue();
     }

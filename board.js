@@ -97,6 +97,61 @@ class SLQueue{
             runner.next == null
         }
     }
+
+    size(){
+        var runner = this.head;
+        var count = 0;
+        while (runner){
+            count++;
+            runner = runner.next;
+        }
+        return count;
+    }
+
+    interleaveQueue(){
+        var midpt = Math.ceil(this.size()/2);
+        var tempQueue = new SLQueue();
+        for (var i = 1; i <= midpt; i++){
+            tempQueue.enqueue(this.dequeue());
+        }
+        
+        var length = tempQueue.size();
+        for (var j = 1; j <= length; j++){
+            tempQueue.enqueue(tempQueue.dequeue());
+            tempQueue.enqueue(this.dequeue());
+        }
+        tempQueue.displayQueue();
+    }
+
+    
+    // given a queue, determine whether or not the values therein are a pallindrome 
+    // Ex: 1 --> 2 --> 3 --> 2 --> 1 --> null
+    // any values that are in the same order going forwards as backwards is a pallindrome, doesn't need to just be letters
+    isPallindrome() {
+        if(!this.head || !this.head.next) { 
+            console.log("technically true cuz nothing or 1 thing is the same to and fro...")
+            return true
+        }
+        // collect values into a array so I can compare them to the items in the list
+        var runner = this.head;
+        var comparer = [];
+        while (runner) {
+            comparer.push(runner.value);
+            runner = runner.next;
+        }
+        
+        // compare items in the array starting from the end, to the items in the queue starting from the front
+        var newRunner = this.head;
+        // only need to go halfway through
+        for(var i = comparer.length-1 ; i > Math.floor(comparer.length/2) ; i --) {
+            if(comparer[i] != newRunner.value) {
+                return false
+            }
+            newRunner = newRunner.next
+        }
+        console.log("Neato! It's a palli :)")
+        return true
+    }
 }
 
 
@@ -107,6 +162,9 @@ q.enqueue(3);
 q.enqueue(3);
 q.enqueue(2);
 q.enqueue(1);
+q.displayQueue();
+
+q.interleaveQueue();
 q.displayQueue();
 
 q.isPallindrome();
