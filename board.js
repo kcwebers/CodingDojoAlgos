@@ -1,170 +1,44 @@
-class Node{
-    constructor(value){
-        this.value = value
-        this.next = null
-    }
-}
+// Word/Logic Problems!
 
-// a queue operates on the principal of "First In, First Out" like waiting in line for something
-class SLQueue{
-    constructor() {
-        this.head = null
-        this.tail = null
-    }
+// Puzzle #1 - Finding An Average on the DL
+// Three Employees want to know the average of their salaries. They are not allowed to share their individual salaries.
+// They cannot directly share their own salaries in anyway, which includes writing things down. 
 
-    // add a node with the given value to the queue
-    enqueue(value) {
-        var newNode = new Node(value);
-        if (!this.head){
-            this.head = newNode;
-            this.tail = newNode;
-        }
-        this.tail.next = newNode;
-        this.tail = this.tail.next;
-        return this;
-    }
+// ===========================
+// Ideas
+// ===========================
 
-    // remove and return the front value from the queue
-    dequeue() {
-        if(!this.head) {
-            console.log("Nothing in this queue!");
-            return null;
-        }
-        var temp = this.head.value;
-        this.head = this.head.next;
-        return temp;
-    }
+// bag of skittles, each skittle has a monetary value. Put all skittles together and divide by 3 = average.
+// - this still wouldnt work because the separate employees would still be directly communicating their dsalaries, hust through a different medium
 
-    //return true/false based on whether you find the given value in a queue
-    contains(value) {
-        if(!this.head) {
-            return false;
-        }
-        var runner = this.head;
-        while(runner) {
-            if(runner.value === value) {
-                return true;
-            }
-            runner = runner.next;
-        }
-        return false;
-    }
+// add a 'salt' onto each salary. As the average is being calculated, remove salts of each individual salary.
 
-    
-    displayQueue(){
-        if (!this.head){
-            console.log("This queue is empty.")
-        }
-        else {
-            var runner = this.head
-            while(runner){
-                console.log(`The current value is ${runner.value} and the next one is ${runner.next.value}`)
-                runner = runner.next;
-            }
-            return this
-        }
-    }
+// ===========================
+// Solution
+// ===========================
 
-    // remove the minimum value in the queue (remember your edgecases and pointers!)
-    removeMin() {
-        if(this.head == null){
-            console.log("Nothing in this queue!")
-            return null
-        }
-    
-        var runner = this.head;
-        var min = runner.value;
-    
-        while(runner != null){
-            if(runner.value < min){
-                min = runner.value
-            }
-            runner = runner.next
-        }
-    
-        runner = this.head;
-        while(runner.next.next != null){
-            if(runner.next.value === min){
-                runner.next = runner.next.next
-            }
-            else{
-                runner = runner.next
-            }
-        }
+// https://www.geeksforgeeks.org/puzzle-26-know-average-salary-without-disclosing-individual-salaries/
 
-        if(runner.next.value == min){
-            this.tail = runner
-            runner.next == null
-        }
-    }
+// basically,idea #2 was closest. You add a kind of 'salt' to each person's salary and pass along the sum. At the end you then syphon out the salts and ultimately divide for the average.
 
-    size(){
-        var runner = this.head;
-        var count = 0;
-        while (runner){
-            count++;
-            runner = runner.next;
-        }
-        return count;
-    }
+// Puzzle #2 - Card Flip Shuffle
+// You are in a dark room with a deck of cards. A certain number of the cards are face up and the rest are face down. You can't see the cards. How do you divide the deck in to two piles with equal numbers of face up cards in each?
+// You know how many cards are flipped, but you cannot see the deck of cards no matter what and the deck is shuffled, so the flipped cards could be anywhere in the deck.
 
-    interleaveQueue(){
-        var midpt = Math.ceil(this.size()/2);
-        var tempQueue = new SLQueue();
-        for (var i = 1; i <= midpt; i++){
-            tempQueue.enqueue(this.dequeue());
-        }
-        
-        var length = tempQueue.size();
-        for (var j = 1; j <= length; j++){
-            tempQueue.enqueue(tempQueue.dequeue());
-            tempQueue.enqueue(this.dequeue());
-        }
-        tempQueue.displayQueue();
-    }
+// ===========================
+// Ideas
+// ===========================
 
-    
-    // given a queue, determine whether or not the values therein are a pallindrome 
-    // Ex: 1 --> 2 --> 3 --> 2 --> 1 --> null
-    // any values that are in the same order going forwards as backwards is a pallindrome, doesn't need to just be letters
-    isPallindrome() {
-        if(!this.head || !this.head.next) { 
-            console.log("technically true cuz nothing or 1 thing is the same to and fro...")
-            return true
-        }
-        // collect values into a array so I can compare them to the items in the list
-        var runner = this.head;
-        var comparer = [];
-        while (runner) {
-            comparer.push(runner.value);
-            runner = runner.next;
-        }
-        
-        // compare items in the array starting from the end, to the items in the queue starting from the front
-        var newRunner = this.head;
-        // only need to go halfway through
-        for(var i = comparer.length-1 ; i > Math.floor(comparer.length/2) ; i --) {
-            if(comparer[i] != newRunner.value) {
-                return false
-            }
-            newRunner = newRunner.next
-        }
-        console.log("Neato! It's a palli :)")
-        return true
-    }
-}
+// remove any number of cards from the deck, make sure first deck has more cards than the second deck.
 
+// clarification: you know how many cards are face up, just not where they are in the deck!
 
-var q = new SLQueue();
-q.enqueue(1);
-q.enqueue(2);
-q.enqueue(3);
-q.enqueue(3);
-q.enqueue(2);
-q.enqueue(1);
-q.displayQueue();
+// ===========================
+// Solution
+// ===========================
 
-q.interleaveQueue();
-q.displayQueue();
+// http://puzzles.nigelcoldwell.co.uk/thirtysix.htm
 
-q.isPallindrome();
+// idea was close, but because we know exactly how many cards are face up, we simply need to remove that many cards from the top no matter what. After that we simply flip them over and the number of face up cards will equalized in the 2 halves of the deck. For this puzzle start small and think of all scenarios, then build up from there!
+
+// ie. consider all scenarios with 2 cards, then 3 cards, 4 cards, etc.

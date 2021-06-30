@@ -4,6 +4,7 @@
 // Ex: given 3.5 would return 1*2*3 == 6 
 
 function recursiveFactorial(num) {
+    num = Math.floor(num)
     if(num < 0) {
         return 1;
     }

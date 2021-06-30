@@ -12,3 +12,10 @@ function recursiveFibonacci(num) {
         return recursiveFibonacci(num - 1) + recursiveFibonacci(num - 2);
     }
 }
+
+// ================================================================================================================
+// Students' Solution - Awesome! Haven't seen one with only a single recursive call before :)
+// ================================================================================================================
+
+const fib = ( n, x = 1, y = 0 ) => ( n == 0 ) ? y : fib( n - 1, x + y, x );
+console.log( fib( 100 ) )
