@@ -1,4 +1,4 @@
-# Finding An Average on the DL
+# Finding An Average on the Down Low
 
 ### Three Employees want to know the average of their salaries. They are not allowed to share their individual salaries.
 * They cannot directly share their own salaries in anyway, which includes writing things down. 
