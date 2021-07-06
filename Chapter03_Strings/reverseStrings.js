@@ -4,6 +4,9 @@
 
 // ** Don't use the built-in reverse() method!
 
+// ============================
+// Instructor's Solutions
+// ============================
 // ===================================
 // with Array
 // ===================================
@@ -12,9 +15,9 @@ function reverseString(str) {
     console.log(arr);
 
     for (var i = 0 ; i < arr.length/2 ; i++) {
-      var temp = arr[i];
-      arr[i] = arr[arr.length - 1 - i];
-      arr[arr.length - 1 - i] = temp;
+        var temp = arr[i];
+        arr[i] = arr[arr.length - 1 - i];
+        arr[arr.length - 1 - i] = temp;
     }
     return arr.join("");
 }
@@ -34,3 +37,21 @@ function reverseString(str) {
 }
 
 console.log(reverseString("creature")); // "erutaerc"
+
+// ============================
+// Students' Solutions
+// ============================
+
+function reverseString(str) {
+    var result = ""
+    str.split(" ")
+    arr = str.split(" ")
+    for (var i = str.length - 1; i > -1; i--) {
+        // console.log(str[i])
+        result += str[i]
+        // console.log(result)
+    }
+    console.log(result)
+}
+
+reverseString("super")
