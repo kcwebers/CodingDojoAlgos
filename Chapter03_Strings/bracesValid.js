@@ -16,20 +16,23 @@ function bracesValid(str) {
     for (var i = 0 ; i < str.length ; i ++) {
         if (str[i] == "(" || str[i] == "[" || str[i] == "{") {
             checker.push(str[i]);
+
         } else if (str[i] == ")" && checker[checker.length-1] == "(") {
             checker.pop();
         } else if (str[i] == "]" && checker[checker.length-1] == "[") {
             checker.pop();
         } else if (str[i] == "}" && checker[checker.length-1] == "{") {
             checker.pop();
+
         } else if (str[i] == ")" || str[i] == "]" || str[i] =="}") {
             return false;
         }
     }
     if (checker.length > 0) {
         return false;
+    } else {
+        return true;
     }
-    return true;
 }
 
 function bracesValid(str) {
@@ -159,3 +162,53 @@ console.log(allValid("{{[a]}}(){bcd}{()}"))
 console.log(allValid("y(3(p)p(3)r)s"))
 console.log(allValid("n(0(p)3"))
 console.log(allValid("n)0(t(o)k"))
+
+// ================================================================
+
+function bracesValid(str) {
+    // your code here
+    var curlyOpen = 0;
+    var curlyClose = 0;
+    var parenOpen = 0;
+    var parenClose = 0;
+    var squareOpen = 0;
+    var squareClose = 0;
+    for (var i = 0; i < str.length; i++) {
+        if (str[i] == "{") {
+        curlyOpen++;
+        } else if (str[i] == "}") {
+        curlyClose++;
+        }
+
+        if (curlyOpen < curlyClose) {
+        return false;
+        }
+
+        if (str[i] == "(") {
+        parenOpen++;
+        } else if (str[i] == ")") {
+        parenClose++;
+        }
+
+        if (parenOpen < parenClose) {
+        return false;
+        }
+
+        if (str[i] == "[") {
+        squareOpen++;
+        } else if (str[i] == "]") {
+        squareClose++;
+        }
+
+        if (squareOpen < squareClose) {
+        return false;
+        }
+    }
+    return (
+        curlyOpen + parenOpen + squareOpen == curlyClose + parenClose + squareClose
+    );
+}
+
+console.log(bracesValid("({[({})]})"));
+console.log(bracesValid("d(i{a}l[t]o)n{e!"));
+console.log(bracesValid("{{[a]}}(){bcd}{()}"));

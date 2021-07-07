@@ -1,20 +1,31 @@
-// Create a function that, given a string, returns the string's acronym (first letter's only, capitalized).
+// Create a function that, given an input string, returns a boolean true/false whether parentheses in that string are valid.
 
-// Example: "there's no free lunch - gotta pay yer way" --> "TNFL-GPYW""
-// Example: "thank goodness it's friday" --> "TGIF"
+// Example 1:"y(3(p)p(3)r)s" --> true
+// Example 2: "n(0(p)3" --> false
+// Example 3: "n)0(t(o)k" --> false
 
-function acronym(str) {
+// hint: consider using an array or object to solve
+
+
+// check entire string, return true/false
+// every single opening parens has a closing
+// never hit an closing parens before a opening parens
+// ONLY care about the parens in the string
+
+function parensValid(str) {
     // your code here
 }
 
 
-// Implement reverseString(str) that takes in a string, and then returns a string of the same length, but with the characters reversed.
+// Given a string, returns whether the sequence of various parentheses, braces and brackets within it are valid. 
 
-// Example: "creature" ---> "erutaerc"
+// Example 1: "({[({})]})" --> true
+// Example 2: "d(i{a}l[t]o)n{e!" --> false
+// Example 2: "{{[a]}}(){bcd}{()}" --> true
 
-// ** Don't use the built-in reverse() method!
+// hint: consider using an array or object to solve
 
-function reverseString(str) {
+function bracesValid(str) {
     // your code here
 }
 
