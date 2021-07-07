@@ -15,7 +15,7 @@
 // Instructor's Solution
 // ============================
 
-function parensAreValid(str) {
+function parensValid(str) {
     // use array to store just my opening parens
     var checkParens = [];
     // loop through the entire string and check for opening and closing parens
@@ -37,6 +37,28 @@ function parensAreValid(str) {
     } else {
         return true;
     }
+}
+
+function parensValid(str){
+    var counter = 0;
+    for(var i = 0 ; i < str.length ; i ++){   
+        // count up if you find an opening parentheses
+        if(str[i] == '('){
+            counter ++;
+        // count down if you find an closing parentheses
+        } else if(str[i] == ')') {
+            counter --;
+        } 
+        // if the counter dips below zero, that means you've found more closing than opening and should return false
+        if (counter < 0) {
+            return false;
+        }
+    }
+    // if the counter is greater than 0, or ingeneral not equal to zero, it means that not all parentheses found matches and should return false
+    if(counter > 0) {
+        return false;
+    }
+    return true;
 }
 
 console.log(parensValid("y(3(p)p(3)r)s"));
@@ -72,7 +94,7 @@ function parensValid(str) {
     // your code here
     var openParens = 0;
     var closeParens = 0;
-    
+
     for (var i = 0; i < str.length; i++) {
         if (str[i] == "(") {
             openParens++;
