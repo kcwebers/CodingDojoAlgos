@@ -1,31 +1,100 @@
-// Create a function that, given an input string, returns a boolean true/false whether parentheses in that string are valid.
-
-// Example 1:"y(3(p)p(3)r)s" --> true
-// Example 2: "n(0(p)3" --> false
-// Example 3: "n)0(t(o)k" --> false
-
-// hint: consider using an array or object to solve
-
-
-// check entire string, return true/false
-// every single opening parens has a closing
-// never hit an closing parens before a opening parens
-// ONLY care about the parens in the string
-
-function parensValid(str) {
-    // your code here
+class Node{
+    constructor(value){
+        this.value = value
+        this.next = null
+    }
 }
 
+class SLList{
+    constructor(){
+        this.head = null
+    }
 
-// Given a string, returns whether the sequence of various parentheses, braces and brackets within it are valid. 
+    addToFront(value) {
+        var node = new Node(value);
+        node.next = this.head;
+        this.head = node;
+        return this;
+    }
 
-// Example 1: "({[({})]})" --> true
-// Example 2: "d(i{a}l[t]o)n{e!" --> false
-// Example 2: "{{[a]}}(){bcd}{()}" --> true
+    // given a value, add it to the back of your singly linked list
+    // what if the list is empty?
+    addToBack(value) {
+        var node = new Node(value);
+        if(this.head == null) {
+            this.head = node;
+        }
+        var runner = this.head;
+        while(runner.next != null) {
+            runner = runner.next;
+        }
+        runner.next = node;
+        return this;
+    }
+    
+    // remove the first node in the list
+    removeFromFront() {
+        if(!this.head) {
+            console.log("There is no list!");
+            return null;
+        }
+        
+        var headToRemove = this.head;
+        var newHead = this.head.next;
 
-// hint: consider using an array or object to solve
+        this.head = newHead;
+        headToRemove.next = null;
+        return this;
+    }
 
-function bracesValid(str) {
-    // your code here
+    // remove the last node in the list
+    removeFromBack() {
+        if(!this.head) {
+            console.log("There is no list!");
+            return null;
+        } 
+        if(this.head.next == null) {
+            this.head = null;
+            console.log("The list is now empty!")
+        }
+        var runner = this.head;
+        while(runner.next.next != null) {
+            runner = runner.next;
+        }
+        runner.next = null;
+        return this;
+    }
+    
+    // print the singly linked list
+    printValues() {
+        if(this.head == null) {
+            console.log("There's nothing in this list!");
+            return this;
+        }
+        var runner = this.head;
+        while(runner != null) {
+            console.log(`${runner.value} --> `);
+            // console.log(runner.value + " --> ");
+            runner = runner.next;
+        }
+        return this;
+    }
+
 }
+
+const sll = new SLList();
+sll.addToFront(-3)
+sll.addToFront(-122)
+sll.addToFront(41)
+sll.addToBack(48)
+sll.addToBack(-5)
+sll.addToBack(-15)
+sll.addToBack(14)
+console.log("==========================================")
+sll.removeFromBack()
+sll.printValues()
+console.log("==========================================")
+sll.removeFromFront()
+sll.printValues()
+console.log("==========================================")
 
