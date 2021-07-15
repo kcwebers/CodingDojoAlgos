@@ -31,37 +31,45 @@ class SLList{
         runner.next = node;
         return this;
     }
-    
-    // remove the first node in the list
-    removeFromFront() {
-        if(!this.head) {
-            console.log("There is no list!");
-            return null;
-        }
-        
-        var headToRemove = this.head;
-        var newHead = this.head.next;
 
-        this.head = newHead;
-        headToRemove.next = null;
+    // takes in a value and a location, add a node to the list with the input value BEFORE the given location
+    prependValue(loc, val) {
+        var node = new Node(val);
+        if(!this.head) {
+            this.head = node;
+            return this; 
+        }
+        if(loc === 1) {
+            // this.addToFront(value);
+            node.next = this.head;
+            this.head = node;
+        } 
+        var count = 1;
+        var runner = this.head;
+        while(count+1 < loc && runner.next != null) {
+            runner = runner.next;
+            count ++;
+        }
+        node.next = runner.next;
+        runner.next = node;
         return this;
     }
 
-    // remove the last node in the list
-    removeFromBack() {
+    // takes in a value and a location, add a node to the list with the input value AFTER the given location
+    appendValue(loc, val) {
+        var node = new Node(val);
         if(!this.head) {
-            console.log("There is no list!");
-            return null;
+            this.head = node;
+            return this; 
         } 
-        if(this.head.next == null) {
-            this.head = null;
-            console.log("The list is now empty!")
-        }
+        var count = 1;
         var runner = this.head;
-        while(runner.next.next != null) {
+        while(count < loc && runner.next != null) {
             runner = runner.next;
+            count ++;
         }
-        runner.next = null;
+        node.next = runner.next;
+        runner.next = node;
         return this;
     }
     
@@ -90,11 +98,11 @@ sll.addToBack(48)
 sll.addToBack(-5)
 sll.addToBack(-15)
 sll.addToBack(14)
-console.log("==========================================")
-sll.removeFromBack()
 sll.printValues()
 console.log("==========================================")
-sll.removeFromFront()
+sll.appendValue(2, 15)
 sll.printValues()
 console.log("==========================================")
+sll.prependValue(2, 15)
+sll.printValues()
 

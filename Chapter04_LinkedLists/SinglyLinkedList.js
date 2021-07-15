@@ -151,6 +151,16 @@ class SLList{
         }
         return this
     }
+
+        // locate the min value and move it to the front of your list
+        minToFront(){
+            // your code here
+        }
+    
+        // locate the max value and move it to the end of your list
+        maxToBack(){
+            // your code here
+        }
     
     // print the singly linked list
     printValues() {
