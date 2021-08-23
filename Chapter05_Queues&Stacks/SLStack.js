@@ -21,6 +21,11 @@ class SLStack{
     
     // remove and return the top value
     pop(){
+        // if there's nothing in the stack, then what?
+        if (!this.top) {
+            console.log("This stack is empty!")
+            return null;
+        }
         var removed = this.top
         this.top = this.top.next
         return removed.value

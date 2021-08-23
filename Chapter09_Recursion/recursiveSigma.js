@@ -6,10 +6,20 @@
 // Ex: given 5 would return 1+2+3+4+5 == 15
 // Ex: given 2.5 would return 1+2 == 3
 
-function recursiveSigma(num) {
-    if (num == 0) {
-        return 0;
+function sigma(num) {
+    var sum = 0
+    for (i = 0 ; i <= num ; i ++) {
+        sum += i
     }
-    return num + recursiveSigma(num - 1);
+    return sum
 }
+
+function recursiveSigma(num) {
+    if (num <= 1) {
+        return 1
+    }
+    return num + recursiveSigma(num - 1)
+}
+
+recursiveSigma(5)
 
