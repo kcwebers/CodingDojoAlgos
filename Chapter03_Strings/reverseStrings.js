@@ -55,3 +55,49 @@ function reverseString(str) {
 }
 
 reverseString("super")
+
+// ============================
+
+function reverseString(str) {
+    // your code here
+    var newstr = ""
+    for(var i = str.length-1; i >= 0; i--){
+        newstr += str[i]
+    }
+    return newstr
+}
+
+console.log(reverseString("creature")); 
+
+// ============================
+
+function reverseString(str) {
+    var reverse = ""
+    for(var i=0; i<str.length; i++)
+        reverse = str.charAt(i) + reverse;
+    return reverse;
+}
+
+console.log(reverseString("creature")); // "erutaerc"
+
+// ============================
+
+function reverseString(str) {
+    var newarr = '';
+    for(i=str.length-1;i>=0;i--){
+        newarr += str[i];
+    }
+    return newarr
+}
+
+console.log(reverseString("creature")); // "erutaerc"
+
+// ============================
+
+function reverseString(str) {
+    var nStr="";
+    for(var i=str.length-1; i>=0; i--) {
+        nStr += str[i];
+    }
+    return nStr.toLowerCase();
+}
