@@ -115,3 +115,210 @@ function parensValid(str) {
   // Given a string, returns whether the sequence of various parentheses, braces and brackets within it are valid.
 
 // ================================================================
+
+function parensValid(str) {
+    // your code here
+    var openingC=0;
+    for(var i=0; i<str.length; i++) {
+        if(str[i]==')' && openingC==0) {
+            return false;
+        }
+        else if(str[i]=='(') {
+            openingC++;
+        }
+        else if(str[i]==')') {
+            openingC--;
+        }
+    }
+
+    if(openingC) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+// ================================================================
+
+function parensValid(str) {
+    // your code here
+    var aparens = 0 // total number: '('
+    var bparens = 0 // total number: ')'
+
+    for(var i = 0; i < str.length; i++){ //iterate through the str
+        if(str[i] == "(" ){
+            aparens++
+        }
+        if(str[i] == ")" ){
+            bparens++
+        }
+        if(bparens > aparens){
+            return false
+        }
+    }
+    if(aparens == bparens){
+        return true
+    }
+    else{
+        return false
+    }
+}
+
+console.log(parensValid("y(3(p)p(3)r)s"));
+console.log(parensValid("n(0(p)3"));
+console.log(parensValid("n)0(t(o)k"));
+console.log(parensValid("((()))"));
+console.log(parensValid("()()()()()()("));
+
+// ================================================================
+
+function parensValid(str) {
+    // your code here
+    let isEvenParens = false;
+    let opens = 0;
+    let closed = 0;
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] === '(' ) {
+            opens ++;
+        } else if (str[i] === ')') {
+            closed++;
+        }
+    }
+    if (opens === closed) {
+        isEvenParens = true
+    } else {
+        isEvenParens = false;
+    }
+
+    let startswithOpen = false;
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] === '(') {
+            startswithOpen = true;
+            break;
+        } else if (str[i] === ')') {
+            break;
+        }
+    }
+
+    let startswithClose = false;
+    for (let i = str.length - 1; i > -1; i--) {
+        if (str[i] === ')') {
+            startswithClose = true;
+            break;
+        } else if (str[i] === '(') {
+            break;
+        }
+    }
+
+
+
+    let parensList = []
+
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] === '(') {
+            parensList.push([i, '('])
+        } else if (str[i] === ')') {
+            parensList.push([i, ')'])
+        }
+    }
+    
+
+    return startswithOpen && startswithClose && isEvenParens;
+}
+
+// ================================================================
+
+function parensValid(str) {
+    for (i=0;i<str.length/2;i++){
+        j=str.length-1-i
+        if(str[i]=="("&&str[j]!=")"){
+            return "False"
+        }
+        else if(i==j || i==j-1) {
+            return "True"
+        }
+    }
+}
+
+console.log(parensValid("y(3(p)p(3)r)s"));
+console.log(parensValid("n(0(p)3"));
+console.log(parensValid("n)0(t(o)k"));
+console.log(parensValid("((()))"));
+console.log(parensValid("()()()()()()("));
+
+// ** This solution looks for symmetry instead of valid parens! **
+
+// ================================================================
+
+function parensValid(str) {
+    // your code here
+    num = 0;
+    for (var i =0; i < str.length; i++){
+        if (str[i]=== "("){
+            num++;
+            console.log(num);
+        }
+        else if (str[i]===")"){
+            num--
+            console.log(num);
+        }
+        else if (num==-1){
+            return false
+        }
+        }
+    
+    if (num == 0){
+        return true
+    }
+    else return false
+    
+}
+
+// ================================================================
+
+function parensValid(str){
+    var stack= [];
+    str.split("").forEach(char => {
+        if(char==='(')
+            stack.push('(');
+        if(char === ')' && stack.length > 0)
+            stack.pop();
+        else if (char === ')' && stack.length === 0)
+            return false;
+    })
+    if(stack.length === 0)
+        return true;
+    else
+        return false; 
+}
+
+console.log("For each parensValid");
+console.log(parensValid("y(3(p)p(3)r)s"));
+console.log(parensValid("n(0(p)3"));
+console.log(parensValid("n)0(t(o)k"));
+console.log(parensValid("((()))"));
+console.log(parensValid("()()()()()()("));
+
+function parensValid2(str){
+    var stack =[];
+    for(var i = 0; i< str.length;i++){
+        if(str.charAt(i)==='(')
+            stack.push('(');
+        if(str.charAt(i) === ')' && stack.length > 0)
+            stack.pop();
+        else if (str.charAt(i) === ')' && stack.length === 0)
+            return false;
+    }
+    if(stack.length === 0)
+        return true;
+    else
+        return false; 
+}
+
+console.log("For loop parens valid");
+console.log(parensValid2("y(3(p)p(3)r)s"));
+console.log(parensValid2("n(0(p)3"));
+console.log(parensValid2("n)0(t(o)k"));
+console.log(parensValid2("((()))"));
+console.log(parensValid2("()()()()()()("));
