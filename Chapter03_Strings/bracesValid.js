@@ -70,6 +70,8 @@ console.log(bracesValid("({[({})]})"));
 console.log(bracesValid("d(i{a}l[t]o)n{e!"));
 console.log(bracesValid("{{[a]}}(){bcd}{()}"));
 
+// ** doesn't account ofr edge case of braces being in incorrect order **
+
 // ============================
 // Students' Solutions
 // ============================
@@ -212,3 +214,141 @@ function bracesValid(str) {
 console.log(bracesValid("({[({})]})"));
 console.log(bracesValid("d(i{a}l[t]o)n{e!"));
 console.log(bracesValid("{{[a]}}(){bcd}{()}"));
+
+// ================================================================
+
+// TA Solution!! Fat Arrow function :)
+
+const bracesValid = input => {
+    // helper functions
+    let isLeftBracket = lb => {
+        return leftBrackets.includes(lb);
+    }
+
+    let isRightBracket = rb => {
+        return rightBrackets.includes(rb);
+    }
+
+    let bracketsMatch = ( top, right ) => {
+        return leftBrackets.indexOf(top) == rightBrackets.indexOf(right);
+    }
+    // variables
+    let leftBrackets = ['(', '<', '[', '{'];
+    let rightBrackets = [')', '>', ']', '}'];
+    //using a FIFO strategy with a stack 
+    let stack = [];
+
+    for (const char of input) {
+        if(isLeftBracket(char))
+            stack.push(char);
+        if(isRightBracket(char)) {
+            //if we get a right bracket first its false
+            if(stack.length == 0) return false;
+            //get the previous opening brace 
+            let top = stack.pop();
+            //compare open to our current closing brace
+            if(!bracketsMatch(top, char)) return false
+        }       
+    }
+    return stack.length == 0;
+}
+
+console.log(bracesValid("({[({})]})")); // Example 1: "({[({})]})" --> true
+console.log(bracesValid("d(i{a}l[t]o)n{e!")); // Example 2: "d(i{a}l[t]o)n{e!" --> false
+console.log(bracesValid("{{[a]}}(){bcd}{()}")); // Example 2: "{{[a]}}(){bcd}{()}" --> true
+
+// ================================================================
+
+function bracesValid(str) {
+    var arr=[];
+    var def= {
+        "{":"}",
+        "[":"]",
+        "(":")"
+    }
+
+
+    for(var i=0; i<str.length; i++) {
+        if(str[i]=='{' || str[i]=='(' || str[i]=='[') {
+            arr.push(str[i]);
+        }
+        else if(/[a-z]/.test(str[i])) {
+            continue;
+        }
+        else {
+            var temp=arr[arr.length-1];
+            arr.splice(arr.length-1,1)
+
+            if(def[temp] != str[i] ) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+// ================================================================
+
+function bracesValid(str) {
+    var stack =[];
+    for(var i = 0; i< str.length;i++){
+        if(str.charAt(i)==='(')
+            stack.push('(');
+        if(str.charAt(i)==='{')
+            stack.push('{');
+        if(str.charAt(i)==='[')
+            stack.push('[');
+        if(str.charAt(i) === ')' && stack.length > 0 && stack[stack.length-1]==='(')
+            stack.pop();
+        else if (str.charAt(i) === ')' && (stack.length === 0 || stack[stack.length-1]!=='('))
+            return false;
+        if(str.charAt(i) === ']' && stack.length > 0 && stack[stack.length-1]==='[')
+            stack.pop();
+        else if (str.charAt(i) === ']' && (stack.length === 0 || stack[stack.length-1]!=='['))
+            return false;
+        if(str.charAt(i) === '}' && stack.length > 0 && stack[stack.length-1]==='{')
+            stack.pop();
+        else if (str.charAt(i) === '}' && (stack.length === 0 || stack[stack.length-1]!=='{'))
+            return false;
+    }
+    if(stack.length === 0)
+        return true;
+    else
+        return false; 
+}
+
+console.log('Easy to understand Braces');
+console.log(bracesValid("({[({})]})"));
+console.log(bracesValid("d(i{a}l[t]o)n{e!"));
+console.log(bracesValid("{{[a]}}(){bcd}{()}"));
+
+// Ascii codes: (<[{}]>)
+var arr = [[40, 60, 91, 123], [41, 62, 93, 125]];
+
+function bracesValid2(str){
+    var stack =[];
+    for(var i = 0; i< str.length;i++){
+        
+        if(arr[0].includes(str.charCodeAt(i)))
+            stack.push(str.charAt(i));
+        if(arr[1].includes(str.charCodeAt(i)))
+            if((str.charCodeAt(i) === stack[stack.length-1].charCodeAt(0)+1 || 
+                str.charCodeAt(i) === stack[stack.length-1].charCodeAt(0)+2)  && 
+                (arr[1].includes(str.charCodeAt(i)) && stack.length > 0))
+                stack.pop();
+            else
+                return false;
+    }
+    if(stack.length === 0)
+        return true;
+    else
+        return false; 
+}
+
+console.log('ASCII Braces');
+console.log(bracesValid2("({[({})]})"));
+console.log(bracesValid2("d(i{a}l[t]o)n{e!"));
+console.log(bracesValid2("{{[a]}}(){bcd}{()}"));
+
+// ================================================================
