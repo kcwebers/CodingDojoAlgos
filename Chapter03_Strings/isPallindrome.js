@@ -28,3 +28,72 @@ console.log(isPallindrome("e tacocat e"));
 console.log(isPallindrome("Dud"));
 console.log(isPallindrome("oho!"));
 console.log(isPallindrome(" to "));
+
+// ============================
+
+function isStrictPallindrome(str) {
+    // your code here
+    let pallindrome = "";
+    for(var i = str.length-1; i > -1; i--) {
+        pallindrome += str[i];
+    }
+    return str === pallindrome;
+}
+console.log(isStrictPallindrome("racecar")); // TRUE
+console.log(isStrictPallindrome("e tacocat e")); // TRUE
+console.log(isStrictPallindrome("Dud")); // FALSE
+console.log(isStrictPallindrome("oho!")); // FALSE
+console.log(isStrictPallindrome(" to ")); // FALSE\
+
+// ============================
+
+function isStrictPallindrome(str) {
+    for(var i=0; i<str.length/2; i++) {
+        var tempInd = str.length-1-i;
+        if(str[i] != str[tempInd]) {
+            return false;
+        }
+    }
+    return true;
+    // your code here
+}
+
+console.log(isStrictPallindrome("racecar")); // TRUE
+console.log(isStrictPallindrome("e tacocat e")); // TRUE
+console.log(isStrictPallindrome("Dud")); // FALSE
+console.log(isStrictPallindrome("oho!")); // FALSE
+console.log(isStrictPallindrome(" to ")); // FALSE
+
+// ============================
+
+// ** cool use of 2 variables in a single for loop!!
+
+function isPallindrome(str) {
+    // your code here
+    for(var i = 0, j= str.length -1; i < str.length/2; i++, j--){
+        if(str[i] !== str[j]){
+            return false
+        }
+    }
+    return true
+}
+
+console.log(isPallindrome("racecar")); // TRUE
+console.log(isPallindrome("e tacocat e")); // TRUE
+console.log(isPallindrome("Dud")); // FALSE
+console.log(isPallindrome("oho!")); // FALSE
+console.log(isPallindrome(" to ")); // FALSE
+
+// ============================
+
+function isStrictPallindrome(str) {
+    for(i=0;i<str.length;i++){
+        j=str.length-1-i
+        if(str[i]!=str[j]){
+            return false
+        }
+        else if(i==j || i==j-1){
+            return true
+        }
+    }
+}
