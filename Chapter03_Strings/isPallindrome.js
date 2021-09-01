@@ -10,7 +10,7 @@
 // if elements don't match then return false
 // if we make it through our loop and never hit false, then return true
 
-function isStrictPallindrome(str) {
+function isPallindrome(str) {
 // loop through our string
     for ( var i = 0 ; i < str.length/2 ; i ++) {
     // check each element with it's 'sister' element on the other side of the string
@@ -20,15 +20,6 @@ function isStrictPallindrome(str) {
         }
     }
     // if we make it through our loop and never hit false, then return true
-    return true;
-}
-
-function isPallindrome(str) {
-    for (var i = 0 ; i < str.length/2 ; i ++) {
-        if(str[i] !== str[str.length-1-i]) {
-            return false;
-        }
-    }
     return true;
 }
 

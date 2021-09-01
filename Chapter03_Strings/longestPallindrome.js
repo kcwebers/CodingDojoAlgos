@@ -15,6 +15,7 @@ function isPallindrome(str) {
 
 function longestPallindrome(str) {
     var palli = "";
+    
     for (var i = 0 ; i < str.length-1 ; i ++) {
         for (var j = i + 1; j <= str.length ; j ++) {
             // check to see if this section of the string is a pallindrome
