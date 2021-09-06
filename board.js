@@ -65,4 +65,3 @@ function generateCoinChange(input) {
 console.log(generateCoinChange(0.77))
 console.log(generateCoinChange(2.85))
 console.log(generateCoinChange(4.67))
-gfdsgfds
