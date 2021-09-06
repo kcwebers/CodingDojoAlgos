@@ -19,7 +19,8 @@
 // }
 
 function generateCoinChange(input) {
-    input = Math.floor(input * 100);
+    input = input * 100;
+
     var change = {
         'quarters':0,
         'dimes': 0,
@@ -40,9 +41,9 @@ function generateCoinChange(input) {
             change['nickels'] += 1;
         } else {
             change['pennies'] = input
-            
         }
     }
+
     // change['quarters'] = Math.floor(input/25); // still getting remainder of input amount / 25
     // input = input % 25; // (%) modulus gives us the remainder after dividing
     // change['dimes'] = Math.floor(input/10);
@@ -110,17 +111,17 @@ function generateCoinChange(input) {
     
         input *= 100
     
-            change['quarters'] = Math.floor(input / 25)
-            input = input % 25
-    
-            change['dimes'] = Math.floor(input / 10)
-            input = input % 10
-    
-            change['nickels'] = Math.floor(input / 5)
-            input = input % 5
-    
-            change['pennies'] = Math.floor(input / 1)
-            input = input % 1
+        change['quarters'] = Math.floor(input / 25)
+        input = input % 25
+
+        change['dimes'] = Math.floor(input / 10)
+        input = input % 10
+
+        change['nickels'] = Math.floor(input / 5)
+        input = input % 5
+
+        change['pennies'] = Math.floor(input / 1)
+        input = input % 1
     
         return change
     }

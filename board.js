@@ -1,66 +1,68 @@
-// Create a function that returns as boolean of true/false for whether or not an input string is a strict pallindrome. Do not ignore whitespaces, casing matters!!
+// Given a dollar amount with change (an integer w/decimal) convert to change. Make sure to count the largest denomination first!
 
-// Example 1: "racecar" --> true
-// Example 2: "Dud" --> false
-// Example 3: "oho!" --> false
+// Example: 3.21 --> 12 quarters, 2 dimes, 1 penny
 
-// pallidrome = reads the same forwards and back!
-// loop through our string
-// check each element with it's 'sister' element on the other side of the string
-// if elements don't match then return false
-// if we make it through our loop and never hit false, then return true
+// multiply input by 100 : 3.21 == 321
 
-function isPallindrome(str) {
-    // loop through our string
-    for ( var i = 0 ; i < str.length/2 ; i ++) {
-    // check each element with it's 'sister' element on the other side of the string
-    // if elements don't match then return false
-        if (str[i] != str[str.length - 1 - i]) {
-            return false;
-        }
+// take new number (321) and divide by 25 to get the number of quarters
+// make sure to round down to get a whole number
+// subtract the (# of quarters * 25) from the overall input # and then check the next denomination
+// repeat for different denominations
+// print and then return the data you collected
+
+
+function generateCoinChange(input) {
+    input *= 100;
+
+    var change = {
+        'quarters':0,
+        'dimes': 0,
+        'nickels': 0,
+        'pennies': 0
     }
-    // if we make it through our loop and never hit false, then return true
-    return true;
+
+    change['quarters'] = Math.floor(input/25)
+    input = input % 25 // gives you the remainder after dividing
+
+    change['dimes'] = Math.floor(input/10)
+    input = input % 10 // gives you the remainder after dividing
+
+    change['nickels'] = Math.floor(input/5)
+    input = input % 5 // gives you the remainder after dividing
+
+    change['pennies'] = input
 }
+
+console.log(generateCoinChange(0.77)) // 3 quarters, 2 pennies
+console.log(generateCoinChange(2.85)) // 11 quarters, 1 dime
+console.log(generateCoinChange(4.57)) // 18 quarters, 1 nickel, 2 pennies
+
+function generateCoinChange(input) {
+    input *= 100;
+
+    var change = {
+        'quarters':0,
+        'dimes': 0,
+        'nickels': 0,
+        'pennies': 0
+    }
+
+    change['quarters'] = Math.floor(input/25)
+    input -= change['quarters']*25
+
+
+    change['dimes'] = Math.floor(input/10)
+    input -= change['dimes']*10
+
+    change['nickels'] = Math.floor(input/5)
+    input -= change['nickels']*5
+
+    change['pennies'] = input
     
-console.log(isPallindrome("racecar"));
-console.log(isPallindrome("e tacocat e"));
-console.log(isPallindrome("Dud"));
-console.log(isPallindrome("oho!"));
-console.log(isPallindrome(" to "));
-
-// Given a String, return the longest pallindromic substring. Given "hello dada", return "dad". Given "not much" return "n". Include spaces as well!
-
-// Example 1: "my favorite racecar erupted" --> "e racecar e"
-// Example 2: "nada" --> "ada"
-// Example 3: "nothing to see" --> "ee"
-
-function isPallindrome(str) {
-    for (var i = 0 ; i < str.length/2 ; i ++) {
-        if(str[i] !== str[str.length-1-i]) {
-            return false;
-        }
-    }
-    return true;
+    return change
 }
 
-function longestPallindrome(str) {
-    var palli = "";
-    
-    for (var i = 0 ; i < str.length-1 ; i ++) {
-        for (var j = i + 1; j <= str.length ; j ++) {
-            // check to see if this section of the string is a pallindrome
-            if (isPallindrome(str.slice(i,j)) === true) {
-                // is this new pallindrome's length greater than the existing 'longest pallindrome'?
-                if (str.slice(i,j).length > palli.length) {
-                    palli = str.slice(i,j);
-                }
-            }
-        }
-    }
-    return palli;
-}
-
-console.log(longestPallindrome("my favorite racecar erupted"));
-console.log(longestPallindrome("nada"));
-console.log(longestPallindrome("nothing to see"));
+console.log(generateCoinChange(0.77))
+console.log(generateCoinChange(2.85))
+console.log(generateCoinChange(4.67))
+gfdsgfds
