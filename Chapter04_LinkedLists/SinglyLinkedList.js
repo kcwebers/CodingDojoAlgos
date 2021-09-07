@@ -5,173 +5,77 @@ class Node{
     }
 }
 
+
 class SLList{
     constructor(){
         this.head = null
     }
 
     addToFront(value) {
-        var node = new Node(value);
-        node.next = this.head;
-        this.head = node;
-        return this;
+        // step #1) create an instance of a Node, using the input value
+        var nn = new Node(value);
+        // // step #1a [EDGE CASE]) check the edge case of nothing in your list
+        // if(this.head == null) {
+        //     // set this.head equal to whatever node I've created
+        //     this.head = nn
+        //     // return 'this' to end function and allow chaining of methods
+        //     return this
+        // }
+        // step #2) point our node into the list
+        nn.next = this.head
+        // step #3) move the head pointer to the correct location
+        this.head = nn
+        // return 'this' to end function and allow chaining of methods
+        return this
     }
 
     // given a value, add it to the back of your singly linked list
     // what if the list is empty?
     addToBack(value) {
-        var node = new Node(value);
-        if(!this.head) {
-            this.head = node;
-        }
-        var runner = this.head;
-        while(runner.next) {
-            runner = runner.next;
-        }
-        runner.next = node;
-    }
-
-    // takes in a value and a location, add a node to the list with the input value BEFORE the given location
-    prependValue(value, location) {
-        var node = new Node(value);
-        if(!this.head) {
-            this.head = node;
-            return this; 
-        }
-        if(location === 1) {
-            // this.addToFront(value);
-            node.next = this.head;
-            this.head = node;
-        } 
-        var count = 1;
-        var runner = this.head;
-        while(count+1 < location && runner.next != null) {
-            runner = runner.next;
-            count ++;
-        }
-        node.next = runner.next;
-        runner.next = node;
-        return this;
-    }
-
-    // takes in a value and a location, add a node to the list with the input value AFTER the given location
-    appendValue(value, location) {
-        var node = new Node(value);
-        if(!this.head) {
-            this.head = node;
-            return this; 
-        } 
-        var count = 1;
-        var runner = this.head;
-        while(count < location && runner.next != null) {
-            runner = runner.next;
-            count ++;
-        }
-        node.next = runner.next;
-        runner.next = node;
-        return this;
-    }
-
-    // given a value, print whether the list contains that value
-    contains(value) {
-        if(!this.head) {
-            return false;
-        }
-        var runner = this.head;
-        while(runner) {
-            if(runner.value === value) {
-                return true;
-            }
-            runner = runner.next;
-        }
-        return false;
-    }
-    
-    // remove the first node in the list
-    removeFromFront() {
-        if(!this.head) {
-            console.log("There is no list!");
-            return null;
-        }
-        var headToRemove = this.head;
-        var newHead = this.head.next;
-
-        this.head = newHead;
-        headToRemove.next = null;
-    }
-
-    // remove the last node in the list
-    removeFromBack() {
-        if(!this.head) {
-            console.log("There is no list!");
-            return null;
-        } 
-        if(this.head.next == null) {
-            this.head = null;
-            console.log("The list is now empty!")
-        }
-        var runner = this.head;
-        while(runner.next.next != null) {
-            runner = runner.next;
-        }
-        runner.next = null;
-    }
-
-    // find and return the second to last value in your SLL
-    secondToLast() {
-        if(this.head == null || this.head.next == null) {
-            console.log("This list isn't long enough!")
+        // step #1) create an instance of a Node, using the input value
+        var nn = new Node(value);
+        // step #1a [EDGE CASE]) check the edge case of nothing in your list
+        if(this.head == null) {
+            console.log("Nothing in list, so simply add to this.head")
+            // set this.head equal to whatever node I've created
+            this.head = nn
+            // return 'this' to end function and allow chaining of methods
             return this
         }
-        var runner = this.head
-        while(runner.next.next != null) {
+        // step #2) traverse to the location where you want to add the node (aka, the final node in the list)
+        var runner = this.head;
+
+        while(runner.next != null) {
             runner = runner.next
         }
-        console.log(`The second to last value is ${runner.value}`)
+        // step #3) change runner's .next pointer, to point at our new node
+        runner.next = nn
+        // return 'this' to end function and allow chaining of methods
         return this
     }
 
-    // given a list of integers, remove the negative values from the list
-    removeNegatives() {
-        if(this.head == null) {
-            console.log("There's nothing in this list!")
-            return this
-        }
-        while(this.head.value < 0) {
-            this.head = this.head.next
-        }
-        var runner = this.head
-        while(runner.next != null) {
-            if(runner.next.value < 0) {
-                runner.next = runner.next.next
-                
-            } else {
-                runner = runner.next
-            }
-        }
-        return this
-    }
 
-        // locate the min value and move it to the front of your list
-        minToFront(){
-            // your code here
-        }
-    
-        // locate the max value and move it to the end of your list
-        maxToBack(){
-            // your code here
-        }
-    
+
     // print the singly linked list
     printValues() {
-        if(!this.head) {
-            console.log("There's nothing in this list!");
+        // step #0 [EDGE CASE]) handle a case where there is nothing in the list
+        if(this.head == null){
+            console.log("There's nothing in the list! Dummy!")
+            // return 'this' to end function and allow chaining of methods
+            return this
         }
+        //step #1) establish a runner to traverse through the list
         var runner = this.head;
-        while(runner) {
-            console.log(`${runner.value} --> `);
-            runner = runner.next;
+
+        // NOTE: we can move runner all the way into null because our loop will exit as soon as runner hits null, avoiding any errors with printing
+        while(runner != null) {
+            // step #2) print the values at each iteration before moving the runner!
+            console.log(`The current value is: ${runner.value}`)
+            runner = runner.next
         }
+        console.log("We have hit the end of the list!")
+        // return 'this' to end function and allow chaining of methods
+        return this
     }
 
 }
