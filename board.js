@@ -5,6 +5,7 @@ class Node{
     }
 }
 
+
 class SLList{
     constructor(){
         this.head = null
@@ -24,6 +25,8 @@ class SLList{
         nn.next = this.head
         // step #3) move the head pointer to the correct location
         this.head = nn
+        // return 'this' to end function and allow chaining of methods
+        return this
     }
 
     // given a value, add it to the back of your singly linked list
@@ -51,11 +54,8 @@ class SLList{
         return this
     }
 
-    // // given a value, print whether the list contains that value
-    // contains(value) {
-    //     // your code here
-    // }
-    
+
+
     // print the singly linked list
     printValues() {
         // step #0 [EDGE CASE]) handle a case where there is nothing in the list
@@ -78,17 +78,112 @@ class SLList{
         return this
     }
 
+    // removes the first item in your list
+    removeFromFront() {
+        if(this.head == null) {
+            console.log("There's nothing in the list! Nothing can be removed!")
+            // return 'this' to end function and allow chaining of methods
+            return this
+        }
+        // if we simply move out head pointer over, that creates a new entry point to our list 
+        // we cannot traverse backwards!
+        this.head = this.head.next
+
+        return this;
+        // ** See altRemoveFromFront() for a slightly different approach!
+    }
+    // removes the first item in your list
+    altRemoveFromFront() {
+        if(this.head == null) {
+            console.log("There's nothing in the list! Nothing can be removed!")
+            // return 'this' to end function and allow chaining of methods
+            return this
+        }
+
+        // an additional 'edge case like' scenario:
+        // if we access the previous node in some other way, it would have access to the list
+        // to rememedy this, we can point the original head away from the list in addition to moving the head pointer
+
+        // store the original head in a temp variable
+        var temp = this.head
+        // move the heqad pointer to the next locations
+        this.head = this.head.next
+        // point the temp variable's .next out to null
+        temp.next = null
+
+        // the order in which these things happen is important! suggest drawing it out and following the steps to see :)
+        return this;
+    }
+
+    // removes the last item in your list
+    removeFromBack() {
+        // this handles 2 edge cases: nothing in list, and only 1 item in list
+        if(this.head == null || this.head.next == null) {
+            console.log("List is too short! Cannot remove from back")
+            // return 'this' to end function and allow chaining of methods
+            return this
+        }
+        // ** alternate edge case handling, handles if there is only 1 items in the list or no items separately
+        // if(this.head == null) {
+        //     console.log("Nothing in the list! Cannot remove from back")
+        //     return this
+        // }
+        // if(this.head.next == null) {
+        //     this.head = null
+        //     return this
+        // }
+        // set runner to start at the beginning of list
+        var runner = this.head;
+
+        // run all the way through this list until you hit the second to last item and stop
+        while(runner.next.next != null) {
+            runner = runner.next
+        }
+        // set runner.next to null, effectively removing final node from the list
+        runner.next = null;
+        return this
+    }
+
+    // given a value, traverse through your list and return true or flase if the value exists in the list
+    contains(value) {
+        // edge case: what if there's nothing in the list?
+        if(!this.head) { //this.head === null
+            console.log("There's nothing in this list, so it cannot contain anything!")
+            return false
+        }
+        // start runner at the beginning of the list
+        var runner = this.head;
+        while(runner != null) {
+            // check if the input value is equal to the runner's value
+            if(runner.value == value) {
+                // if it is, return true
+                console.log(`Found it! ${runner.value}`);
+                return true
+            }
+            runner = runner.next;
+        }
+        // if we made it through out entire list and never hit true, we didn't find it!
+        return false
+    }
+
+    // ** note for the contains function: if you want to reatin the ability to chain methods from this method
+    // change the return statements to be "return this" and simply console.log true or false beforehand
+
 }
 
 const sll = new SLList();
-sll.addToFront(9)
-sll.addToFront(3)
-sll.addToFront(-4)
-sll.addToFront(16)
-sll.addToFront(7)
-sll.addToBack(5)
-// sll.addToBack(48)
-// sll.addToBack(-5)
-// sll.addToBack(-15)
-// sll.addToBack(14)
+sll.addToFront(-3)
+sll.addToFront(-122)
+sll.addToFront(41)
+sll.addToBack(48)
+sll.addToBack(-5)
 sll.printValues()
+console.log("==========================================")
+sll.removeFromBack()
+sll.printValues()
+console.log("==========================================")
+sll.removeFromFront()
+sll.printValues()
+console.log("==========================================")
+sll.contains(48) // returns true
+sll.printValues(18) // returns false

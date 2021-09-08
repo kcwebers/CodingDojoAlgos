@@ -78,6 +78,21 @@ class SLList{
         return this
     }
 
+    // removes the first item in your list
+    removeFromFront() {
+        // your code here
+    }
+
+    // removes the last item in your list
+    removeFromBack() {
+        // your code here
+    }
+
+    // given a value, traverse through your list and return true or flase if the value exists in the list
+    contains(value) {
+        // your code here
+    }
+
 }
 
 const sll = new SLList();
@@ -86,12 +101,13 @@ sll.addToFront(-122)
 sll.addToFront(41)
 sll.addToBack(48)
 sll.addToBack(-5)
-sll.addToBack(-15)
-sll.addToBack(14)
-console.log("==========================================")
 sll.printValues()
 console.log("==========================================")
-sll.removeNegatives()
+sll.removeFromBack()
 sll.printValues()
 console.log("==========================================")
-sll.secondToLast()
+sll.removeFromFront()
+sll.printValues()
+console.log("==========================================")
+sll.contains(48) // returns true
+sll.printValues(18) // returns false
