@@ -169,6 +169,29 @@ class SLList{
     // ** note for the contains function: if you want to reatin the ability to chain methods from this method
     // change the return statements to be "return this" and simply console.log true or false beforehand
 
+    // find the location of the lowest value in the list, and move that value to the front
+    moveMinToFront(){
+        // your code here
+
+        // step #1) find the lowest value in the list
+        // --> keep track of the location of the lowest node
+        // --> also keep track of the location of the node right before it
+
+        // step #2) "remove" node from current location and move it to the front oof your list
+    }
+
+    // find the location of the highest value in the list, and move that value to the back
+    moveMaxToBack(){
+        // your code here
+
+        
+        // step #1) find the highest value in the list
+        // --> keep track of the location of the highest node
+        // --> also keep track of the location of the node right before it
+
+        // step #2) "remove" node from current location and move it to the end oof your list
+    }
+
 }
 
 const sll = new SLList();
@@ -179,11 +202,8 @@ sll.addToBack(48)
 sll.addToBack(-5)
 sll.printValues()
 console.log("==========================================")
-sll.removeFromBack()
+sll.moveMinToFront()
 sll.printValues()
 console.log("==========================================")
-sll.removeFromFront()
+sll.moveMaxToBack()
 sll.printValues()
-console.log("==========================================")
-sll.contains(48) // returns true
-sll.printValues(18) // returns false
