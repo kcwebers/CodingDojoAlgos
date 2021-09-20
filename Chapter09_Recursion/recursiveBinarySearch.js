@@ -19,18 +19,4 @@ function binarySearch(num, arr, l=0, r=arr.length){
     return arr[l] == num ? l : -1;
 }
 
-function doTest(f, exp, ...args) {
-    if (typeof doTest.counter == 'undefined') {
-        doTest.counter = 0;
-    }
-    
-    ++doTest.counter;
-    let out = f(...args);
-    
-    if (out === exp) {
-        console.log(`Test ${doTest.counter} passed.`);
-    } else {
-        console.log(`Test ${doTest.counter} failed: expected ${exp}, got ${out}.`);
-    }
-}
 
