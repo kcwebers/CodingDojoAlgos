@@ -1,209 +1,262 @@
-class Node{
-    constructor(value){
+class Node {
+    constructor(value) {
         this.value = value
         this.next = null
     }
 }
-
-
-class SLList{
-    constructor(){
-        this.head = null
+// a stack operates on the principal of "First In, Last Out" like waiting in line for something
+class SLStack {
+    constructor() {
+        this.top = null
     }
 
-    addToFront(value) {
-        // step #1) create an instance of a Node, using the input value
-        var nn = new Node(value);
-        // // step #1a [EDGE CASE]) check the edge case of nothing in your list
-        // if(this.head == null) {
-        //     // set this.head equal to whatever node I've created
-        //     this.head = nn
-        //     // return 'this' to end function and allow chaining of methods
-        //     return this
-        // }
-        // step #2) point our node into the list
-        nn.next = this.head
-        // step #3) move the head pointer to the correct location
-        this.head = nn
-        // return 'this' to end function and allow chaining of methods
-        return this
+    // add a given value to your stack
+    push(value) {
+        var newNode = new Node(value)
+        newNode.next = this.top
+        this.top = newNode
+        return this;
     }
 
-    // given a value, add it to the back of your singly linked list
-    // what if the list is empty?
-    addToBack(value) {
-        // step #1) create an instance of a Node, using the input value
-        var nn = new Node(value);
-        // step #1a [EDGE CASE]) check the edge case of nothing in your list
-        if(this.head == null) {
-            console.log("Nothing in list, so simply add to this.head")
-            // set this.head equal to whatever node I've created
-            this.head = nn
-            // return 'this' to end function and allow chaining of methods
-            return this
+    // remove and return the top value
+    pop() {
+        // if there's nothing in the stack, then what?
+        if (!this.top) {
+            console.log("This stack is empty!")
+            return null;
         }
-        // step #2) traverse to the location where you want to add the node (aka, the final node in the list)
-        var runner = this.head;
-
-        while(runner.next != null) {
-            runner = runner.next
-        }
-        // step #3) change runner's .next pointer, to point at our new node
-        runner.next = nn
-        // return 'this' to end function and allow chaining of methods
-        return this
+        var removed = this.top
+        this.top = this.top.next
+        return removed.value
     }
 
-
-
-    // print the singly linked list
-    printValues() {
-        // step #0 [EDGE CASE]) handle a case where there is nothing in the list
-        if(this.head == null){
-            console.log("There's nothing in the list! Dummy!")
-            // return 'this' to end function and allow chaining of methods
-            return this
+    // return (don't remove) the top value of a stack
+    returnTop() {
+        if (!this.top) {
+            console.log("This stack is empty!")
+            return null
+        } else {
+            return this.top.value
         }
-        //step #1) establish a runner to traverse through the list
-        var runner = this.head;
+    }
 
-        // NOTE: we can move runner all the way into null because our loop will exit as soon as runner hits null, avoiding any errors with printing
-        while(runner != null) {
-            // step #2) print the values at each iteration before moving the runner!
+    printStack() {
+        var runner = this.top
+        while (runner != null) {
             console.log(`The current value is: ${runner.value}`)
             runner = runner.next
         }
-        console.log("We have hit the end of the list!")
-        // return 'this' to end function and allow chaining of methods
         return this
     }
-
-    // removes the first item in your list
-    removeFromFront() {
-        if(this.head == null) {
-            console.log("There's nothing in the list! Nothing can be removed!")
-            // return 'this' to end function and allow chaining of methods
-            return this
-        }
-        // if we simply move out head pointer over, that creates a new entry point to our list 
-        // we cannot traverse backwards!
-        this.head = this.head.next
-
-        return this;
-        // ** See altRemoveFromFront() for a slightly different approach!
+}
+// a queue operates on the principal of "First In, First Out" like waiting in line for something
+class SLQueue {
+    constructor() {
+        this.head = null
+        this.tail = null
     }
-    // removes the first item in your list
-    altRemoveFromFront() {
-        if(this.head == null) {
-            console.log("There's nothing in the list! Nothing can be removed!")
-            // return 'this' to end function and allow chaining of methods
-            return this
+
+    // add a node with the given value to the queue
+    enqueue(value) {
+        var newNode = new Node(value);
+
+        if (!this.head) {
+            this.head = newNode;
+            this.tail = newNode;
         }
 
-        // an additional 'edge case like' scenario:
-        // if we access the previous node in some other way, it would have access to the list
-        // to rememedy this, we can point the original head away from the list in addition to moving the head pointer
-
-        // store the original head in a temp variable
-        var temp = this.head
-        // move the heqad pointer to the next locations
-        this.head = this.head.next
-        // point the temp variable's .next out to null
-        temp.next = null
-
-        // the order in which these things happen is important! suggest drawing it out and following the steps to see :)
+        this.tail.next = newNode;
+        this.tail = this.tail.next;
         return this;
     }
 
-    // removes the last item in your list
-    removeFromBack() {
-        // this handles 2 edge cases: nothing in list, and only 1 item in list
-        if(this.head == null || this.head.next == null) {
-            console.log("List is too short! Cannot remove from back")
-            // return 'this' to end function and allow chaining of methods
-            return this
+    // remove and return the front value from the queue
+    dequeue() {
+        if (!this.head) {
+            console.log("Nothing in this queue!");
+            return null;
         }
-        // ** alternate edge case handling, handles if there is only 1 items in the list or no items separately
-        // if(this.head == null) {
-        //     console.log("Nothing in the list! Cannot remove from back")
-        //     return this
-        // }
-        // if(this.head.next == null) {
-        //     this.head = null
-        //     return this
-        // }
-        // set runner to start at the beginning of list
-        var runner = this.head;
-
-        // run all the way through this list until you hit the second to last item and stop
-        while(runner.next.next != null) {
-            runner = runner.next
-        }
-        // set runner.next to null, effectively removing final node from the list
-        runner.next = null;
-        return this
+        var temp = this.head;
+        this.head = this.head.next;
+        temp.next = null;
+        return temp.value;
     }
 
-    // given a value, traverse through your list and return true or flase if the value exists in the list
+    //return true/false based on whether you find the given value in a queue
     contains(value) {
-        // edge case: what if there's nothing in the list?
-        if(!this.head) { //this.head === null
-            console.log("There's nothing in this list, so it cannot contain anything!")
-            return false
+        if (!this.head) {
+            return false;
         }
-        // start runner at the beginning of the list
         var runner = this.head;
-        while(runner != null) {
-            // check if the input value is equal to the runner's value
-            if(runner.value == value) {
-                // if it is, return true
-                console.log(`Found it! ${runner.value}`);
-                return true
+        while (runner) {
+            if (runner.value === value) {
+                return true;
             }
             runner = runner.next;
         }
-        // if we made it through out entire list and never hit true, we didn't find it!
-        return false
+        return false;
     }
 
-    // ** note for the contains function: if you want to reatin the ability to chain methods from this method
-    // change the return statements to be "return this" and simply console.log true or false beforehand
+    // remove the minimum value in the queue (remember your edgecases and pointers!)
+    removeMin() {
+        if (this.head == null) {
+            console.log("Nothing in this queue!")
+            return null
+        }
 
-    // find the location of the lowest value in the list, and move that value to the front
-    moveMinToFront(){
-        // your code here
+        var runner = this.head;
+        var min = runner.value;
 
-        // step #1) find the lowest value in the list
-        // --> keep track of the location of the lowest node
-        // --> also keep track of the location of the node right before it
+        while (runner != null) {
+            if (runner.value < min) {
+                min = runner.value
+            }
+            runner = runner.next
+        }
 
-        // step #2) "remove" node from current location and move it to the front oof your list
+        runner = this.head;
+        while (runner.next.next != null) {
+            if (runner.next.value === min) {
+                runner.next = runner.next.next
+            }
+            else {
+                runner = runner.next
+            }
+        }
+        if (runner.next.value == min) {
+            this.tail = runner
+            runner.next == null
+        }
     }
 
-    // find the location of the highest value in the list, and move that value to the back
-    moveMaxToBack(){
-        // your code here
+    displayQueue() {
+        if (!this.head) {
+            console.log("This queue is empty.");
+        }
+        else {
+            var runner = this.head;
+            var str = "";
+            while (runner) {
+                str += runner.value + " -> ";
+                runner = runner.next;
+            }
+            str += "null";
+            console.log(str);
+        }
+    }
 
+    // return the value of the front node without removing from list
+    front() {
+        if (!this.head) {
+            return null;
+        } else {
+            return this.head.value;
+        }
+    }
+
+    // return whether or not a list is empty
+    isEmpty() {
+        if (!this.head) {
+            return "It's empty!"
+        } else {
+            return "It's not empty!"
+        }
+    }
+
+    size() {
+        var runner = this.head;
+        var count = 0;
+        while (runner) {
+            count++;
+            runner = runner.next;
+        }
+        return count;
+    }
+
+    // Reorder SLQueue values to alternate first half values with second half values, in order. For example: (1,2,3,4,5) becomes (1,4,2,5,3). You may create one additional SLQueue, if needed.
+    // 1 --> 2 --> 3 --> 4 --> 5 --> 
+    // 1 --> 2 --> 3 -->    |      4 --> 5 --> 
+    // 1 --> 4 --> 2 --> 5 --> 3 --> 
+
+    size() {
+        var runner = this.head;
+        var count = 0;
+        while (runner) {
+            count++;
+            runner = runner.next;
+        }
+        return count;
+    }
+
+    interleaveQueue() {
+        var midpt = Math.ceil(this.size() / 2);
+        var tempQueue = new SLQueue();
+
+        for (var i = 1; i <= midpt; i++) {
+            tempQueue.enqueue(this.dequeue());
+        }
+
+        var length = tempQueue.size();
+        for (var j = 1; j <= length; j++) {
+            tempQueue.enqueue(tempQueue.dequeue());
+            tempQueue.enqueue(this.dequeue());
+        }
+        tempQueue.displayQueue();
+    }
+
+    // given a queue, determine whether or not the values therein are a pallindrome 
+    // Ex: 1 --> 2 --> 3 --> 2 --> 1 --> null
+    // any values that are in the same order going forwards as backwards is a pallindrome, doesn't need to just be letters
+
+    isPallindrome() {
+        if (!this.head || !this.head.next) {
+            console.log("technically true cuz nothing or 1 thing is the same to and fro...")
+            return true
+        }
+        // collect values into a stack so I can compare them to the items in the list
+        var midpt = Math.floor(this.size() / 2);
+        var size = this.size();
+        var comp = new SLStack();
+
+        for (var i = 1; i <= midpt; i++) {
+            comp.push(this.dequeue());
+        }
+
+        comp.printStack();
+        this.displayQueue();
+        console.log(size % 2)
+        // compare items in the array starting from the end, to the items in the queue starting from the front
+        var sRunner = comp.top;
+        var qRunner;
+
+        if (size % 2 != 0) {
+            qRunner = this.head.next;
+        } else {
+            qRunner = this.head;
+        }
         
-        // step #1) find the highest value in the list
-        // --> keep track of the location of the highest node
-        // --> also keep track of the location of the node right before it
 
-        // step #2) "remove" node from current location and move it to the end oof your list
+        while (sRunner) {
+            console.log(sRunner.value + " " + qRunner.value)
+            if (sRunner.value != qRunner.value) {
+                console.log("No can do buckaroo")
+                return false;
+            }
+            sRunner = sRunner.next;
+            qRunner = qRunner.next;
+        }
+        console.log("Neato! It's a palli :)")
+        return true
     }
 
 }
 
-const sll = new SLList();
-sll.addToFront(-3)
-sll.addToFront(-122)
-sll.addToFront(41)
-sll.addToBack(48)
-sll.addToBack(-5)
-sll.printValues()
-console.log("==========================================")
-sll.moveMinToFront()
-sll.printValues()
-console.log("==========================================")
-sll.moveMaxToBack()
-sll.printValues()
+
+var q = new SLQueue();
+q.enqueue(1);
+q.enqueue(2);
+q.enqueue(3);
+q.enqueue(2);
+q.enqueue(1);
+q.isPallindrome();
+

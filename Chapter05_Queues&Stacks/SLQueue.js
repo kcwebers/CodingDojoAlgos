@@ -32,9 +32,10 @@ class SLQueue{
             console.log("Nothing in this queue!");
             return null;
         }
-        var temp = this.head.value;
+        var temp = this.head;
         this.head = this.head.next;
-        return temp;
+        temp.next = null;
+        return temp.value;
     }
 
     //return true/false based on whether you find the given value in a queue
@@ -100,6 +101,24 @@ class SLQueue{
         }
     }
 
+        // return the value of the front node without removing from list
+        front() {
+            if(!this.head) {
+                return null;
+            } else {
+                return this.head.value;
+            }
+        }
+    
+        // return whether or not a list is empty
+        isEmpty() {
+            if(!this.head) {
+                return "It's empty!"
+            } else {
+                return "It's not empty!"
+            }
+        }
+
         // Reorder SLQueue values to alternate first half values with second half values, in order. For example: (1,2,3,4,5) becomes (1,4,2,5,3). You may create one additional SLQueue, if needed.
 
         // 1 --> 2 --> 3 --> 4 --> 5 --> 
@@ -119,6 +138,7 @@ class SLQueue{
     interleaveQueue(){
         var midpt = Math.ceil(this.size()/2);
         var tempQueue = new SLQueue();
+
         for (var i = 1; i <= midpt; i++){
             tempQueue.enqueue(this.dequeue());
         }
@@ -167,9 +187,9 @@ var q = new SLQueue();
 q.enqueue(1);
 q.enqueue(2);
 q.enqueue(3);
-q.enqueue(3);
-q.enqueue(2);
-q.enqueue(1);
+q.enqueue(4);
+q.enqueue(5);
+q.enqueue(6);
 q.displayQueue();
 
-q.isPallindrome();
+// q.isPallindrome();

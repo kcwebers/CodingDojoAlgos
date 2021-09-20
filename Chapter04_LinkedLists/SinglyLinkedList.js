@@ -54,8 +54,6 @@ class SLList{
         return this
     }
 
-
-
     // print the singly linked list
     printValues() {
         // step #0 [EDGE CASE]) handle a case where there is nothing in the list
@@ -169,6 +167,55 @@ class SLList{
     // ** note for the contains function: if you want to reatin the ability to chain methods from this method
     // change the return statements to be "return this" and simply console.log true or false beforehand
 
+    // find the location of the lowest value in the list, and move that value to the front
+    moveMinToFront(){
+        var min = this.head.value;
+        var runner = this.head;
+        var walker = this.head;
+
+        while(runner.next != null){
+            if(runner.next.value < min){
+                min = runner.next;
+                walker = runner;
+            }
+            runner = runner.next;
+        }
+
+        if(min == this.head) {
+            console.log("The min is already at the front!");
+            return this
+        }
+
+        walker.next = min.next;
+        min.next = this.head;
+        this.head = min;
+        return this;
+    }
+
+    // find the location of the highest value in the list, and move that value to the back
+    moveMaxToBack(){
+        var max = this.head.value;
+        var runner = this.head;
+        var walker = this.head;
+
+        while(runner.next != null){
+            if(runner.next.value > max){
+                max = runner.next;
+                walker = runner;
+            }
+            runner = runner.next;
+        }
+
+        var runner = this.head;
+        while(runner.next != null) {
+            runner = runner.next;
+        }
+
+        walker.next = max.next;
+        runner.next = max
+        return this
+    }
+
 }
 
 const sll = new SLList();
@@ -179,11 +226,8 @@ sll.addToBack(48)
 sll.addToBack(-5)
 sll.printValues()
 console.log("==========================================")
-sll.removeFromBack()
+sll.moveMinToFront()
 sll.printValues()
 console.log("==========================================")
-sll.removeFromFront()
+sll.moveMaxToBack()
 sll.printValues()
-console.log("==========================================")
-sll.contains(48) // returns true
-sll.printValues(18) // returns false
