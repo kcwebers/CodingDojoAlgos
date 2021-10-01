@@ -8,10 +8,12 @@
 
 function bookIndex(arr){
     var str = "";
+
     for (var i = 0 ; i < arr.length ; i++){
         if (i < arr.length && i !== 0){
             str += ", ";
         }
+
         if (arr[i + 1] === arr[i] + 1){
             var start = arr[i];
             while (arr[i + 1] === arr[i]+1){
@@ -20,6 +22,7 @@ function bookIndex(arr){
             var end = arr[i];
             str += start + "-" + end;
         }
+        
         else {
             str += arr[i];
         }

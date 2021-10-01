@@ -1,17 +1,25 @@
-// The three fastest horses
+# Finding An Average on the Down Low #
 
-// There are 25 horses among which you need to find out the fastest 3 horses. You can conduct race among at most 5 to find out their relative speed. At no point you can find out the actual speed of the horse in a race. Find out how many races are required to get the top 3 horses.
+Three Employees want to know the average of their salaries. They are not allowed to share their individual salaries.
+* They cannot directly share their own salaries in anyway, which includes writing things down. 
 
-// Solution =====================
+//===============================================
 
-// Separate into groups of 5 and then race the winners; 6 total races
+# Card Flip Shuffle #
 
+You are in a dark room with a deck of cards. A certain number of the cards are face up and the rest are face down. You can't see the cards. How do you divide the deck in to two piles with equal numbers of face up cards in each? So, it doesn't matter how many cars each deck HashChangeEvent, just that the number of face up cards match ##
 
+* You know how many cards are flipped, but you cannot see the deck of cards no matter what and the deck is shuffled, so the flipped cards could be anywhere in the deck.
 
+//===============================================
 
+// Bonus riddle:
 
-// Red & Blue
-
-// Inside of a dark closet are five hats: three blue and two red. Knowing this, three smart men go into the closet, and each selects a hat in the dark and places it unseen upon his head.
-
-// Once outside the closet, no man can see his own hat. The first man looks at the other two, thinks, and says, "I cannot tell what color my hat is." The second man hears this, looks at the other two, and says, "I cannot tell what color my hat is either." The third man is blind. The blind man says, "Well, I know what color my hat is." What color is his hat?
+// John gave his brother James a box:
+// About it there were many locks.
+// James woke and said it gave him pain;
+// So gave it back to John again.
+// The box was not with lid supplied
+// Yet caused two lids to open wide:
+// And all these locks had never a key
+// What kind of box, then, could it be?
