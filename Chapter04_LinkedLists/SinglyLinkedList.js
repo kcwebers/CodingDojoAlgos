@@ -15,12 +15,12 @@ class SLList{
         // step #1) create an instance of a Node, using the input value
         var nn = new Node(value);
         // // step #1a [EDGE CASE]) check the edge case of nothing in your list
-        // if(this.head == null) {
-        //     // set this.head equal to whatever node I've created
-        //     this.head = nn
-        //     // return 'this' to end function and allow chaining of methods
-        //     return this
-        // }
+        if(this.head == null) {
+            // set this.head equal to whatever node I've created
+            this.head = nn
+            // return 'this' to end function and allow chaining of methods
+            return this
+        }
         // step #2) point our node into the list
         nn.next = this.head
         // step #3) move the head pointer to the correct location
@@ -169,12 +169,12 @@ class SLList{
 
     // find the location of the lowest value in the list, and move that value to the front
     moveMinToFront(){
-        var min = this.head.value;
+        var min = this.head;
         var runner = this.head;
-        var walker = this.head;
+        var walker;
 
         while(runner.next != null){
-            if(runner.next.value < min){
+            if(runner.next.value < min.value){
                 min = runner.next;
                 walker = runner;
             }
@@ -194,28 +194,123 @@ class SLList{
 
     // find the location of the highest value in the list, and move that value to the back
     moveMaxToBack(){
-        var max = this.head.value;
+        var max = this.head;
         var runner = this.head;
-        var walker = this.head;
+        var walker;
 
         while(runner.next != null){
-            if(runner.next.value > max){
+            if(runner.next.value > max.value){
                 max = runner.next;
                 walker = runner;
             }
             runner = runner.next;
         }
 
-        var runner = this.head;
-        while(runner.next != null) {
-            runner = runner.next;
+        if(max == runner) {
+            console.log("Max already at back!");
+            return this;
+        }
+
+        if(max == this.head) {
+            runner.next = max;
+            this.head = this.head.next;
+            runner.next.next = null;
+            return this;
         }
 
         walker.next = max.next;
-        runner.next = max
-        return this
+        runner.next = max;
+        max.next = null;
+        return this;
+    }
+    // given a value and a location within your list, add that value as a new node before the given location
+    prependValue(value, loc) {
+        // find the given node
+        if(loc == 0) {
+            this.addToFront(value);
+            return this;
+        }
+
+        var count = 0;
+        var runner = this.head;
+        var walker;
+
+        while(runner.next != null && count < loc) {
+            count ++;
+            walker = runner;
+            runner = runner.next;
+        }
+
+        var newNode = new SLLNode(value);
+
+        newNode.next = runner.next;
+        walker.next = newNode;
+        return this;
     }
 
+
+    // given a value and a location within your list, add that value as a new node after the given location
+    appendValue(value, loc) {
+        // your code here
+    }
+
+    // move through a SLL and remove the nodes whose values are negatives
+    removeNegatives() {
+        if(!this.head) {
+            console.log("nothin in the list")
+            return this;
+        }
+        // move through list, find negatives and remove
+        var runner = this.head;
+        var walker;
+
+        while(runner != null) {
+            // if first node(s) is negative
+            if(runner == this.head && runner.value < 0) {
+                this.removeFromFront();
+                runner = this.head;
+
+            // if the node in the list in negative (not front or end)
+            } else if(runner.value < 0 ) {
+                walker.next = runner.next;
+                runner.next = null;
+                runner = walker.next;
+            
+            // if the node value isn't negative, keep iterating forward
+            } else {
+                walker = runner;
+                runner = runner.next;
+            }
+        }
+
+        // if the while loop is while(runner.next != null) need to handle final node separately
+        // handle if final node's value is negative
+        // if(runner.value < 0) {
+        //     // if only one node left in list
+        //     if(runner == this.head) {
+        //         this.head = null;
+
+        //     // if multiple nodes left in list
+        //     } else {
+        //         walker.next = null;
+        //     }
+        // }
+        return this;
+    }
+
+    // return the second to last value in the list
+    secondToLast() {
+        if(this.head == null || this.head.next == null) {
+            console.log("List is too short! Cannot return second to last!")
+            // return 'this' to end function and allow chaining of methods
+            return this
+        }
+        var runner = this.head;
+        while(runner.next.next != null) {
+            runner = runner.next;
+        }
+        return runner.value;
+    }
 }
 
 const sll = new SLList();

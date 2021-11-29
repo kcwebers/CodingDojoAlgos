@@ -1,4 +1,4 @@
-// Here, a balance point is ON an index, not BETWEEN indicies. Return the balance index where sums are equeal on either side (exclude its own value). Return -1 if none exist.
+// Here, a balance index is ON an index, not BETWEEN indicies. Return the balance index where sums are equeal on either side (exclude its own value). Return -1 if none exist.
 // Example 1: [-2, 5, 7, 0, 3]  --> 2 
 // The balance index is 2 because on either side of that index the sums are equal:  [-2, 5,  |7| , 0, 3] --> -2+5 == 0+3
 // Example 2: [9, 9]  -->  -1
@@ -67,7 +67,7 @@ function balanceIndex(arr) {
     return found
 }
 
-// ============================
+// ============================ ============================
 // returns true/false instead of the index where the balance is
 
 function balanceIndex(arr) {
@@ -96,7 +96,7 @@ function balanceIndex(arr) {
     }
 }
 
-// ============================
+// ============================ ============================
 
 function balanceIndex(arr) {
     if (arr.length < 3) return -1;
@@ -109,5 +109,119 @@ function balanceIndex(arr) {
     return -1;
   }
 
+// ============================ ============================
 
+function balanceIndex(arr) {
+    var sumTotal = 0
+    for (let i=0; i<arr.length; i++) {
+        sumTotal += arr[i];
+    }
+    var sumWorking = 0;
+    for (let j=0; j<arr.length; j++) {
+        sumTotal = sumTotal - arr[j];
+        if (sumTotal == sumWorking) {
+            return j;
+        }
+        sumWorking += arr[j];
+    }
+    return -1;
+}
 
+console.log(balanceIndex([-2, 5, 7, 0, 3])); // 2
+console.log(balanceIndex([9, 9])); // -1
+
+// ============================ ============================
+
+function balanceIndex(arr) {
+    // your code here
+    let left = 0;
+    let right = arr.length - 1;
+    let sumLeft = 0;
+    let sumRight = 0;
+    while(left < right) {
+        sumLeft += arr[left];
+        sumRight += arr[right];
+        if(sumLeft === sumRight){
+            if(right - left === 2){
+                return left + 1;
+            } else{
+                return -1;
+            }
+        }
+        left++
+        right--
+    }
+    return -1;
+}
+
+// ============================ ============================
+
+function balanceIndex(arr) {
+    if (arr.length < 3) {
+        return -1;
+    }
+    let leftSum = arr[0];
+    let rightSum = 0;
+    
+    for (let i = 1; i < arr.length; i++) {
+        rightSum += arr[i];
+    }
+
+    for (let i = 1; i < arr.length; i++) {
+        rightSum -= arr[i];
+        if (leftSum === rightSum){
+            return i;
+        }
+        leftSum += arr[i];
+    }
+    
+    return -1
+}
+
+console.log(balanceIndex([-2, 5, 7, 0, 3])); // 2
+console.log(balanceIndex([9, 9])); // -1
+
+// ============================ ============================
+
+const balanceIndex = arr => {
+    if(arr.length < 3){
+        return -1;
+    }
+    for(let i = 1; i < arr.length-1; i++){
+        let leftSum=0;
+        let rightSum=0;
+        for(let j=0; j < i; j++){
+            leftSum+=arr[j];
+        }
+        for(let j=i+1; j< arr.length; j++){
+            rightSum+=arr[j];
+        }
+        if(leftSum === rightSum){
+            return i;
+        }
+    }
+    return -1;
+}
+
+// ============================ ============================
+// Helper Function!!
+
+function partSum(arr, startIdx, stopIdx){
+    var sum = 0;
+    for (var i = startIdx; i < stopIdx; i++){
+        sum += arr[i]
+    }
+    return sum
+}
+
+function balanceIndex(arr) { // Example 1: [-2, 5, 7, 0, 3]  --> 2 
+    if (arr.length == 2){
+        return -1
+    }
+    for (var i = 1; i < arr.length-1; i++){
+        if (partSum(arr, 0, i) == partSum(arr, i+1, arr.length)){
+            return i
+        }
+    }
+    return -1
+}

@@ -26,7 +26,7 @@ function balancePoint(arr) {
 // Frame for Students
 // ============================
 
-function balanceIndex(arr) {
+function balancePoint(arr) {
     // your code here
 }
 console.log(balancePoint([4,3,7,4,10])); // true
@@ -64,7 +64,7 @@ function balancePoint(arr) {
     return balance
 }
 
-// ============================
+// ============================ ============================
 
 function balancePoint(arr) {
     // your code here
@@ -88,7 +88,7 @@ function balancePoint(arr) {
     }
 }
 
-// ============================
+// ============================ ============================
 
 function balancePoint(myArray){
     var leftsum = 0;
@@ -125,7 +125,7 @@ function balancePoint(myArray){
     return false;
 }
 
-// ============================
+// ============================ ============================
 
 function balancePoint(arr) {
     const reducer = (acc, curVal) => acc + curVal;
@@ -137,7 +137,7 @@ function balancePoint(arr) {
     return false;
   }
 
-// ============================
+// ============================ ============================
 
   function balancePoint(arr) {
     let sum = 0;
@@ -155,4 +155,76 @@ function balancePoint(arr) {
     return false;
   }
 
-  // ============================
+// ============================ ============================
+
+function partSum(arr, startIdx, stopIdx){
+    var sum = 0;
+    for (var i = startIdx; i < stopIdx; i++){
+        sum += arr[i]
+    }
+    return sum
+}
+
+function balancePoint(arr) {
+    for (var i = 0; i < arr.length-1; i++){
+        if (partSum(arr, 0, i+1) == partSum(arr, i+1, arr.length)){
+            return true
+        }
+    }
+    return false
+}
+
+// ============================ ============================
+
+const balancePoint = arr => {
+    if(arr.length < 2) {
+        return false;
+    }
+    for(let i = 0; i < arr.length-1; i++){
+        let leftSum=0;
+        let rightSum=0;
+        for(let j=0; j <= i; j++){
+            leftSum+=arr[j];
+        }
+        for(let j=i+1; j< arr.length; j++){
+            rightSum+=arr[j];
+        }
+        if(leftSum === rightSum){
+            return true;
+        }
+    }
+    return false;
+}
+
+console.log(balancePoint([4,3,7,4,10])); // true
+console.log(balancePoint([4,3,7,4,11,2])); // false
+
+// ============================ ============================
+
+function balancePoint(arr) {
+    if (arr.length < 2) {
+        return false;
+    }
+    
+    let leftSum = arr[0];
+    let rightSum = 0;
+    
+    for (let i = 1; i < arr.length; i++) {
+        rightSum += arr[i];
+    }
+
+    for (let i = 1; i < arr.length; i++) {
+        if (leftSum === rightSum){
+            return true;
+        }
+        leftSum += arr[i];
+        rightSum -= arr[i];
+    }
+    
+    return false
+}
+
+console.log(balancePoint([4,3,7,4,10])); // true
+console.log(balancePoint([4,3,7,4,11,2])); // false
+
+// ============================ ============================

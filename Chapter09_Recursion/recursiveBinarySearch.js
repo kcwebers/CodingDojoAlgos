@@ -2,6 +2,7 @@
 // recursively searching, and returns the index. Binary Search works by checking whether the value given is greater than or 
 // less than a midway point, which is why the given array must be sorted. 
 // Also, even though there's only an array and value given, you can add additional parameters to your function.
+// Return -1 if the number is not in the array
 
 
 // val = 9
@@ -18,14 +19,14 @@ function recursiveBinarySearch() {
 }
 
 
-// [1, 2],  -2
-// [1, 2],  4
-// [1, 2],  1
-// [1,2,2], 2
-// [], 7
-// [1,2,2,2,2,2,2,4,5,5,5,5,6,6,6], 2
-// [1, 1, 1, 1, 1], 1
-// [1, 2, 3, 3, 4, 4, 5, 6, 7, 8, 8, 9, 10], 8
+// [1, 2], ---> -2
+// [1, 2], ---> 4
+// [1, 2], ---> 1
+// [1,2,2], ---> 2
+// [], ---> 7
+// [1,2,2,2,2,2,2,4,5,5,5,5,6,6,6], ---> 2
+// [1, 1, 1, 1, 1], ---> 1
+// [1, 2, 3, 3, 4, 4, 5, 6, 7, 8, 8, 9, 10], ---> 8
 // make sure to test all given scenarios!
 // extra challenge: don't use built-in functions such as splice() or slice(), 
 // with the exception of rounding functions (Math.floor(), Math.ceil())
@@ -36,7 +37,6 @@ function recursiveBinarySearch() {
 
 function binarySearch(num, arr, l=0, r=arr.length){
     if(arr.length < 1){
-        // return -1 as 'false' index as tehre is nothing in array
         return -1;
     }
     // as long as our indices are at least 2 elements apart, continue recursion 
@@ -54,14 +54,13 @@ function binarySearch(num, arr, l=0, r=arr.length){
     }
     return arr[l] == num ? l : -1;
 }
+console.log(binarySearch (4,[1,2,3,4,5,7,9,10,11,13,14,15]));
 
 // =====================================================
 // Student solutions
 // =====================================================
 
 function binarySearch(array, value, index=0, is_greater = 0){
-    
-    
     if(is_greater == 0){
         var index = Math.floor(array.length/2)
     }
@@ -113,11 +112,10 @@ function recursiveBinarySearch(arr, val, position, counter) {
             return recursiveBinarySearch(arr, val, position , counter)
 }
 
-console.log(recursiveBinarySearch ([1, 2],-2, 0, -1));
-console.log(recursiveBinarySearch ([1, 2], 4, 0, -1));
-console.log(recursiveBinarySearch ([1, 2], 1, 0, -1));
-console.log(recursiveBinarySearch ([1, 2, 2], 2, 0 ,-1));
-console.log(recursiveBinarySearch ([],7, 0, -1));
-console.log(recursiveBinarySearch ([1, 2, 2, 2, 2, 2, 2, 4, 5, 5, 5, 6, 6, 6], 2, 0, -1));
-console.log(recursiveBinarySearch ([1, 1, 1, 1, 1],1, 0, -1));
-console.log(recursiveBinarySearch ([1, 2, 3, 3, 4, 4, 5, 6, 7, 8, 8, 9 ,10], 8, 0, -1));
+console.log(binarySearch ([1, 2],-2, 0, -1));
+console.log(binarySearch ([1, 2], 4, 0, -1));
+console.log(binarySearch ([1, 2], 1, 0, -1));
+console.log(binarySearch ([1, 2, 2], 2, 0 ,-1));
+console.log(binarySearch ([],7, 0, -1));
+console.log(binarySearch ([1, 2, 2, 2, 2, 2, 2, 4, 5, 5, 5, 6, 6, 6], 2, 0, -1));
+console.log(binarySearch ([1, 1, 1, 1, 1],1, 0, -1));

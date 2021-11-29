@@ -5,9 +5,11 @@
 
 function recursiveFactorial(num) {
     num = Math.floor(num)
-    if(num < 0) {
+    if(num < 1) {
         return 1;
     }
 
     return num * recursiveFactorial(num - 1);
 }
+
+console.log(recursiveFactorial(5));

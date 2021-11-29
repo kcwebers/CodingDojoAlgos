@@ -11,8 +11,8 @@
 function acronym(str) {
     var arr = str.split(" ");
     var newStr = "";
-    
-    for(var i = 0 ; i < arr.length ; i ++) {
+
+    for (var i = 0; i < arr.length; i++) {
         newStr += arr[i][0].toUpperCase();
     }
     return newStr;
@@ -25,16 +25,16 @@ console.log(acronym("there's no free lunch - gotta pay yer way"));
 // ===================================
 function acronym(str) {
     var newStr = str[0].toUpperCase();
-    
-    for(var i = 0 ; i < str.length ; i ++) {
-        if(str[i] == " ") {
+
+    for (var i = 0; i < str.length; i++) {
+        if (str[i] == " ") {
             newStr += str[i + 1].toUpperCase();
         }
     }
     return newStr;
 }
 
-console.log(acronym("there's no free lunch - gotta pay yer way")); 
+console.log(acronym("there's no free lunch - gotta pay yer way"));
 
 // ============================
 // Students' Solutions
@@ -61,12 +61,12 @@ function acronym(str) {
     // your code here
     var acr = ""
     //iterate through string
-    for(var i = 0; i < str.length; i++){
+    for (var i = 0; i < str.length; i++) {
         //character after space is part of the acronym
-        if(str[i] == " " && str[i+1] !== " " && str[i+1] !== undefined){
-            acr += str[i+1]
+        if (str[i] == " " && str[i + 1] !== " " && str[i + 1] !== undefined) {
+            acr += str[i + 1]
         }
-        if(i == 0 && str[i] !== " "){
+        if (i == 0 && str[i] !== " ") {
             acr += str[i]
         }
     }
@@ -96,11 +96,11 @@ function acronym(str) {
     if (str[0] !== ' ') {
         result += str[0].toUpperCase();
     }
-    
+
     // check for word breaks
     for (let i = 0; i < str.length; i++) {
         if (str[i] === ' ') {
-            result += str[i+1].toUpperCase()
+            result += str[i + 1].toUpperCase()
         }
     }
 
@@ -117,59 +117,59 @@ function acronym(str) {
 
 function acronym(str) {
     var letter = "";
-    for(var i = 0; i < str.length; i++) {
-              
-            
-            
-            // The first word of the string 
-            if ( i == 0 ) {
-                letter += str[i]
-            }
+    for (var i = 0; i < str.length; i++) {
 
-          // The last word of the string
-          if (i == str.length - 1) {
-             letter += (str[i]);
-          }
-          
-           // space print the forward letter and backword letter 
-          if (str[i] === " ") {
-            letter += (str[i - 1] + " " + str[i + 1]);
-          }
 
+
+        // The first word of the string 
+        if (i == 0) {
+            letter += str[i]
         }
 
-         return letter.toUpperCase();
-      }
+        // The last word of the string
+        if (i == str.length - 1) {
+            letter += (str[i]);
+        }
+
+        // space print the forward letter and backword letter 
+        if (str[i] === " ") {
+            letter += (str[i - 1] + " " + str[i + 1]);
+        }
+
+    }
+
+    return letter.toUpperCase();
+}
 
 var str = "there's no free lunch - gotta pay yer way";
 console.log(acronym(str));
- 
+
 // ============================
 
 var test = "there's no free lunch - gotta pay yer way";
 
-function arc(str){
-  let testArr = test.split(" ")
-  let output = ""
-  // console.log(testArr)
-  for(var i = 0; i < testArr.length; i++){
-    output += testArr[i][0].toUpperCase()
-  }
-  return output
+function arc(str) {
+    let testArr = test.split(" ")
+    let output = ""
+    // console.log(testArr)
+    for (var i = 0; i < testArr.length; i++) {
+        output += testArr[i][0].toUpperCase()
+    }
+    return output
 }
 
 console.log(arc(test))
- 
+
 // ============================
 
 function acronym(str) {
     var solution = "";
-    for(i=0;i<str.length;i++){
-        if(i == 0){
+    for (i = 0; i < str.length; i++) {
+        if (i == 0) {
             solution += str[i];
         }
-        if(str[i] == " ")
-            solution += str[(i+1)]
+        if (str[i] == " ")
+            solution += str[(i + 1)]
     }
     return solution.toUpperCase();
 }
@@ -180,8 +180,8 @@ console.log(acronym("there's no free lunch - gotta pay yer way"));
 
 function acronym(str) {
     var sol = "";
-    for(var i=0; i<str.length; i++){
-        if(i===0 || (str.charAt(i-1)===" " && str.charAt(i) !== " ")){
+    for (var i = 0; i < str.length; i++) {
+        if (i === 0 || (str.charAt(i - 1) === " " && str.charAt(i) !== " ")) {
             sol = sol + str.charAt(i).toUpperCase();
         }
     }
@@ -193,9 +193,9 @@ console.log(acronym(" there's no   free lunch - gotta pay yer way"));
 // ============================
 
 function acronym(str) {
-    var nStr="";
-    for(var i=0; i<str.length; i++) {
-        if((i==0 || str[i-1]==" ") && /[^\s]/.test(str[i])) {
+    var nStr = "";
+    for (var i = 0; i < str.length; i++) {
+        if ((i == 0 || str[i - 1] == " ") && /[^\s]/.test(str[i])) {
             nStr += str[i];
         }
     }

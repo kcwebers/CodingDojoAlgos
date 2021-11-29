@@ -5,38 +5,56 @@
 // 3) if b>a, then you can remove a from b, which gets you closer to the GCF;
 // Second: rework facts #2 and #3 to reduce stack consumption and expand rGCF ’s reach. You should be able to compute rGCF(123456,987654) .
 
+// function recursiveGreatestCommonFactor(num1,num2){
+//     // your code here
+// }
+
+// console.log(recursiveGreatestCommonFactor(50,180)); // 10
+// console.log(recursiveGreatestCommonFactor(7,35)); // 7
+// console.log(recursiveGreatestCommonFactor(65,95)); // 5
+// console.log(recursiveGreatestCommonFactor(123456,987654)); // 6
+// console.log(recursiveGreatestCommonFactor(102,1000)); // 2
+// console.log(recursiveGreatestCommonFactor(7,13)); // 1
+// =====================================================
+// Instructor's solution
+// =====================================================
+
+
 function recursiveGreatestCommonFactor(num1,num2){
-    if (num1 > num2) {    
+    console.log(num1 + " " + num2)
+    if (num1 > num2) {
         return recursiveGreatestCommonFactor(num1-num2, num2);
     } else if (num2 > num1) {
-        return recursiveGreatestCommonFactor(num1, num2-num1)
+        return recursiveGreatestCommonFactor(num1, num2-num1);
     }
     else {
         return num1
     }
 }
-console.log(recursiveGreatestCommonFactor(50,180)); // 10
-console.log(recursiveGreatestCommonFactor(7,35)); // 7
-console.log(recursiveGreatestCommonFactor(65,95)); // 5
-console.log(recursiveGreatestCommonFactor(123456,987654)); // 6
-console.log(recursiveGreatestCommonFactor(102,1000)); // 2
-console.log(recursiveGreatestCommonFactor(7,13)); // 1
+// console.log(recursiveGreatestCommonFactor(50,180)); // 10
+// console.log(recursiveGreatestCommonFactor(7,35)); // 7
+// console.log(recursiveGreatestCommonFactor(65,95)); // 5
+// console.log(recursiveGreatestCommonFactor(123456,987654)); // 6
+// console.log(recursiveGreatestCommonFactor(102,1000)); // 2
+// console.log(recursiveGreatestCommonFactor(7,13)); // 1
 
 // ======================================
 // Student Solutions
 // ======================================
 
-function recursiveGreatestCommonFactor(num1,num2){
+function rGCF(num1,num2){
+    console.log(num1, num2)
     // if b is equal to 0 we return a
     if (num2 == 0){
         return num1;
     }
     // does the math
-    return recursiveGreatestCommonFactor(num2, num1 % num2);
+    return rGCF(num2, num1 % num2);
 }
-console.log(recursiveGreatestCommonFactor(50,180)); // 10
-console.log(recursiveGreatestCommonFactor(7,35)); // 7
-console.log(recursiveGreatestCommonFactor(65,95)); // 5
-console.log(recursiveGreatestCommonFactor(123456,987654));
-console.log(recursiveGreatestCommonFactor(102,103));
-console.log(recursiveGreatestCommonFactor(7,13));
+// console.log(rGCF(50,180)); // 10
+// console.log("=================="); // 10
+// console.log(rGCF(7,35)); // 7
+// console.log(rGCF(65,95)); // 5
+console.log(rGCF(123456,987654));
+// console.log(rGCF(102,103)); // 1
+// console.log(rGCF(7,13)); // 1
