@@ -1,49 +1,49 @@
-// Here, a balance index is ON an index, not BETWEEN indicies. Return the balance index where sums are equeal on either side (exclude its own value). Return -1 if none exist.
-// Example 1: [-2, 5, 7, 0, 3]  --> 2 
-// The balance index is 2 because on either side of that index the sums are equal:  [-2, 5,  |7| , 0, 3] --> -2+5 == 0+3
-// Example 2: [9, 9]  -->  -1
-// There is no balance index because there are fewer than 3 indices! As a result, we return -1 to maintain a consistent datatype
+// Write a function that, given a sorted array and a value, determines whether the value is found within the array through 
+// recursively searching, and returns the index. Binary Search works by checking whether the value given is greater than or 
+// less than a midway point, which is why the given array must be sorted. 
+// Also, even though there's only an array and value given, you can add additional parameters to your function.
+// Return -1 if the number is not in the array
 
-function balanceIndex(arr) {
-    var arrTotal = 0;
-    var subSum = 0;
 
-    for (var i = 0; i < arr.length; i++) { // collect the total sum of all elements in array
-        arrTotal += arr[i];
+// val = 9
+// arr = [1,2,3,5,7,9,10 ,11,13,14,15,56,78]
+
+// [1,2,3,5,7,9,10      |        11,13,14,15,56,78] <----- 9 is less than halfway so now you can search the left side only
+// [1,2,3,5,       |        7,9,10] <------  9 is greater than halfway so you can search the right side only
+// [7,      |       9,10] <------ depending on where you split,9 is greater than halfway
+// [9,     |      10] <------ whittle down to 1 or 2 items to check and solve!
+
+
+function binarySearch(num, arr, l=0, r=arr.length){
+    if(arr.length < 1){
+        return -1;
     }
+    // as long as our indices are at least 2 elements apart, continue recursion 
+    if(r - l > 1) {
+        // declare midpoint
+        var mid = Math.floor((r + l)/2);
 
-    for (var i = 0; i < arr.length-1 ; i++) { // loop through array again to check balance
-        if (subSum === arrTotal-subSum-arr[i]) { // check the sum of some elee
-            return i;
+        if(arr[mid] == num) {
+            return mid
         }
-        subSum += arr[i];
-    }
-    return -1;
-}
-
-console.log(balanceIndex([-2, 5, 7, 0, 3])); // 2
-console.log(balanceIndex([9, 9])); // -1
-
-
-// Write a function that returns whether the given array has a balance point between indices, where one side's sum is equal to the other's. 
-// Example: [1,2,3,4,10] --> True
-// the belenace point happens b/w indices 3 & 4 where the left side equals the right:  [1, 2, 3, 4  |  10]  ==> 1+2+3+4 = 10
-
-function balancePoint(arr) {
-    var arrTotal = 0;
-    var subSum = 0;
-
-    for (var i = 0; i < arr.length; i++) { // loop through and collect the total sum for all values in the array
-        arrTotal += arr[i];
-    }
-    
-    for (var i = 0; i < arr.length ; i++) { // loop through again and check whether (total - sum of some elements) = sum of some elements
-        if (subSum === arrTotal-subSum) { //subSum tracks sum of elements as we increment; check against total-subSum
-            return true; 
+        if(num < arr[mid]) {
+            return binarySearch(num, arr, l, mid);
         }
-        subSum += arr[i]; //add elements as we increment and the subSum != total-subSum
+        return binarySearch(num, arr, mid+1, r);
     }
-    return false;
+    return arr[l] == num ? l : -1;
 }
-console.log(balancePoint([4,3,7,4,10])); // true
-console.log(balancePoint([4,3,7,4,11,2])); // false
+console.log(binarySearch (4,[1,2,3,4,5,7,9,10,11,13,14,15]));
+
+console.log(binarySearch(-2, [1, 2])) //-1
+console.log(binarySearch(4, [1, 2])) // -1
+console.log(binarySearch(1, [1, 2])) //0
+console.log(binarySearch(2, [1,2,2])) //1
+console.log(binarySearch(7, [])) //-1
+console.log(binarySearch(2, [1,2,2,2,2,2,2,4,5,5,5,5,6,6,6])) //2-6 acceptable
+console.log(binarySearch(1, [1, 1, 1, 1, 1])) //0-4 acceptable
+console.log(binarySearch(8, [1, 2, 3, 3, 4, 4, 5, 6, 7, 8, 8, 9, 10])) //9-10 acceptable
+
+// make sure to test all given scenarios!
+// extra challenge: don't use built-in functions such as splice() or slice(), 
+// with the exception of rounding functions (Math.floor(), Math.ceil())
