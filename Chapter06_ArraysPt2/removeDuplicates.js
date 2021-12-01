@@ -9,7 +9,17 @@
 // ============================
 
 function removeDuplicates(arr) {
-    // your code here
+    const set = new Set(arr);
+    return Array.from(set);
+
+    // alternatives
+    const set = new Set(arr);
+    return [...set];
+
+    // const set = new Set(arr);
+    // var arr = [];
+    // arr.forEach(x => arr.push(x));
+    // return arr;
 }
 
 // ============================
@@ -30,13 +40,9 @@ onsole.log(removeDuplicates([1,2,1,3,4,4,5,4,4,4,4,6,6,6,6,78,7])) // [1, 2, 3, 
 function removeDuplicates(arr) {
     var newArr = []; // array
     var dict = {}; // create a object
-    for (let i= 0; i < arr.length; i++) { // for loop 
-        
-    
+    for (let i = 0; i < arr.length; i++) { // for loop 
         if (!dict[arr[i]]) { // if there is not a key in dict matching the index 
-
             newArr.push(arr[i]); // add to empty arr
-
             dict[arr[i]] = "key"; // add key to the dict
         }
     }
@@ -51,7 +57,7 @@ function removeDuplicates(ar) {
         const returnAr = [];
         set.forEach((val) => returnAr.push(val));
         return returnAr;
-  }
+}
 
 // ============================
 

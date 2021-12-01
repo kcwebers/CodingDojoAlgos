@@ -1,49 +1,52 @@
-// Write a function that, given a sorted array and a value, determines whether the value is found within the array through 
-// recursively searching, and returns the index. Binary Search works by checking whether the value given is greater than or 
-// less than a midway point, which is why the given array must be sorted. 
-// Also, even though there's only an array and value given, you can add additional parameters to your function.
-// Return -1 if the number is not in the array
+// Remove the duplicates from a given array. Do not alter the original array, return a new one! Keep the results 'stable' (retain the original order);
+
+// Example: [2,1,2,1,3,4,4,5] ==> [2,1,3,4,5]
+
+// Slightly more difficult! Work 'in-place' in the given array. For this one you can mess with the order if you need too!
 
 
-// val = 9
-// arr = [1,2,3,5,7,9,10 ,11,13,14,15,56,78]
+function removeDuplicates(arr) {
+    const set = new Set(arr);
+    return Array.from(set);
 
-// [1,2,3,5,7,9,10      |        11,13,14,15,56,78] <----- 9 is less than halfway so now you can search the left side only
-// [1,2,3,5,       |        7,9,10] <------  9 is greater than halfway so you can search the right side only
-// [7,      |       9,10] <------ depending on where you split,9 is greater than halfway
-// [9,     |      10] <------ whittle down to 1 or 2 items to check and solve!
-
-
-function binarySearch(num, arr, l=0, r=arr.length){
-    if(arr.length < 1){
-        return -1;
-    }
-    // as long as our indices are at least 2 elements apart, continue recursion 
-    if(r - l > 1) {
-        // declare midpoint
-        var mid = Math.floor((r + l)/2);
-
-        if(arr[mid] == num) {
-            return mid
-        }
-        if(num < arr[mid]) {
-            return binarySearch(num, arr, l, mid);
-        }
-        return binarySearch(num, arr, mid+1, r);
-    }
-    return arr[l] == num ? l : -1;
+    // alternatives
+    // const set = new Set(arr);
+    // // console.log(set);
+    // return [...set];
 }
-console.log(binarySearch (4,[1,2,3,4,5,7,9,10,11,13,14,15]));
 
-console.log(binarySearch(-2, [1, 2])) //-1
-console.log(binarySearch(4, [1, 2])) // -1
-console.log(binarySearch(1, [1, 2])) //0
-console.log(binarySearch(2, [1,2,2])) //1
-console.log(binarySearch(7, [])) //-1
-console.log(binarySearch(2, [1,2,2,2,2,2,2,4,5,5,5,5,6,6,6])) //2-6 acceptable
-console.log(binarySearch(1, [1, 1, 1, 1, 1])) //0-4 acceptable
-console.log(binarySearch(8, [1, 2, 3, 3, 4, 4, 5, 6, 7, 8, 8, 9, 10])) //9-10 acceptable
+console.log(removeDuplicates([1,2,1,3,4,4,5])); // [1,2,3,4,5]
+console.log(removeDuplicates([1,2,1,3,4,4,5,4,4,4,4,6,6,6,6,78,7])); // // [1, 2, 3, 4, 5, 6, 78, 7]
 
-// make sure to test all given scenarios!
-// extra challenge: don't use built-in functions such as splice() or slice(), 
-// with the exception of rounding functions (Math.floor(), Math.ceil())
+
+//===========================================
+// Kadane's Algo
+//===========================================
+
+// Given an array comprised of numbers that  is potentially very long, return the maximum sum of values from a subarray. Any consecutive seuqence of indices in the array is considered a subarray. Create a function that returns the highest sum possible from these subarrays, and prints the subarray.
+
+// [1,2,-4,3,-2,3,-1] return 4 and print [3,-2,3]
+
+function maxOfSubarray(arr) {
+    var max_starts_here = 0;
+    var maximum = -Infinity;
+    var start;
+    for (let i = 0; i < arr.length; i++) {
+        // include current element to previous subarray only
+        // when it can add to a bigger number than itself.
+        if (arr[i] <= max_starts_here + arr[i]) {
+            max_starts_here += arr[i];
+        }
+        // else start the max subarray from current element
+        else {
+            max_starts_here = arr[i];
+        }
+        if (max_starts_here > maximum) {
+            maximum = max_starts_here;
+        }
+    }
+    console.log(max_starts_here, maximum)
+    return maximum;
+}
+
+console.log(maxOfSubarray([1,2,-4,3,-2,3,-1])); //return 4; prints [3,-2,3]
