@@ -30,12 +30,12 @@ function flatten(arr) {
 function flatten(arr) {
     let newArr = [];
     while (arr.length > 0) {
-        let item = arr[0];
-        if (Array.isArray(item)) {
+        let cuurentElement = arr[0];
+        if (Array.isArray(cuurentElement)) {
             // basically you are splicing one array into another
-            [].splice.apply(arr, [0, 1].concat(item));
+            [].splice.apply(arr, [0, 1].concat(cuurentElement));
         } else {
-            newArr.push(item);
+            newArr.push(cuurentElement);
             arr.splice(0, 1);
         }
     }
