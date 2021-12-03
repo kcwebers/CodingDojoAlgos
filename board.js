@@ -19,11 +19,10 @@ console.log(mode([1,2,3,1,1,2,2,5,6])); //return 2
 function flatten(arr) {
     let newArr = [];
     let start;
-    console.log(arr)
     while (arr.length > 0) {
         start = arr[0];
         if (Array.isArray(start)) {
-            Array.prototype.splice.apply(arr, [0, 1].concat(start));
+            [].splice.apply(arr, [0, 1].concat(start));
         } else {
             newArr.push(start);
             arr.splice(0, 1);
@@ -34,5 +33,5 @@ function flatten(arr) {
 // function flatten(arr) {
 //     // your code here
 // }
-console.log(flatten([1, [2,3], 4, []])); // [1,2,3,4]
+// console.log(flatten([1, [2,3], 4, []])); // [1,2,3,4]
 console.log(flatten([1, [2,3], 4, [[[5]]]])); // [1,2,3,4,5]
