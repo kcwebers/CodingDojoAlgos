@@ -35,7 +35,7 @@ function mode(arr){
 
 // **Assume that all elements are either numbers or arrays
 
-function flatten(arr) {
+function flattenArray(arr) {
     let newArr = [];
     console.log(arr);
     while (arr.length > 0) {
@@ -57,5 +57,5 @@ function flatten(arr) {
 }
 
 // console.log(flatten([1, [2,3], 4, []])); // [1,2,3,4]
-console.log(flatten([1, [2,3], 4, [[[5]]]])); // [1,2,3,4,5]
+console.log(flattenArray([1, [2,3], 4, [[[5]]]])); // [1,2,3,4,5]
 

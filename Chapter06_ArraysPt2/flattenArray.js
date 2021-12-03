@@ -11,7 +11,7 @@
 // ============================
 
 // only single nested array
-function flatten(arr) {
+function flattenArray(arr) {
     var newArr = [];
     for (var item of arr) {
         if (typeof(item) == "number") { // check the datatype of the element we are looking at; if number...
@@ -27,7 +27,7 @@ function flatten(arr) {
 }
 
 //multi nested arrays
-function flatten(arr) {
+function flattenArray(arr) {
     let newArr = [];
     while (arr.length > 0) {
         let cuurentElement = arr[0];
