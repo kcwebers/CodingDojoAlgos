@@ -42,12 +42,13 @@ function flatten(arr) {
     return newArr;
 }
 
-// var x = [1,2,3,4]
-// var y = [0,0,0];
-// // x.splice(0, 1, y); <=== wouldn't work as desired b/c would splice in as subarray
-// [].splice.apply(x, [0, 1].concat(y));
-// // ===> x.splice(0, 1, 2, 0, 0, 0); <=== works b/c the [0,1].concat() makes a single array of parameters
-// console.log(x);
+var x = [1,2,3,4];
+var y = [0,0,0];
+// x.splice(0, 1, y); <=== wouldn't work as desired b/c would splice in as subarray
+[].splice.apply(x, [0, 1].concat(y));
+// ===> x.splice(0, 1, 0, 0, 0); <=== works b/c the [0,1].concat() makes a single array of parameters
+console.log(x);
+[0,0,0,2,3,4]
 
 // ============================
 // Frame for Students

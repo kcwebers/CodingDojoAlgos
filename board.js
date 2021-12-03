@@ -10,6 +10,7 @@ function mode(arr){
             obj[arr[i]] += 1
         }
     }
+
     var mode = 0;
     var modeCount = 0;
     for(var key in obj) {
@@ -21,7 +22,7 @@ function mode(arr){
     return mode
 }
 
-console.log(mode([1,2,3,1,1,2,2,5,6])); //return 1
+// console.log(mode([1,2,3,1,1,2,2,5,6])); //return 1
 
 // ==========================================
 
@@ -36,19 +37,25 @@ console.log(mode([1,2,3,1,1,2,2,5,6])); //return 1
 
 function flatten(arr) {
     let newArr = [];
+    console.log(arr);
     while (arr.length > 0) {
         let currentElement = arr[0];
         if (Array.isArray(currentElement)) {
             // basically you are splicing one array into another
             [].splice.apply(arr, [0, 1].concat(currentElement));
+            // arr.splice(0, 1, 2, 3);
         } else {
             newArr.push(currentElement);
             arr.splice(0, 1);
         }
+        console.log(arr);
+        console.log(newArr);
+        console.log("=====================");
+
     }
     return newArr;
 }
 
-console.log(flatten([1, [2,3], 4, []])); // [1,2,3,4]
+// console.log(flatten([1, [2,3], 4, []])); // [1,2,3,4]
 console.log(flatten([1, [2,3], 4, [[[5]]]])); // [1,2,3,4,5]
 
