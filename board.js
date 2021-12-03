@@ -37,12 +37,12 @@ console.log(mode([1,2,3,1,1,2,2,5,6])); //return 1
 function flatten(arr) {
     let newArr = [];
     while (arr.length > 0) {
-        let item = arr[0];
-        if (Array.isArray(item)) {
+        let currentElement = arr[0];
+        if (Array.isArray(currentElement)) {
             // basically you are splicing one array into another
-            [].splice.apply(arr, [0, 1].concat(item));
+            [].splice.apply(arr, [0, 1].concat(currentElement));
         } else {
-            newArr.push(item);
+            newArr.push(currentElement);
             arr.splice(0, 1);
         }
     }
