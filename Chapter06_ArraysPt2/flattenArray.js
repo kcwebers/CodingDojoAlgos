@@ -14,11 +14,11 @@ function flatten(arr) {
     var newArr = [];
     for (var item of arr) {
         if (typeof(item) == "number") { // check the datatype of the element we are looking at; if number...
-            newArr[newArr.length] = item;
+            newArr.push(item);
         }
-        else if (Array.isArray(item)) { // check the datatype of the element we are looking at; if array (recognized as object)...
-            for (var val of item) {
-                newArr[newArr.length] = val;
+        else { // check the datatype of the element we are looking at; if array (recognized as object)...
+            for(var val of item) {
+                newArr.push(val);
             }
         }
     }
@@ -101,9 +101,8 @@ function flatten(arr) {
         }
         else{
             for(var j = 0; j<=arr[i].length; j++){
-                
                 if(arr[i].length != 0 && arr[i][j] != undefined){
-                newArr.push(arr[i][j]);
+                    newArr.push(arr[i][j]);
                 }
             }
         }   

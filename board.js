@@ -1,52 +1,38 @@
-// Remove the duplicates from a given array. Do not alter the original array, return a new one! Keep the results 'stable' (retain the original order);
+// Given an array comprised of integers, return it's mode value(aka. the most common value in that dataset).
 
-// Example: [2,1,2,1,3,4,4,5] ==> [2,1,3,4,5]
-
-// Slightly more difficult! Work 'in-place' in the given array. For this one you can mess with the order if you need too!
-
-
-function removeDuplicates(arr) {
-    const set = new Set(arr);
-    return Array.from(set);
-
-    // alternatives
-    // const set = new Set(arr);
-    // // console.log(set);
-    // return [...set];
+function mode(arr) {
+    // your code here
 }
 
-console.log(removeDuplicates([1,2,1,3,4,4,5])); // [1,2,3,4,5]
-console.log(removeDuplicates([1,2,1,3,4,4,5,4,4,4,4,6,6,6,6,78,7])); // // [1, 2, 3, 4, 5, 6, 78, 7]
+console.log(mode([1,2,3,1,1,2,2,5,6])); //return 2
 
+// ==========================================
 
-//===========================================
-// Kadane's Algo
-//===========================================
+// Flatten a given array, eliminating nested and empty arrays. Do not alter the array; return a new one retaining the order. 
+// Example #1) [1, [2,3], 4, []] ==> return a new array [1,2,3,4]
 
-// Given an array comprised of numbers that  is potentially very long, return the maximum sum of values from a subarray. Any consecutive seuqence of indices in the array is considered a subarray. Create a function that returns the highest sum possible from these subarrays, and prints the subarray.
+// Slightly harder: Work in-place in the given array (do not create a new array). Alter the order if needed! 
+// Example #2) [1, [2,3], 4, []] ==> return same array but adjusted [1,2,3,4]
 
-// [1,2,-4,3,-2,3,-1] return 4 and print [3,-2,3]
+// **Assume that all elements are either numbers or arrays
 
-function maxOfSubarray(arr) {
-    var max_starts_here = 0;
-    var maximum = -Infinity;
-    var start;
-    for (let i = 0; i < arr.length; i++) {
-        // include current element to previous subarray only
-        // when it can add to a bigger number than itself.
-        if (arr[i] <= max_starts_here + arr[i]) {
-            max_starts_here += arr[i];
-        }
-        // else start the max subarray from current element
-        else {
-            max_starts_here = arr[i];
-        }
-        if (max_starts_here > maximum) {
-            maximum = max_starts_here;
+function flatten(arr) {
+    let newArr = [];
+    let start;
+    console.log(arr)
+    while (arr.length > 0) {
+        start = arr[0];
+        if (Array.isArray(start)) {
+            Array.prototype.splice.apply(arr, [0, 1].concat(start));
+        } else {
+            newArr.push(start);
+            arr.splice(0, 1);
         }
     }
-    console.log(max_starts_here, maximum)
-    return maximum;
+    return newArr;
 }
-
-console.log(maxOfSubarray([1,2,-4,3,-2,3,-1])); //return 4; prints [3,-2,3]
+// function flatten(arr) {
+//     // your code here
+// }
+console.log(flatten([1, [2,3], 4, []])); // [1,2,3,4]
+console.log(flatten([1, [2,3], 4, [[[5]]]])); // [1,2,3,4,5]

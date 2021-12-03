@@ -7,11 +7,26 @@
 //                [56, 67, 78, 89],
 //                [54, 43, 32, 21] ];
 
+// If finding the submatrix is too hard, try and find just 1 number in the matrix first! Then try and find a few numbers in the same line, then the submatrix
+// console.log(matrixSearch([ 
+    // [12, 34, 45, 56],
+    // [98, 87, 76, 65],
+    // [56, 67, 78, 89],
+    // [54, 43, 32, 21] ], 
+    // 67)); --> true
+
+// console.log(matrixSearch([ 
+    // [12, 34, 45, 56],
+    // [98, 87, 76, 65],
+    // [56, 67, 78, 89],
+    // [54, 43, 32, 21] ], 
+    // [ 67, 78 ])); --> true
+
 // ============================
 // Instructor's Solution
 // ============================
 
-// ----  
+// ---- 
 
 // ============================
 // Frame for Students
@@ -20,8 +35,8 @@
 function matrixSearch(arr, subArr) {
     // your code here
 }
-console.log(balancePoint([ [12, 34, 45, 56],[98, 87, 76, 65],[56, 67, 78, 89],[54, 43, 32, 21] ], [ [67, 78], [43, 32] ])); // true
-console.log(balancePoint([ [12, 34, 45, 56],[98, 87, 76, 65],[56, 67, 78, 89],[54, 43, 32, 21] ], [ [67, 78], [43, 21] ])); // false
+console.log(matrixSearch([ [12, 34, 45, 56],[98, 87, 76, 65],[56, 67, 78, 89],[54, 43, 32, 21] ], [ [67, 78], [43, 32] ])); // true
+console.log(matrixSearch([ [12, 34, 45, 56],[98, 87, 76, 65],[56, 67, 78, 89],[54, 43, 32, 21] ], [ [67, 78], [43, 21] ])); // false
 
 // ============================
 // Students' Solutions
