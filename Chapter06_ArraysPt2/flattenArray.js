@@ -10,6 +10,7 @@
 // Instructor's Solution
 // ============================
 
+// only single nested array
 function flatten(arr) {
     var newArr = [];
     for (var item of arr) {
@@ -24,6 +25,29 @@ function flatten(arr) {
     }
     return newArr;
 }
+
+//multi nested arrays
+function flatten(arr) {
+    let newArr = [];
+    while (arr.length > 0) {
+        let item = arr[0];
+        if (Array.isArray(item)) {
+            // basically you are splicing one array into another
+            [].splice.apply(arr, [0, 1].concat(item));
+        } else {
+            newArr.push(item);
+            arr.splice(0, 1);
+        }
+    }
+    return newArr;
+}
+
+// var x = [1,2,3,4]
+// var y = [0,0,0];
+// // x.splice(0, 1, y); <=== wouldn't work as desired b/c would splice in as subarray
+// [].splice.apply(x, [0, 1].concat(y));
+// // ===> x.splice(0, 1, 2, 0, 0, 0); <=== works b/c the [0,1].concat() makes a single array of parameters
+// console.log(x);
 
 // ============================
 // Frame for Students
