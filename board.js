@@ -1,61 +1,89 @@
-// Given an array comprised of integers, return it's mode value(aka. the most common value in that dataset).
-
-function mode(arr){
-    var obj = {}
-    for(let i = 0; i < arr.length; i++){
-        if( !obj[arr[i]] ){
-            obj[arr[i]] = 1
-        }
-        else{
-            obj[arr[i]] += 1
-        }
+class SLNode{
+    constructor(value){
+        this.value = value;
+        this.next = null;
     }
-
-    var mode = 0;
-    var modeCount = 0;
-    for(var key in obj) {
-        if(obj[key] > modeCount) {
-            mode = key;
-            modeCount = obj[key]
-        }
-    }
-    return mode
 }
 
-// console.log(mode([1,2,3,1,1,2,2,5,6])); //return 1
+class SLL{
+    constructor(){
+        this.head = null;
+    }
 
-// ==========================================
+    addToFront(value){
+        var newNode = new SLNode(value);
+        newNode.next = this.head;
+        this.head = newNode;
+    }
 
-// Flatten a given array, eliminating nested and empty arrays. Do not alter the array; return a new one retaining the order. 
-
-// Example #1) [1, [2,3], 4, []] ==> return a new array [1,2,3,4]
-
-// Slightly harder: Work in-place in the given array (do not create a new array). Alter the order if needed! 
-// Example #2) [1, [2,3], 4, []] ==> return same array but adjusted [1,2,3,4]
-
-// **Assume that all elements are either numbers or arrays
-
-function flattenArray(arr) {
-    let newArr = [];
-    console.log(arr);
-    while (arr.length > 0) {
-        let currentElement = arr[0];
-        if (Array.isArray(currentElement)) {
-            // basically you are splicing one array into another
-            [].splice.apply(arr, [0, 1].concat(currentElement));
-            // arr.splice(0, 1, 2, 3);
+    addToBack(value) {
+        var newNode = new SLNode(value);
+        if(!this.head) {
+            this.head = newNode;
         } else {
-            newArr.push(currentElement);
-            arr.splice(0, 1);
+            var runner = this.head;
+            while (runner.next){
+                runner = runner.next;
+            }
+            runner.next = newNode;
         }
-        console.log(arr);
-        console.log(newArr);
-        console.log("=====================");
-
     }
-    return newArr;
+
+// Given a Singly Linked List of Nodes, reverse the order of the list
+//           this.head
+// Example:      4 --> -12 --> 43 --> 8 --> 67 --> -27 --> 19 --> null
+//           this.head
+// Becomes:     19 --> -27 --> 67 --> 8 --> 43 --> -12 --> 4 --> null
+
+    reverseList() {
+        if (!this.head || this.head.next == null) {
+            console.log("There's no list to reverse!");
+        }
+
+        var currentNode = this.head;
+        var nextNode = this.head.next;
+        var prevNode = null;
+        // console.log("currentNode = " + currentNode.value)
+        // console.log("nextNode = " + nextNode.value)
+        // console.log("prevNode = " + prevNode)
+
+        while(currentNode) {
+            nextNode = currentNode.next;
+            currentNode.next = prevNode;
+            prevNode = currentNode;
+            currentNode = nextNode;
+            // console.log("currentNode = " + currentNode?.value)
+            // console.log("nextNode = " + nextNode?.value)
+            // console.log("prevNode = " + prevNode.value)
+            // console.log("--------------------------")
+        }
+        this.head = prevNode;
+    }
+
+    printValues() {
+        var runner = this.head;
+        let str = "";
+        while (runner) {
+            str += `${runner.value} -> `;
+            runner = runner.next;
+        }
+        str += 'null';
+        console.log(str);
+    }
 }
 
-// console.log(flatten([1, [2,3], 4, []])); // [1,2,3,4]
-console.log(flattenArray([1, [2,3], 4, [[[5]]]])); // [1,2,3,4,5]
-
+//   4 --> -12 --> 43 --> 8 --> 67 --> -27 --> 19 --> null
+var list = new SLL();
+list.addToBack(4);
+list.addToBack(-12);
+list.addToBack(43);
+list.addToBack(8);
+list.addToBack(67);
+list.addToBack(-27);
+list.addToBack(19);
+console.log("========================")
+list.printValues();
+console.log("========================")
+list.reverseList();
+console.log("========================")
+list.printValues();
