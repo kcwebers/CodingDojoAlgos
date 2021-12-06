@@ -158,13 +158,10 @@ class SLL{
         var runner = this.head;
         let str = "";
         while (runner) {
-            if (runner.next) {
-                str += `${runner.val} -> `;
-            } else {
-                str += runner.val;
-            }
+            str += `${runner.value} -> `;
             runner = runner.next;
         }
+        str += 'null';
         console.log(str);
     }
 
