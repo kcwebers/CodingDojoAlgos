@@ -143,10 +143,8 @@ class SLL{
             console.log("There is nothing to shiftBy!");
         }
 
-        while(num > 0) {
-            let shifted = this.removeFromBack();
-            this.addNodeToFront(shifted);
-            num --;
+        for(let i = 0 ; i < num ; i++) {
+            this.addNodeToFront(this.removeFromBack());
         }
         return this;
     }
