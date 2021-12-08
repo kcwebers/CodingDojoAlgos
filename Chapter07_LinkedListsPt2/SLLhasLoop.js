@@ -103,3 +103,141 @@ list2.addToBack(67);
 list2.addToBack(-27);
 list2.addToBack(19);
 list2.printValues();
+
+// =========================== 
+// Student Solutions
+// =========================== 
+
+constructor(){
+    this.head = null;
+    this.count = 0;
+}
+
+addToFront(value){
+    var newNode = new Node(value);
+    newNode.next = this.head;
+    this.head = newNode;
+    this.count++;
+}
+
+addToBack(value) {
+    var newNode = new Node(value);
+    if(!this.head) {
+        this.head = newNode;
+        this.count++;
+    } else {
+        var runner = this.head;
+        while (runner.next){
+            runner = runner.next;
+        }
+        runner.next = newNode;
+        this.count++;
+    }
+}
+
+hasLoop() {
+    if (this.head == null) {
+        return false;
+    }
+    let runner = this.head;
+    let counter = 1;
+    while (runner) {
+        if (counter > this.count) {
+            return true;
+        }
+        counter++;
+        runner = runner.next;
+    }
+    return false;
+}
+
+// =========================== 
+
+addLoop() {
+    let runner = this.head;
+    let front = this.head;
+    while (runner.next != null) {
+        runner = runner.next;
+    }
+    runner.next = front;
+}
+
+hasLoop() {
+    let runner = this.head;
+    let nodeArray = [this.head];
+    if (runner.next == null) {
+        return false;
+    }
+    while (runner.next != null) {
+        for (let i = 1; i < nodeArray.length; i++) {
+            if (runner.next == nodeArray[i]) {
+                console.log(nodeArray);
+                return true;
+            }
+        }
+        nodeArray.push(runner)
+        runner = runner.next;
+    }
+    return false;
+}
+
+// =========================== 
+
+createLoop(value){
+    var newNode = new SLNode(value);
+    if(!this.head) {
+        this.head = newNode;
+    } else {
+        var runner = this.head;
+        while (runner.next){
+            runner = runner.next;
+        }
+        runner.next = newNode;
+    }
+    newNode.next = this.head;
+}
+
+hasLoop() {
+    let memDict = {};
+    if(this.head == null){
+        return false;
+    }
+    var runner = this.head
+    while(runner.next){
+        if(memDict[runner.value]){
+            let testNodes = memDict[runner.value]
+            for(let i = 0; i < testNodes.length; i++){
+                if ( testNodes[i] === runner){
+                    return true;
+                }
+            }
+            testNodes.push(runner);
+        }
+        else{
+            memDict[runner.value] = [runner];
+        }
+        runner = runner.next;
+        console.log(memDict);
+    }
+    return false
+    // store locations for each value
+    // inside of each value is an array of nodes
+    // when value exhists in dict, iterate over node array
+}
+
+// =========================== 
+
+hasLoop() {
+    var runner = this.head;
+    var sprinter = this.head.next;
+
+    while (sprinter != null) {
+        if (runner == sprinter) {
+            console.log("This is an infinite loop");
+            return true;
+        }
+        runner = runner.next;
+        sprinter = sprinter.next.next;
+    }
+    return false;
+}

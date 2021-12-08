@@ -60,6 +60,104 @@ class SLL{
         this.head = prevNode;
     }
 
+    // Given a linked list, return true/false based on whether or not there is a loop in the list.
+
+    // part 1 : make an algo or standalone logic that will construct a loop in your SSL (can be hard coded for now)
+
+    createLoop() {
+        if(this.head == null) {
+            return false; // if only 1 node in list or no list, then no loop
+        } else if(this.head.next == null) {
+            this.head.next = this.head;
+        }
+
+        var size = 0;
+        var runner = this.head;
+        while(runner.next) {
+            size += 1;
+            runner = runner.next;
+        }
+
+        var halfwayish = Math.floor(size/2);
+        var looper = this.head;
+        while(halfwayish > 0) {
+            looper = looper.next;
+            halfwayish -= 1;
+        }
+        runner.next = looper;
+    }
+
+    // part 2 : return whether or not there is a loop
+
+    hasLoop() {
+        if(this.head == null) {
+            return false; // if only 1 node in list or no list, then no loop
+        } else if(this.head.next == this.head) {
+            return true;
+        }
+        
+        var runner = this.head; // will move 1 space
+        var sprinter = this.head; // will move 2 spaces
+        
+        while(sprinter && sprinter.next) { // run based on the sprinter because they will hit null first
+            sprinter = sprinter.next.next;
+            runner = runner.next;
+            if(sprinter == runner) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Shift List: Given a number, shift the nodes of a list to the right by that given number. 
+    // This is a circular shift, for example:
+
+    // 4 --> -12 --> 43 --> 8 --> 67 --> null
+    // shiftBy(1) ==> 67 --> 4 --> -12 --> 43 --> 8 --> null
+
+    // 4 --> -12 --> 43 --> 8 --> 67 --> null
+    // shiftBy(3) ==> 43 --> 8 --> 67 --> 4 --> -12 --> null
+
+    // removeFromBack w/ removed node as returned value
+    removeFromBack() {
+        // set runner to start at the beginning of list
+        var runner = this.head;
+        // run all the way through this list until you hit the second to last item and stop
+        while(runner.next.next != null) {
+            runner = runner.next
+        }
+        // mark the node being removed
+        var removed = runner.next;
+        // set runner.next to null, effectively removing final node from the list
+        runner.next = null;
+        return removed;
+    }
+
+    addNodeToFront(node) {
+        node.next = this.head;
+        this.head = node;
+    }
+
+    shiftBy(num) {
+        if (!this.head || this.head.next == null) {
+            console.log("There is nothing to shiftBy!");
+        }
+
+        while(num > 0) {
+            let shifted = this.removeFromBack();
+            this.addNodeToFront(shifted);
+            num --;
+        }
+        return this;
+    }
+
+    // OPTIONAL CHALLENGE
+    // Flatten Children: Alter your SLL Node class to contain a .child that either points to null or to the head of another list. Each node in that .child might have a pointer to another SLL and so on. Rearrange the .next pointers to flatten the hierarchy into aone linear list.
+
+    flatten() {
+        // your code here
+    }
+
     printValues() {
         var runner = this.head;
         let str = "";
@@ -72,18 +170,17 @@ class SLL{
     }
 }
 
-//   4 --> -12 --> 43 --> 8 --> 67 --> -27 --> 19 --> null
+//   4 --> -12 --> 43 --> 8 --> 67 --> null
 var list = new SLL();
 list.addToBack(4);
 list.addToBack(-12);
 list.addToBack(43);
 list.addToBack(8);
 list.addToBack(67);
-list.addToBack(-27);
-list.addToBack(19);
 console.log("========================")
 list.printValues();
 console.log("========================")
-list.reverseList();
-console.log("========================")
+list.shiftBy(3);
 list.printValues();
+
+// ====================================
