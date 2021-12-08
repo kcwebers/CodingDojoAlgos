@@ -57,7 +57,53 @@ list.addToBack(67);
 console.log("========================")
 list.printValues();
 console.log("========================")
-list.shiftBy(3);
+list.flatten();
 list.printValues();
 
 // ====================================
+// Student Solutions
+// ====================================
+
+flatten() {
+    let runner = this.head;
+    while(runner.next != null){
+        if(runner.child){
+            let temp = runner.next;
+            let child = runner.child;
+            console.log("child", child);
+            runner.next = child.head;
+            let childRunner = child.head
+            while(childRunner.next != null){
+                childRunner = childRunner.next;
+            }
+            childRunner.next = temp;
+            runner.child = null;
+        }
+        runner = runner.next;
+    }
+}
+
+// ====================================
+
+flatten(){
+    let runner =this.head;
+    let finalHolder;
+    if(!this.head){
+        return null;
+    }
+    while(runner){
+        if(runner.child){
+            let nextHolder = runner.next;
+            let endOfChild = runner.child.flatten();
+            runner.next=runner.child.head;
+            runner.child=null;
+            runner = endOfChild;
+            runner.next = nextHolder
+        }
+        if(runner.next==null){
+            finalHolder=runner;
+        }
+        runner=runner.next;
+    }
+    return finalHolder;
+}
