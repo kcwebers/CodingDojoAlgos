@@ -1,184 +1,144 @@
-class SLNode{
-    constructor(value){
-        this.value = value;
+class Node {
+    constructor(value) {
+        this.val = value;
         this.next = null;
+        this.prev = null;
     }
 }
 
-class SLL{
+class DLL {
     constructor(){
         this.head = null;
+        this.tail = null;
     }
 
-    addToFront(value){
-        var newNode = new SLNode(value);
-        newNode.next = this.head;
-        this.head = newNode;
+    // given a value, add a node containing that value to the front of your DLL
+    addToFront(value) {
+        var node = new Node(value);
+        if(this.head == null) {
+            this.head = node;
+            this.tail = node;
+        } else {
+            node.next = this.head;
+            this.head.prev = node;
+            this.head = node;
+        }
     }
 
+    // given a value, add a node containing that value to the end of your DLL
     addToBack(value) {
-        var newNode = new SLNode(value);
-        if(!this.head) {
-            this.head = newNode;
+        var node = new Node(value);
+        if(this.head == null) {
+            this.head = node;
+            this.tail = node;
+        } else {
+            node.prev = this.tail;
+            this.tail.next = node;
+            this.tail = node;
+        }
+    }
+
+    // remove the first node in a DLL
+    removeFromFront() {
+        if(this.head == null) {
+            console.log("This list is empty!");
+        } else {
+            if(!this.head.next) {
+                this.head = null;
+                this.tail = null;
+            } else {
+                this.head = this.head.next;
+                this.head.prev.next = null;
+                this.head.prev = null;
+            }
+        }
+    }
+
+    // remove the last node in a DLL
+    removeFromBack() {
+        if(this.head == null) {
+            console.log("This list is empty!");
+        } else {
+            if(!this.head.next) {
+                this.head = null;
+                this.tail = null;
+            } else {
+                this.tail = this.tail.prev;
+                this.tail.next.prev = null;
+                this.tail.next = null;
+            }
+        }
+    }
+
+    // prints the items of a DLL from front to back
+    printValuesForward() {
+        if(this.head == null) {
+            console.log("The list is empty!");
         } else {
             var runner = this.head;
-            while (runner.next){
+            var str = "Starting at the head : "
+            while(runner){
+                str += `${runner.val} -> `;
                 runner = runner.next;
             }
-            runner.next = newNode;
+            str += " that was the tail";
+            console.log(str);
         }
     }
 
-// Given a Singly Linked List of Nodes, reverse the order of the list
-//           this.head
-// Example:      4 --> -12 --> 43 --> 8 --> 67 --> -27 --> 19 --> null
-//           this.head
-// Becomes:     19 --> -27 --> 67 --> 8 --> 43 --> -12 --> 4 --> null
-
-    reverseList() {
-        if (!this.head || this.head.next == null) {
-            console.log("There's no list to reverse!");
-        }
-
-        var currentNode = this.head;
-        var nextNode = this.head.next;
-        var prevNode = null;
-        // console.log("currentNode = " + currentNode.value)
-        // console.log("nextNode = " + nextNode.value)
-        // console.log("prevNode = " + prevNode)
-
-        while(currentNode) {
-            nextNode = currentNode.next;
-            currentNode.next = prevNode;
-            prevNode = currentNode;
-            currentNode = nextNode;
-            // console.log("currentNode = " + currentNode?.value)
-            // console.log("nextNode = " + nextNode?.value)
-            // console.log("prevNode = " + prevNode.value)
-            // console.log("--------------------------")
-        }
-        this.head = prevNode;
-    }
-
-    // Given a linked list, return true/false based on whether or not there is a loop in the list.
-
-    // part 1 : make an algo or standalone logic that will construct a loop in your SSL (can be hard coded for now)
-
-    createLoop() {
+    // given a value, return true or false for whether or not the list contains the value
+    contains(value) {
         if(this.head == null) {
-            return false; // if only 1 node in list or no list, then no loop
-        } else if(this.head.next == null) {
-            this.head.next = this.head;
-        }
-
-        var size = 0;
-        var runner = this.head;
-        while(runner.next) {
-            size += 1;
-            runner = runner.next;
-        }
-
-        var halfwayish = Math.floor(size/2);
-        var looper = this.head;
-        while(halfwayish > 0) {
-            looper = looper.next;
-            halfwayish -= 1;
-        }
-        runner.next = looper;
-    }
-
-    // part 2 : return whether or not there is a loop
-
-    hasLoop() {
-        if(this.head == null) {
-            return false; // if only 1 node in list or no list, then no loop
-        } else if(this.head.next == this.head) {
-            return true;
-        }
-        
-        var runner = this.head; // will move 1 space
-        var sprinter = this.head; // will move 2 spaces
-        
-        while(sprinter && sprinter.next) { // run based on the sprinter because they will hit null first
-            sprinter = sprinter.next.next;
-            runner = runner.next;
-            if(sprinter == runner) {
-                return true;
+            console.log("The list is empty!");
+        } else {
+            var runner = this.head;
+            while(runner){
+                if(runner.val == value) {
+                    return true;
+                }
+                runner = runner.next;
             }
+            return false;
         }
-        return false;
     }
+    
 
-    // Shift List: Given a number, shift the nodes of a list to the right by that given number. 
-    // This is a circular shift, for example:
-
-    // 4 --> -12 --> 43 --> 8 --> 67 --> null
-    // shiftBy(1) ==> 67 --> 4 --> -12 --> 43 --> 8 --> null
-
-    // 4 --> -12 --> 43 --> 8 --> 67 --> null
-    // shiftBy(3) ==> 43 --> 8 --> 67 --> 4 --> -12 --> null
-
-    // removeFromBack w/ removed node as returned value
-    removeFromBack() {
-        // set runner to start at the beginning of list
-        var runner = this.head;
-        // run all the way through this list until you hit the second to last item and stop
-        while(runner.next.next != null) {
-            runner = runner.next
+    // return the length of a given DLL
+    lengthOfList() {
+        if(this.head == null) {
+            console.log("The list is empty!");
+        } else {
+            var runner = this.head;
+            var length = 0;
+            while (runner) {
+                length += 1;
+                runner = runner.next;
+            }
+            return length;
         }
-        // mark the node being removed
-        var removed = runner.next;
-        // set runner.next to null, effectively removing final node from the list
-        runner.next = null;
-        return removed;
-    }
-
-    addNodeToFront(node) {
-        node.next = this.head;
-        this.head = node;
-    }
-
-    shiftBy(num) {
-        if (!this.head || this.head.next == null) {
-            console.log("There is nothing to shiftBy!");
-        }
-
-        for(let i = 0 ; i < num ; i++) {
-            this.addNodeToFront(this.removeFromBack());
-        }
-        return this;
-    }
-
-    // OPTIONAL CHALLENGE
-    // Flatten Children: Alter your SLL Node class to contain a .child that either points to null or to the head of another list. Each node in that .child might have a pointer to another SLL and so on. Rearrange the .next pointers to flatten the hierarchy into aone linear list.
-
-    flatten() {
-        // your code here
-    }
-
-    printValues() {
-        var runner = this.head;
-        let str = "";
-        while (runner) {
-            str += `${runner.value} -> `;
-            runner = runner.next;
-        }
-        str += 'null';
-        console.log(str);
     }
 }
 
-//   4 --> -12 --> 43 --> 8 --> 67 --> null
-var list = new SLL();
-list.addToBack(4);
-list.addToBack(-12);
-list.addToBack(43);
-list.addToBack(8);
-list.addToBack(67);
-console.log("========================")
-list.printValues();
-console.log("========================")
-list.shiftBy(3);
-list.printValues();
+list = new DLL();
+list.addToFront(3);
+list.addToFront(6);
+list.addToFront(9);
+list.addToFront(12);
+list.addToBack(15);
+list.addToBack(18);
+list.printValuesForward();
+console.log(list.lengthOfList());
+console.log("=====================");
+console.log(list.contains(12));
+console.log(list.contains(8));
+console.log("=====================");
+list.removeFromBack();
+list.removeFromFront();
+list.printValuesForward();
+console.log("=====================");
+console.log(list.lengthOfList());
 
-// ====================================
+
+
+
+
