@@ -72,7 +72,7 @@ class DLL {
         }
         console.log(str);
     }
-     
+    
     // prints the items of a DLL from back to front
     printValuesBackward() {
         var runner = this.tail;
@@ -87,6 +87,22 @@ class DLL {
         }
         console.log(str);
     }
+
+        // given a value, return true or false for whether or not the list contains the value
+        contains(value) {
+            if(this.head == null) {
+                console.log("The list is empty!");
+            } else {
+                var runner = this.head;
+                while(runner){
+                    if(runner.val == value) {
+                        return true;
+                    }
+                    runner = runner.next;
+                }
+                return false;
+            }
+        }
 
     // return the length of a given DLL
     lengthOfList() {
@@ -111,6 +127,9 @@ list.printValuesForward();
 console.log(list.lengthOfList());
 console.log("=====================");
 list.printValuesBackward();
+console.log("=====================");
+console.log(list.contains(12));
+console.log(list.contains(8));
 console.log("=====================");
 list.removeFromBack();
 list.removeFromFront();
