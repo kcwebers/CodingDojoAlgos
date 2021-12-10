@@ -117,6 +117,72 @@ class DLL {
             return length;
         }
     }
+
+    // Given and value and index, insert a Node of that value before the given index
+    insertBefore(value, index) {
+        var node = new Node(value)
+        if(!this.head) {
+            console.log("List does not exist yet!");
+            this.head = node;
+            this.tail = node;
+        }
+        var count = 0;
+        var runner = this.head;
+        while (runner.next != null) {
+            if(count == index) {
+                node.next = runner;
+                runner.prev.next = node;
+                runner.prev = node;
+                node.prev = runner.prev;
+                break;
+            }
+            runner = runner.next;
+            count ++;
+        }
+    }
+
+    // Given and value and index, insert a Node of that value after the given index
+    insertAfter(value, index) {
+        var node = new Node(value)
+        if(!this.head) {
+            console.log("List does not exist yet!");
+            this.head = node;
+            this.tail = node;
+        }
+        var count = 0;
+        var runner = this.head;
+        while (runner.next != null) {
+            if(count == index) {
+                node.next = runner.next;
+                runner.next.prev = node;
+                runner.next = node;
+                node.prev = runner;
+                break;
+            }
+            runner = runner.next;
+            count ++;
+        }
+    }
+
+    // Extra Challenge: Given a DLL, reverse the order of the nodes
+    reverseList() {
+        if(this.head == null || this.head.next == null) {
+            console.log("List too short to reverse!");
+        }
+        var runner = this.head;
+        while(runner){
+            // cyclone time
+            let temp = runner.next;
+            runner.next = runner.prev;
+            runner.prev = temp;
+            runner = temp;
+        }
+
+        // make sure to swap ye head and tail
+        var temp = this.head;
+        this.head = this.tail;
+        this.tail = temp;
+    }
 }
 
 list = new DLL();
@@ -127,16 +193,22 @@ list.addToFront(12);
 list.addToBack(15);
 list.addToBack(18);
 list.printValuesForward();
-console.log(list.lengthOfList());
+// console.log(list.lengthOfList());
 console.log("=====================");
-console.log(list.contains(12));
-console.log(list.contains(8));
+// console.log(list.contains(12));
+// console.log(list.contains(8));
 console.log("=====================");
-list.removeFromBack();
-list.removeFromFront();
+// list.removeFromBack();
+// list.removeFromFront();
+console.log("=====================");
+// console.log(list.lengthOfList());
+console.log("=====================");
+list.insertBefore(500, 3);
+list.insertAfter(500, 3);
 list.printValuesForward();
 console.log("=====================");
-console.log(list.lengthOfList());
+list.reverseList();
+list.printValuesForward();
 
 
 
