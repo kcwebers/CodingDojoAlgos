@@ -1,216 +1,82 @@
-class Node {
+class BSTNode {
     constructor(value) {
-        this.val = value;
-        this.next = null;
-        this.prev = null;
-    }
-}
-
-class DLL {
-    constructor(){
-        this.head = null;
-        this.tail = null;
+        this.value = value;
+        this.left = null; // to the left should only be less than
+        this.right = null; // to the right should only be greater than
     }
 
-    // given a value, add a node containing that value to the front of your DLL
-    addToFront(value) {
-        var node = new Node(value);
-        if(this.head == null) {
-            this.head = node;
-            this.tail = node;
-        } else {
-            node.next = this.head;
-            this.head.prev = node;
-            this.head = node;
-        }
-    }
-
-    // given a value, add a node containing that value to the end of your DLL
-    addToBack(value) {
-        var node = new Node(value);
-        if(this.head == null) {
-            this.head = node;
-            this.tail = node;
-        } else {
-            node.prev = this.tail;
-            this.tail.next = node;
-            this.tail = node;
-        }
-    }
-
-    // remove the first node in a DLL
-    removeFromFront() {
-        if(this.head == null) {
-            console.log("This list is empty!");
-        } else {
-            if(!this.head.next) {
-                this.head = null;
-                this.tail = null;
+    add(value) {
+        if(value < this.value) {
+            if(this.left) {
+                this.left.add(value);
             } else {
-                this.head = this.head.next;
-                this.head.prev.next = null;
-                this.head.prev = null;
+                this.left = new BSTNode(value);
             }
         }
-    }
 
-    // remove the last node in a DLL
-    removeFromBack() {
-        if(this.head == null) {
-            console.log("This list is empty!");
-        } else {
-            if(!this.head.next) {
-                this.head = null;
-                this.tail = null;
+        if(value > this.value) {
+            if(this.right) {
+                this.right.add(value);
             } else {
-                this.tail = this.tail.prev;
-                this.tail.next.prev = null;
-                this.tail.next = null;
+                this.right = new BSTNode(value);
             }
         }
     }
 
-    // prints the items of a DLL from front to back
-    printValuesForward() {
-        if(this.head == null) {
-            console.log("The list is empty!");
-        } else {
-            var runner = this.head;
-            var str = "Starting at the head : "
-            while(runner){
-                str += `${runner.val} -> `;
-                runner = runner.next;
-            }
-            str += " that was the tail";
-            console.log(str);
-        }
-    }
-
-    // given a value, return true or false for whether or not the list contains the value
     contains(value) {
-        if(this.head == null) {
-            console.log("The list is empty!");
-        } else {
-            var runner = this.head;
-            while(runner){
-                if(runner.val == value) {
-                    return true;
-                }
-                runner = runner.next;
+        if(value < this.value) {
+            if(this.left) {
+                return this.left.contains(value);
+            } else {
+                return null;
             }
-            return false;
         }
-    }
-    
-
-    // return the length of a given DLL
-    lengthOfList() {
-        if(this.head == null) {
-            console.log("The list is empty!");
-        } else {
-            var runner = this.head;
-            var length = 0;
-            while (runner) {
-                length += 1;
-                runner = runner.next;
+        if(value > this.value) {
+            if(this.right) {
+                return this.right.contains(value);
+            } else {
+                return null;
             }
-            return length;
         }
+        return this;
     }
 
-    // Given and value and index, insert a Node of that value before the given index
-    insertBefore(value, index) {
-        var node = new Node(value)
-        if(!this.head) {
-            console.log("List does not exist yet!");
-            this.head = node;
-            this.tail = node;
-        }
-        var count = 0;
-        var runner = this.head;
-        while (runner.next != null) {
-            if(count == index) {
-                node.next = runner;
-                runner.prev.next = node;
-                runner.prev = node;
-                node.prev = runner.prev;
-                break;
-            }
-            runner = runner.next;
-            count ++;
-        }
+    size() {
+        return  (this.left ? this.left.size() : 0) + 
+        (this.right ? this.right.size() : 0) + 1;
     }
 
-    // Given and value and index, insert a Node of that value after the given index
-    insertAfter(value, index) {
-        var node = new Node(value)
-        if(!this.head) {
-            console.log("List does not exist yet!");
-            this.head = node;
-            this.tail = node;
-        }
-        var count = 0;
-        var runner = this.head;
-        while (runner.next != null) {
-            if(count == index) {
-                node.next = runner.next;
-                runner.next.prev = node;
-                runner.next = node;
-                node.prev = runner;
-                break;
-            }
-            runner = runner.next;
-            count ++;
-        }
+}
+
+class BST {
+    constructor() {
+        this.root = null;
+    }
+    // given a BST add a node to it in the appropriate spot!
+    // remember a BST contain values that are larger to the right of a Node, and smaller to the left
+    // a BST also does not contain duplicates!
+    add(value) {
+        !this.root ? this.root = new BSTNode(value) : this.root.add(value)
     }
 
-    // Extra Challenge: Given a DLL, reverse the order of the nodes
-    reverseList() {
-        if(this.head == null || this.head.next == null) {
-            console.log("List too short to reverse!");
-        }
-        var runner = this.head;
-        while(runner){
-            // cyclone time
-            let temp = runner.next;
-            runner.next = runner.prev;
-            runner.prev = temp;
-            runner = temp;
-        }
+    // find and return the node of a given value
+    contains(value) {
+        return !this.root ? null : this.root.contains(value);
+    }
 
-        // make sure to swap ye head and tail
-        var temp = this.head;
-        this.head = this.tail;
-        this.tail = temp;
+    // return the size (number of nodes) of a BST
+    size() {
+        return !this.root ? 0 : this.root.size();
     }
 }
 
-list = new DLL();
-list.addToFront(3);
-list.addToFront(6);
-list.addToFront(9);
-list.addToFront(12);
-list.addToBack(15);
-list.addToBack(18);
-list.printValuesForward();
-// console.log(list.lengthOfList());
-console.log("=====================");
-// console.log(list.contains(12));
-// console.log(list.contains(8));
-console.log("=====================");
-// list.removeFromBack();
-// list.removeFromFront();
-console.log("=====================");
-// console.log(list.lengthOfList());
-console.log("=====================");
-list.insertBefore(500, 3);
-list.insertAfter(500, 3);
-list.printValuesForward();
-console.log("=====================");
-list.reverseList();
-list.printValuesForward();
-
-
-
-
-
+var bst = new BST();
+bst.add(10);
+bst.add(15);
+bst.add(5);
+bst.add(-20);
+bst.add(25);
+console.log("====================");
+console.log(bst.contains(15));
+console.log(bst.contains(32));
+console.log(bst.size());
