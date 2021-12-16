@@ -46,6 +46,28 @@ class BSTNode {
         (this.right ? this.right.size() : 0) + 1;
     }
 
+    findLongestBranch() {
+        if(!this.left && !this.right) {
+            return 0;
+        }
+
+        let left = this.left ? this.left.findLongestBranch() + 1 : 0;
+        let right = this.right ? this.right.findLongestBranch() + 1 : 0;
+
+        return Math.max(left, right);
+    }
+
+    verifyBalanced() {
+        if(!this.left && !this.right) {
+            return true;
+        }
+
+        let left = this.left ? this.left.findLongestBranch() + 1 : 0;
+        let right = this.right ? this.right.findLongestBranch() + 1 : 0;
+
+        return Math.abs(left - right) <= 1;
+    }
+
 }
 
 class BST {
@@ -68,15 +90,27 @@ class BST {
     size() {
         return !this.root ? 0 : this.root.size();
     }
+
+    // returns the total height of the tree; this is the longest sequence of nodes from root to leaf node
+    height() {
+        return !this.root ? 0 : this.root.findLongestBranch();
+    }
+    
+    // returns true/false based on if the BST is balanced, meaning the nodes are balanced on each side
+    isBalanced() {
+        return !this.root ? true : this.root.verifyBalanced();
+    }
 }
 
 var bst = new BST();
 bst.add(10);
 bst.add(15);
 bst.add(5);
-bst.add(-20);
+bst.add(20);
 bst.add(25);
+bst.add(8);
+bst.add(3);
 console.log("====================");
-console.log(bst.contains(15));
-console.log(bst.contains(32));
-console.log(bst.size());
+// console.log(bst.contains(15));
+console.log(bst.isBalanced());
+console.log(bst.height());
