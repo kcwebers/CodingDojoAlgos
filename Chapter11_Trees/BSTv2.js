@@ -68,6 +68,71 @@ class BSTNode {
         return Math.abs(left - right) <= 1;
     }
 
+    invertNodes() {
+        if (this.left) {
+            this.left.invertNodes();
+        } 
+        if (this.right) {
+            this.right.invertNodes();
+        } 
+
+        // easier / cleaner version of a swap with variables
+        [this.left, this.right] = [this.right, this.left]
+    }
+
+    findNodeandParent(value, parent = this.root) {
+        if(value < this.value) {
+            if(this.left) {
+                return this.left.findNodeandParent(value, this);
+            } else {
+                return null;
+            }
+        }
+        if(value > this.value) {
+            if(this.right) {
+                return this.right.findNodeandParent(value, this);
+            } else {
+                return null;
+            }
+        }
+        return { 'parent' : parent, 'node' : this };
+    }
+
+
+    invertNodes() {
+        if (this.left) {
+            this.left.invertNodes();
+        } 
+        if (this.right) {
+            this.right.invertNodes();
+        } 
+
+        // easier / cleaner version of a swap with variables
+        [this.left, this.right] = [this.right, this.left]
+
+        // var temp = this.left;
+        // this.left = this.right;
+        // this.right = temp;
+    }
+
+    printInOrder() {
+        if(this.left) {
+            this.left.printInOrder();
+        }
+        console.log(this.value);
+        if(this.right) {
+            this.right.printInOrder();
+        }
+    }
+
+    countNumberOfLeaves(){
+        if(!this.left && !this.right) {
+            return 1;
+        }
+        return  (this.left ? this.left.countNumberOfLeaves() : 0) + 
+                (this.right ? this.right.countNumberOfLeaves() : 0);
+    }
+
 }
 
 class BST {
@@ -99,6 +164,26 @@ class BST {
     // returns true/false based on if the BST is balanced, meaning the nodes are balanced on each side
     isBalanced() {
         return !this.root ? true : this.root.verifyBalanced();
+    }
+
+    removeNode(node, value) {
+        return node ? node.removeNode(value) : node;
+    }
+
+    printInOrder() {
+        if ( this.root ) {
+            this.root.printInOrder();
+        }
+    }
+
+    // invert the nodes of a given tree (so left side becomes greater than and right side less than; can assume tree is balanced)
+    invertNodes() {
+        return this.root ? this.root.invertNodes() : null;
+    }
+
+    // find the number of Leaf Nodes (ends of branches)
+    countNumberOfLeaves() {
+        return !this.root ? 0 : this.root.countNumberOfLeaves();
     }
 }
 
