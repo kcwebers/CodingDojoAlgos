@@ -60,5 +60,39 @@ function findSubset(arr, subset) {
     return len == set.size ? true : false;
 }
 
-console.log(findSubset([4,12,9,32,61,25,9,6,2], [12,61,91,4]));
+console.log(findSubset2([4,12,9,32,61,25,9,6,2], [12,61,91,4]));
+console.log(findSubset2([4,12,9,32,61,25,9,6,2], [12,61,32,4]));
 
+
+// ============================================
+// Student Solutions
+// ============================================
+
+function findSubset(arr, subset) {
+    return subset.every(val=>arr.includes(val));
+}
+
+console.log(findSubset([4,12,9,32,61,25,9,6,2], [12,61,91,4]));
+console.log(findSubset([4,12,9,32,61,25,9,6,2], [12,61,32,4]));
+
+// ============================================
+
+function findSubset(arr, subset) {
+    // your code here
+    let foundNums = 0;
+    let numDict = {}
+    for(let i=0; i<arr.length; i++){
+        if(!numDict[arr[i]]){
+            numDict[arr[i]] = 1;
+        }
+    }
+    for(let j=0; j<subset.length; j++){
+        if(numDict[subset[j]]){
+            foundNums++;
+        }
+    }
+    return foundNums === subset.length;
+}
+
+console.log(findSubset([4,12,9,32,61,25,9,6,2], [12,61,91,4])); // false
+console.log(findSubset([4,12,9,32,61,25,9,6,2], [12,61,32,4])); // truie
