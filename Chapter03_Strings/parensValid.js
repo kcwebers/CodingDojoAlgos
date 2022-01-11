@@ -32,11 +32,13 @@ function parensValid(str) {
     }
 
     // check remaining array, if anything in it return false because the parens dont have their pair
-    if (checkParens.length > 0) {
-        return false;
-    } else {
-        return true;
-    }
+    // if (checkParens.length > 0) {
+    //     return false;
+    // } else {
+    //     return true;
+    // }
+
+    return checkParens.length > 0 ? false : true;
 }
 
 function parensValid(str){

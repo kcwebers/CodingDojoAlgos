@@ -352,3 +352,29 @@ console.log(bracesValid2("d(i{a}l[t]o)n{e!"));
 console.log(bracesValid2("{{[a]}}(){bcd}{()}"));
 
 // ================================================================
+
+function bracesValid(string) {
+    var newArray = Array.from(string);
+    var value = 0;
+    for(var i = 0;i<newArray.length;i++){
+        if (value < 0){
+            return false;
+        }
+        
+        else if (newArray[i] == '('){
+            value = value + 1;
+        }
+        else if (newArray[i] == ')'){
+            value = value -1;
+        }
+    }
+    if (value == 0){
+        return true;
+    }
+
+    else{
+        return false;
+    }
+}
+
+// ================================================================
