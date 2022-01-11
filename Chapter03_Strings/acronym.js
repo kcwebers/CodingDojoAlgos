@@ -250,3 +250,14 @@ function acronym(str) {
 
 console.log(acronym("there's no free lunch - gotta pay yer way"));
 // ============================
+function acronym(str) {
+    let arr=str.split(' ');
+    let newArr=[]
+    for(let i=0;i<arr.length;i++){
+        newArr.push(arr[i][0])
+    }
+    return newArr.join('').toUpperCase();
+}
+
+console.log(acronym("there's no free lunch - gotta pay yer way"));
+// ============================
