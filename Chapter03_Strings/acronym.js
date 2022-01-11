@@ -199,7 +199,54 @@ function acronym(str) {
             nStr += str[i];
         }
     }
-
+    
     return nStr.toUpperCase();
     // your code here
 }
+// ============================
+function acronym(str) {
+    // your code here
+    var word = str.split(" ");
+    
+    console.log(word);
+    var acr = "";
+    
+    for(i=0; i<word.legnth; i++){
+        acr += word[i][0];
+        return acr.toUpperCase();
+    }
+    //toUppercase()
+}
+
+console.log(acronym("there's no free lunch - gotta pay yer way"));
+// ============================
+function acronym(str) {
+    return str.trim().split(' ').map(element => element[0].toUpperCase()).toString().replaceAll(',', '');
+}
+// ============================
+function acronym(str) {
+    // your code herw
+    var acro = "";
+    for(i = 0; i < str.length; i++){
+        if (i == 0){
+            acro += str[i].toUpperCase();
+        }else if (str[i] == " "){
+            acro += str[i+1].toUpperCase();
+        }
+    }
+    return acro;
+}
+
+console.log(acronym("there's no free lunch - gotta pay yer way"));
+// ============================
+function acronym(str) {
+    var arr = Array.from(str.split(' '));
+    var string = ""
+    for(var i = 0; i < arr.length; i++){
+        string += arr[i][0];
+    }
+    return string.toUpperCase();
+}
+
+console.log(acronym("there's no free lunch - gotta pay yer way"));
+// ============================
