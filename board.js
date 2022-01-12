@@ -1,79 +1,69 @@
-// Create a function that, given an input string, returns a boolean true/false whether parentheses in that string are valid.
+// Create a function that returns as boolean of true/false for whether or not an input string is a strict pallindrome. Do not ignore whitespaces, casing matters!!
 
-// Example 1:"y(3(p)p(3)r)s" --> true
-// Example 2: "n(0(p)3" --> false
-// Example 3: "n)0(t(o)k" --> false
+// Example 1: "racecar" --> true
+// Example 2: "Dud" --> false
+// Example 3: "oho!" --> false
 
-// hint: consider using an array or object to solve
+// pallidrome = reads the same forwards and back!
+// loop through our string
+// check each element with it's 'sister' element on the other side of the string
+// if elements don't match then return false
+// if we make it through our loop and never hit false, then return true
 
-// check entire string, return true/false
-// every single opening parens has a closing
-// never hit an closing parens before a opening parens
-// ONLY care about the parens in the string
+// function isPallindrome(str) {
+//     for (var i = 0 ; i < str.length/2 ; i ++) {
+//         if(str[i] !== str[str.length-1-i]) {
+//             return false;
+//         }
+//     }
+//     return true;
+// }
 
-function parensValid(str) {
-    // use array to store just my opening parens
-    var checkParens = [];
-    // loop through the entire string and check for opening and closing parens
-    for (var i = 0 ; i < str.length ; i ++) {
-        // when we find opening parens, we will hold on to them in our array
-        if(str[i] === "(") {
-            checkParens.push(str[i]);
-        } else if (str[i] === ")" && checkParens[checkParens.length - 1] === "(") {
-            // when we find closing parens, we compare against the opening ones we have
-            checkParens.pop();
-        } else if (str[i] === ")") {
+// console.log(isPallindrome("racecar")); // true
+// console.log(isPallindrome("e tacocat e")); // true
+// console.log(isPallindrome("Dud")); // false
+// console.log(isPallindrome("oho!")); // false
+// console.log(isPallindrome(" to ")); // false
+
+// Given a String, return the longest pallindromic substring. Given "hello dada", return "dad". Given "not much" return "n". Include spaces as well!
+
+// Example 1: "my favorite racecar erupted" --> "e racecar e"
+// Example 2: "nada" --> "ada"
+// Example 3: "nothing to see" --> "ee"
+
+function isPallindrome(str) {
+    for (var i = 0 ; i < str.length/2 ; i ++) {
+        if(str[i] !== str[str.length-1-i]) {
             return false;
         }
     }
-
-    // check remaining array, if anything in it return false because the parens dont have their pair
-    if (checkParens.length > 0) {
-        return false;
-    } else {
-        return true;
-    }
+    return true;
 }
 
-console.log(parensValid("y(3(p)p(3)r)s")); // true
-console.log(parensValid("n(0(p)3")); // false
-console.log(parensValid("n)0(t(o)k")); // false
-console.log(parensValid("((()))")); // true
-console.log(parensValid("()()()()()()(")); // false
+function longestPallindrome(str) {
+    var palli = "";
+    
+    for (var start = 0 ; start < str.length-1 ; start ++) {
+        for (var end = start + 1; end <= str.length ; end ++) {
+            // check to see if this section of the string is a pallindrome
+            // construct a substring using the start and end points from the original string
+            var substring = "";
+            for(var k = start ; k < end ; k ++) {
+                substring += str[k];
+            }
+            console.log(substring);
 
-// Given a string, returns whether the sequence of various parentheses, braces and brackets within it are valid. 
-
-// Example 1: "({[({})]})" --> true
-// Example 2: "d(i{a}l[t]o)n{e!" --> false
-// Example 2: "{{[a]}}(){bcd}{()}" --> true
-
-// hint: consider using an array or object to solve
-
-function bracesValid(str) {
-    var checker = [];
-
-    for (var i = 0 ; i < str.length ; i ++) {
-        if (str[i] == "(" || str[i] == "[" || str[i] == "{") {
-            checker.push(str[i]);
-
-        } else if (str[i] == ")" && checker[checker.length-1] == "(") {
-            checker.pop();
-        } else if (str[i] == "]" && checker[checker.length-1] == "[") {
-            checker.pop();
-        } else if (str[i] == "}" && checker[checker.length-1] == "{") {
-            checker.pop();
-
-        } else if (str[i] == ")" || str[i] == "]" || str[i] =="}") {
-            return false;
+            if (isPallindrome(substring) === true) {
+                // is this new pallindrome's length greater than the existing 'longest pallindrome'?
+                if (substring.length > palli.length) {
+                    palli = substring;
+                }
+            }
         }
     }
-    if (checker.length > 0) {
-        return false;
-    } else {
-        return true;
-    }
+    return palli;
 }
 
-console.log(bracesValid("({[({})]})")); // true 
-console.log(bracesValid("d(i{a}l[t]o)n{e!")); // false
-console.log(bracesValid("{{[a]}}(){bcd}{()}")); // true
+// console.log(longestPallindrome("my favorite racecar erupted"));
+console.log(longestPallindrome("naada"));
+// console.log(longestPallindrome("nothing to see"));
