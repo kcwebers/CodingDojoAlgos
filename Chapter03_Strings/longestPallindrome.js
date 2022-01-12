@@ -19,6 +19,15 @@
         for (var i = 0 ; i < str.length-1 ; i ++) {
             for (var j = i + 1; j <= str.length ; j ++) {
                 // check to see if this section of the string is a pallindrome
+
+                // construct a substring using the start and end points from the original string
+                // var substring = "";
+                // for(var k = start ; k < end ; k ++) {
+                //     substring += str[k];
+                // }
+                // console.log(substring);
+
+                // .slice() or .substring() are methods that can also be used!
                 if (isPallindrome(str.slice(i,j)) === true) {
                     // is this new pallindrome's length greater than the existing 'longest pallindrome'?
                     if (str.slice(i,j).length > palli.length) {
