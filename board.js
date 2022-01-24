@@ -1,69 +1,119 @@
-// Create a function that returns as boolean of true/false for whether or not an input string is a strict pallindrome. Do not ignore whitespaces, casing matters!!
+class Node{
+    constructor(value){
+        this.value = value
+        this.next = null
+    }
+}
 
-// Example 1: "racecar" --> true
-// Example 2: "Dud" --> false
-// Example 3: "oho!" --> false
+// a queue operates on the principal of "First In, First Out" like waiting in line for something
+class SLQueue{
+    constructor() {
+        this.head = null
+        this.tail = null
+    }
 
-// pallidrome = reads the same forwards and back!
-// loop through our string
-// check each element with it's 'sister' element on the other side of the string
-// if elements don't match then return false
-// if we make it through our loop and never hit false, then return true
 
-// function isPallindrome(str) {
-//     for (var i = 0 ; i < str.length/2 ; i ++) {
-//         if(str[i] !== str[str.length-1-i]) {
-//             return false;
-//         }
-//     }
-//     return true;
-// }
+    // add a node with the given value to the queue
+    enqueue(value) {
+        var newNode = new Node(value);
 
-// console.log(isPallindrome("racecar")); // true
-// console.log(isPallindrome("e tacocat e")); // true
-// console.log(isPallindrome("Dud")); // false
-// console.log(isPallindrome("oho!")); // false
-// console.log(isPallindrome(" to ")); // false
+        if (!this.head){
+            this.head = newNode;
+            this.tail = newNode;
+            return this;
+        }
 
-// Given a String, return the longest pallindromic substring. Given "hello dada", return "dad". Given "not much" return "n". Include spaces as well!
+        this.tail.next = newNode;
+        this.tail = this.tail.next;
+        return this;
+    }
 
-// Example 1: "my favorite racecar erupted" --> "e racecar e"
-// Example 2: "nada" --> "ada"
-// Example 3: "nothing to see" --> "ee"
+    // remove and return the front value from the queue
+    dequeue() {
+        if(!this.head) {
+            console.log("Nothing in this queue!");
+            return null;
+        }
 
-function isPallindrome(str) {
-    for (var i = 0 ; i < str.length/2 ; i ++) {
-        if(str[i] !== str[str.length-1-i]) {
+        var temp = this.head;
+        this.head = this.head.next;
+        temp.next = null;
+        return temp.value;
+    }
+
+    // return true/false based on whether you find the given value in a queue
+    contains(value) {
+        if(!this.head) {
             return false;
         }
+        var runner = this.head;
+        while(runner) {
+            if(runner.value === value) {
+                console.log(`Found it! ${runner.value}`);
+                return true;
+            }
+            runner = runner.next;
+        }
+        console.log("Sorry! Couldn't find " + value);
+        return false;
     }
-    return true;
-}
 
-function longestPallindrome(str) {
-    var palli = "";
-    
-    for (var start = 0 ; start < str.length-1 ; start ++) {
-        for (var end = start + 1; end <= str.length ; end ++) {
-            // check to see if this section of the string is a pallindrome
-            // construct a substring using the start and end points from the original string
-            var substring = "";
-            for(var k = start ; k < end ; k ++) {
-                substring += str[k];
-            }
-            console.log(substring);
 
-            if (isPallindrome(substring) === true) {
-                // is this new pallindrome's length greater than the existing 'longest pallindrome'?
-                if (substring.length > palli.length) {
-                    palli = substring;
-                }
+    displayQueue(){
+        if (!this.head){
+            console.log("This queue is empty.");
+        }
+        else {
+            var runner = this.head;
+            var str = "";
+            while(runner){
+                str += runner.value + " -> ";
+                runner = runner.next;
             }
+            str += "null";
+            console.log(str);
         }
     }
-    return palli;
+
+    // return the value of the front node without removing from list
+    front() {
+        // if(!this.head) {
+        //     return null;
+        // } else {
+        //     return this.head.value;
+        // }
+
+        return this.head == null ? null : this.head.value;
+    }
+
+    // return whether or not a list is empty
+    isEmpty() {
+        // if(!this.head) {
+        //     return "It's empty!"
+        // } else {
+        //     return "It's not empty!"
+        // }
+
+        // evaluates to the opposite of what you are expecting
+        // if this.head exists, we are returning the 'not' of that, so it would output false
+        // if this.head is null, we are returning the 'not' of that as well, so it would return true
+        return this.head === null;
+        // return !this.head;
+    }
 }
 
-// console.log(longestPallindrome("my favorite racecar erupted"));
-console.log(longestPallindrome("naada"));
-// console.log(longestPallindrome("nothing to see"));
+
+var q = new SLQueue();
+console.log(q.isEmpty()); // true
+q.enqueue(1);
+q.enqueue(2);
+q.enqueue(3);
+q.enqueue(4);
+q.enqueue(5);
+q.enqueue(6);
+q.dequeue();
+console.log(q.isEmpty()); // false
+console.log(q.front()); // 2
+console.log(q.contains(4)); // true
+console.log(q.contains(7)); // false
+q.displayQueue();

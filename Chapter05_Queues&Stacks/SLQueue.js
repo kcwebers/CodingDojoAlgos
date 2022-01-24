@@ -100,24 +100,32 @@ class SLQueue{
             console.log(str);
         }
     }
-
-        // return the value of the front node without removing from list
-        front() {
-            if(!this.head) {
-                return null;
-            } else {
-                return this.head.value;
-            }
-        }
     
-        // return whether or not a list is empty
-        isEmpty() {
-            if(!this.head) {
-                return "It's empty!"
-            } else {
-                return "It's not empty!"
-            }
-        }
+    // return the value of the front node without removing from list
+    front() {
+        // if(!this.head) {
+        //     return null;
+        // } else {
+        //     return this.head.value;
+        // }
+
+        return this.head == null ? null : this.head.value;
+    }
+
+    // return whether or not a list is empty
+    isEmpty() {
+        // if(!this.head) {
+        //     return "It's empty!"
+        // } else {
+        //     return "It's not empty!"
+        // }
+
+        // evaluates to the opposite of what you are expecting
+        // if this.head exists, we are returning the 'not' of that, so it would output false
+        // if this.head is null, we are returning the 'not' of that as well, so it would return true
+        return this.head === null;
+        // return !this.head;
+    }
 
         // Reorder SLQueue values to alternate first half values with second half values, in order. For example: (1,2,3,4,5) becomes (1,4,2,5,3). You may create one additional SLQueue, if needed.
 
