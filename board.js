@@ -5,115 +5,88 @@ class Node{
     }
 }
 
-// a queue operates on the principal of "First In, First Out" like waiting in line for something
-class SLQueue{
+// a stack operates on the principal of "First In, Last Out" like a pringles can
+class SLStack{
     constructor() {
-        this.head = null
-        this.tail = null
+        this.top = null // this.head equivalent
     }
 
-
-    // add a node with the given value to the queue
-    enqueue(value) {
+    
+    // add a given value to your stack
+    push(value){
         var newNode = new Node(value);
-
-        if (!this.head){
-            this.head = newNode;
-            this.tail = newNode;
+        // if(!this.top) {
+        //     this.top = newNode;
+        // } else {
+        newNode.next = this.top;
+        this.top = newNode;
+        return this;
+        // }
+    }
+    
+    // remove and return the top value
+    pop(){
+        // if there's nothing in the stack, then what?
+        if (!this.top) {
+            console.log("This stack is empty!");
             return this;
         }
+        var removed = this.top;
+        this.top = this.top.next;
+        removed.next = null;
+        return removed.value;
+    }
 
-        this.tail.next = newNode;
-        this.tail = this.tail.next;
+    // return (don't remove) the top value of a stack
+    returnTop() {
+        return !this.top ? null : this.top.value;
+
+        // if(!this.top) {
+        //     console.log("This stack is empty!")
+        //     return null
+        // } else {
+        //     return this.top.value
+        // }
+    }
+
+    printStack() {
+        var runner = this.top;
+        while(runner != null) {
+            console.log(`The current value is: ${runner.value}`);
+            runner = runner.next;
+        }
         return this;
     }
 
-    // remove and return the front value from the queue
-    dequeue() {
-        if(!this.head) {
-            console.log("Nothing in this queue!");
-            return null;
-        }
-
-        var temp = this.head;
-        this.head = this.head.next;
-        temp.next = null;
-        return temp.value;
-    }
-
-    // return true/false based on whether you find the given value in a queue
-    contains(value) {
-        if(!this.head) {
-            return false;
-        }
-        var runner = this.head;
-        while(runner) {
-            if(runner.value === value) {
-                console.log(`Found it! ${runner.value}`);
-                return true;
-            }
+    stackSize() {
+        var runner = this.top;
+        // var size = 0;
+        // while(runner != null) {
+        //     runner = runner.next;
+        //     size += 1;
+        // }
+        // return size;
+        var counter = 1;
+        // run through entire list and count each value
+        while(runner.next != null) {
+            // print the value
+            counter += 1;
+            // iterate your runner
             runner = runner.next;
         }
-        console.log("Sorry! Couldn't find " + value);
-        return false;
-    }
+        console.log(counter);
+        return counter;
 
-
-    displayQueue(){
-        if (!this.head){
-            console.log("This queue is empty.");
-        }
-        else {
-            var runner = this.head;
-            var str = "";
-            while(runner){
-                str += runner.value + " -> ";
-                runner = runner.next;
-            }
-            str += "null";
-            console.log(str);
-        }
-    }
-
-    // return the value of the front node without removing from list
-    front() {
-        // if(!this.head) {
-        //     return null;
-        // } else {
-        //     return this.head.value;
-        // }
-
-        return this.head == null ? null : this.head.value;
-    }
-
-    // return whether or not a list is empty
-    isEmpty() {
-        // if(!this.head) {
-        //     return "It's empty!"
-        // } else {
-        //     return "It's not empty!"
-        // }
-
-        // evaluates to the opposite of what you are expecting
-        // if this.head exists, we are returning the 'not' of that, so it would output false
-        // if this.head is null, we are returning the 'not' of that as well, so it would return true
-        return this.head === null;
-        // return !this.head;
     }
 }
 
-
-var q = new SLQueue();
-console.log(q.isEmpty()); // true
-q.enqueue(1);
-q.enqueue(2);
-q.enqueue(3);
-q.enqueue(4);
-q.enqueue(5);
-q.enqueue(6);
-q.dequeue();
-console.log(q.isEmpty()); // false
-console.log(q.front()); // 2
-console.log(q.contains(4)); // true
-console.log(q.contains(7)); // false
-q.displayQueue();
+var sls = new SLStack()
+sls.push(3);
+sls.push(18);
+sls.push(12);
+sls.push(78);
+sls.push(56);
+console.log(sls.pop());
+console.log(sls.returnTop());
+sls.printStack();
+console.log(sls.stackSize());

@@ -5,7 +5,7 @@ class Node{
     }
 }
 
-// a stack operates on the principal of "First In, Last Out" like waiting in line for something
+// a stack operates on the principal of "First In, Last Out" like a pringles can
 class SLStack{
     constructor() {
         this.top = null
