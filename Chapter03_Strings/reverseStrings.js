@@ -101,3 +101,50 @@ function reverseString(str) {
     }
     return nStr.toLowerCase();
 }
+
+// ============================
+
+// acronym
+function acronym(str) {
+    var acro = ""
+    acro += str[0]
+    for(var i=0; i<str.length; i++){
+            if(str[i] === " "){
+                acro += str[i+1]
+            }
+        }
+    return acro.toUpperCase()
+}
+
+console.log(acronym("there's no free lunch - gotta pay yer way"));
+
+// ============================
+
+function acronym(element){
+    var acronym = "";
+
+    for(j=0; j < element.length; j++){
+        if(element[j] == " " && element[j+1] != '-'){
+            acronym += element[j+1];
+        }else if( j == 0){
+            acronym += element[j];
+        } 
+    }
+    return acronym;  
+}
+console.log(acronym("there's no free lunch - gotta pay yer way"));
+
+// ============================
+
+///reverse string
+
+function reverseString(str){
+    var reverseStr = ""
+    for(var i=str.length-1; i>=0; i--) {
+        reverseStr += str[i]
+    }
+    return reverseStr
+}
+console.log(reverseString("Creature"));
+
+// ============================
