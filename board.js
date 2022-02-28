@@ -1,67 +1,69 @@
-// There are 3 edits that can be done on a string: add a acharacter, remove a character, or replace a character. 
-// Given 2 strings, write a function that checks if they are one edit or fewer away from eachother (see samples below)
-function oneAway(str1, str2) {
-    // if the difference in str lengths is greater than 1 then return false
-    if (Math.abs(str1.length - str2.length) > 1) {
-        return false;
+// What is Recursion?
+// Basically: when a function calls itself within itself
+
+
+// Write a recursive function that, given a number, returns the sum of 
+// integers from one up to that given number
+// Ex: given 5 would return 1+2+3+4+5 == 15
+// Ex: given 2.5 would return 1+2 == 3
+
+function sigma(num) {
+    var sum = 0
+    for (i = 0 ; i <= num ; i ++) {
+        sum += i
     }
-
-    // if the 2 strings match in length, then compare elements, only 1 can be wrong
-    if(str1.length == str2.length) {
-        console.log()
-        var flaw = false;
-        for (var i = 0; i < str1.length; i++) {
-            if (str1[i] != str2[i]) {
-                if(flaw == true) {
-                    return false;
-                }
-                flaw = true;
-            }
-        }
-        return true;
-    } else {
-        // if strings are different lengths then find the longer/shorter
-        var longer = str1.length > str2.length ? str1 : str2;
-        var shorter = str1.length < str2.length ? str1 : str2;
-        var idx1 = 0;
-        var idx2 = 0;
-
-        while(idx1 < longer.length && idx2 < shorter.length) {
-            // console.log(idx1, idx2)
-            if(idx1 - idx2 > 1) {
-                return false
-            }
-
-            // if the elements to match up, move the pointer for the longer string along
-            // this is because if something is inserted/deleted in spot, 
-            // it should mean everything thereafter will line up
-            if(longer[idx1] != shorter[idx2]) {
-                idx1 ++;
-            } else {
-                // if elements match, then move both pointers
-                idx1 ++;
-                idx2 ++;
-            }
-        }
-        return true;
-    }
+    return sum
 }
 
-console.log(oneAway("hello", "eello")) // true
-console.log(oneAway("hello", "eelloo")) // false 
-console.log(oneAway("ello", "hello")) // true
-console.log(oneAway("helllo", "hello")) // true
-console.log(oneAway("hello", "helo")) // true
-console.log(oneAway("hello", "hell")) // true
-console.log(oneAway("hjllo", "helo")) // false
+function recursiveSigma(num) {
+    num = Math.floor(num)
+    if (num == 0) {
+        return 0
+    }
+    return num + recursiveSigma(num - 1)
+}
+
+// console.log(recursiveSigma(2.5))
+
+// ===============================================================================
+// Recursive Factorial
+// ===============================================================================
 
 
-// ==========================================
-// Vampires and the sleeping man
-// ==========================================
+// Write a drecursive function that, given a number, returns the product of integers up to a given number
+// Ex: given 4 would return 1*2*3*4 == 24
+// Ex: given 3.5 would return 1*2*3 == 6 
 
-// Consider a village with vampires and a sleeping man (who never wakes up, no matter what).
-// A vampire can eat the sleeping man, but after eating him, the vampire falls asleep.
-// Similarly, any vampire can eat any other sleeping vampire, and this process repeats.
-// Assume that the vampires are very smart and would ALWAYS choose to stay alive than to eat the man and risk their lives.
-// Initially, there are 65 vampires and 1 sleeping man. What would happen in the village?
+function recursiveFactorial(num) {
+    num = Math.floor(num)
+    if (num <= 1) {
+        return 1
+    }
+    return num * recursiveFactorial(num - 1)
+}
+
+console.log(recursiveFactorial(4));
+
+// ===============================================================================
+// Recursive Fibonacci
+// ===============================================================================
+
+// Given a number, add the collective sum up to that number (using Fibonacci sequence). The sum is of the previous 2 Fibonacci numbers.
+
+// F0	F1	F2	F3	F4	F5	F6	F7	F8	F9	F10	
+// 0	1	1	2	3	5	8	13	21	34	55	
+
+function recursiveFibonacci(num) {
+    // end point of 0
+    if (num == 0) {
+        return 0;
+    }
+    // end point of 1
+    if (num == 1) {
+        return 1;
+    }
+    // if no endoints are hit
+    return recursiveFibonacci(num - 1) + recursiveFibonacci(num - 2);
+}
+
+console.log(recursiveFibonacci(5));

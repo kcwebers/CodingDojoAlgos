@@ -13,20 +13,22 @@ class SLQueue{
     }
 
     // add a node with the given value to the queue
+    // similar to SLL - add to back
     enqueue(value) {
         var newNode = new Node(value);
 
-        if (!this.head){
+        if(this.head == null){
             this.head = newNode;
             this.tail = newNode;
+        } else {
+            this.tail.next = newNode;
+            this.tail = this.tail.next;
         }
-
-        this.tail.next = newNode;
-        this.tail = this.tail.next;
         return this;
     }
 
     // remove and return the front value from the queue
+    // similar to SLL - remove from front
     dequeue() {
         if(!this.head) {
             console.log("Nothing in this queue!");
@@ -39,6 +41,7 @@ class SLQueue{
     }
 
     //return true/false based on whether you find the given value in a queue
+    // same as contains in SLL
     contains(value) {
         if(!this.head) {
             return false;
@@ -71,14 +74,21 @@ class SLQueue{
         }
 
         runner = this.head;
+        // if the min is at the front
+        if(runner.value == min) {
+            this.dequeue();
+        }
+        // if the min is in the queue
         while(runner.next.next != null){
             if(runner.next.value === min){
                 runner.next = runner.next.next
+                return this;
             }
             else{
                 runner = runner.next
             }
         }
+        // if the min is at the end of the queue
         if(runner.next.value == min){
             this.tail = runner
             runner.next == null
