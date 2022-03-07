@@ -1,4 +1,4 @@
-// There are 3 edits that can be done on a tring: add a acharacter, remove a character, 
+// There are 3 edits that can be done on a string: add a acharacter, remove a character, 
 // or replace a character. Given 2 strings, write a function that checks if they are 
 // one edit or fewer away from eachother (see samples below)
 function oneAway(str1, str2) {
@@ -9,7 +9,6 @@ function oneAway(str1, str2) {
 
     // if the 2 strings match in length, then compare elements, only 1 can be wrong
     if(str1.length == str2.length) {
-        console.log()
         var flaw = false;
         for (var i = 0; i < str1.length; i++) {
             if (str1[i] != str2[i]) {

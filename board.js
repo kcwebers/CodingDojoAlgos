@@ -1,69 +1,72 @@
-// What is Recursion?
-// Basically: when a function calls itself within itself
+// Create a function that, given a string, returns the string's acronym (first letter's only, capitalized) in string form.
+// Example: "there's no free lunch - gotta pay yer way" --> "TNFL-GPYW""
 
+// Things to consider: how to move through a string? How to capitalize letters? how to create/add to a new string?
 
-// Write a recursive function that, given a number, returns the sum of 
-// integers from one up to that given number
-// Ex: given 5 would return 1+2+3+4+5 == 15
-// Ex: given 2.5 would return 1+2 == 3
+// ===================================
+// with Array
+// ===================================
+function acronym(str) {
+    var arr = str.split(" ");
+    var newArr = [];
 
-function sigma(num) {
-    var sum = 0
-    for (i = 0 ; i <= num ; i ++) {
-        sum += i
+    for (var i = 0; i < arr.length; i++) {
+        newArr.push(arr[i][0].toUpperCase());
     }
-    return sum
+    return newArr.join("");
 }
 
-function recursiveSigma(num) {
-    num = Math.floor(num)
-    if (num == 0) {
-        return 0
+console.log(acronym("there's no free lunch - gotta pay yer way"));
+
+// ===================================
+// with new String only
+// ===================================
+function acronym(str) {
+    var newStr = str[0].toUpperCase();
+
+    for (var i = 0; i < str.length; i++) {
+        if (str[i] == " ") {
+            newStr += str[i + 1].toUpperCase();
+        }
     }
-    return num + recursiveSigma(num - 1)
+    return newStr;
 }
 
-// console.log(recursiveSigma(2.5))
-
-// ===============================================================================
-// Recursive Factorial
-// ===============================================================================
+console.log(acronym("there's no free lunch - gotta pay yer way"));
 
 
-// Write a drecursive function that, given a number, returns the product of integers up to a given number
-// Ex: given 4 would return 1*2*3*4 == 24
-// Ex: given 3.5 would return 1*2*3 == 6 
+// ==================================================================================================================
+// Implement reverseString(str) that takes in a String, and then returns a string of the same length, but with the characters reversed.
+// Example: "creature" ---> "erutaerc"
+// ** Don't use the built-in reverse() method!
 
-function recursiveFactorial(num) {
-    num = Math.floor(num)
-    if (num <= 1) {
-        return 1
+// ===================================
+// with Array
+// ===================================
+function reverseString(str) {
+    var arr = str.split("");
+    console.log(arr);
+
+    for (var i = 0 ; i < arr.length/2 ; i++) {
+        var temp = arr[i];
+        arr[i] = arr[arr.length - 1 - i];
+        arr[arr.length - 1 - i] = temp;
     }
-    return num * recursiveFactorial(num - 1)
+    return arr.join("");
 }
 
-console.log(recursiveFactorial(4));
+console.log(reverseString("creature")); // "erutaerc"
 
-// ===============================================================================
-// Recursive Fibonacci
-// ===============================================================================
 
-// Given a number, add the collective sum up to that number (using Fibonacci sequence). The sum is of the previous 2 Fibonacci numbers.
-
-// F0	F1	F2	F3	F4	F5	F6	F7	F8	F9	F10	
-// 0	1	1	2	3	5	8	13	21	34	55	
-
-function recursiveFibonacci(num) {
-    // end point of 0
-    if (num == 0) {
-        return 0;
+// ===================================
+// with new String only
+// ===================================
+function reverseString(str) {
+    var newStr = "";
+    for (var i = str.length - 1 ; i > -1 ; i--) {
+        newStr += str[i];
     }
-    // end point of 1
-    if (num == 1) {
-        return 1;
-    }
-    // if no endoints are hit
-    return recursiveFibonacci(num - 1) + recursiveFibonacci(num - 2);
+    return newStr;
 }
 
-console.log(recursiveFibonacci(5));
+console.log(reverseString("creature")); // "erutaerc"

@@ -1,0 +1,58 @@
+Greatest Common Factor
+
+Objectives
+
+More recursive programming
+
+Implement gcf(x, y) ("GCF" is short for greatest common factor), a function with two parameters (x and y), which are both integers. This function should return the largest integer that divides evenly into both x and y. For example, the greatest common factor of 100 and 15 is 5 - 100/5 = 20 and 15/5 = 3, and no larger number divides both 100 and 15 evenly. If the two numbers were 100 and 20, the greatest common factor would be 20.
+
+There's a way to solve this mathematically using prime numbers, but back in 300 B.C. Euclid came up with an algorithm that lets us find the greatest common factor of two numbers, X and Y:
+
+- determine if X is greater than Y or if Y is greater than X
+- if X is greater than Y, make X equal to X - Y
+- if Y is greater than X, make Y equal to Y - X
+- continue this process until X is equal to Y - this is your greatest common factor
+
+Let's try this out using the numbers 800 (X) and 2260 (Y): (color X and Y in red/blue)
+- 2260 is greater than 800, so we'll set Y to 1460 (2280 - 800)
+- 1460 is still greater than 800, so we'll set Y to 660 (1460 - 800)
+- 800 is greater than 660, so we'll set X to 140 (800 - 660)
+- 660 is greater than 140, so we'll set Y to 520 (660 - 140)
+- 520 is greater than 140, so we'll set Y to 380 (520 - 140)
+- 380 is greater than 140, so we'll set Y to 240 (380 - 140)
+- 240 is greater than 140, so we'll set Y to 100 (240 - 140)
+- 140 is greater than 100, so we'll set X to 40 (140 - 100)
+- 100 is greater than 40, so we'll set Y to 60 (100 - 40)
+- 60 is greater than 40, so we'll set Y to 20 (60 - 40)
+- 40 is greater than 20, so we'll set X to 20 (40 - 20)
+- X and Y are now equal - the greatest common factor is 20
+
+There are many ways to calculate the greatest common factor of two (or more) numbers, but this method is very simple and translates well to recursive programming.
+
+First: lay out some psuedocode. Make sure everyone understands the problem.
+
+Then: write out a recursive function that finds the greatest common factor of two numbers.
+
+function gcf(x, y) {
+    // your code here
+    // remember that this is a recursive function
+}
+
+Test Cases
+
+All these should return true.
+
+console.log(gcf(2260, 800) == 20);
+console.log(gcf(800, 2260) == 20);
+console.log(gcf(3, 4) == 1);
+console.log(gcf(245, 133) == 7);
+console.log(gcf(22548, 524) == 4);
+
+Bonus:
+
+gcf(123456, 987654) will exceed your call stack size. Is there a good way to write this function so that it doesn't fail when X and Y grow to certain sizes? Try it out and run these other test cases:
+
+console.log(gcf(123456, 987654) == 6)
+console.log(gcf(987654, 123456) == 6)
+console.log(gcf(1234567, 9876543) == 1)
+console.log(gcf(2135463, 6378456854) == 11)

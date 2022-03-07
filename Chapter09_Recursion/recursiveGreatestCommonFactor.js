@@ -27,8 +27,7 @@ function recursiveGreatestCommonFactor(num1,num2){
         return recursiveGreatestCommonFactor(num1-num2, num2);
     } else if (num2 > num1) {
         return recursiveGreatestCommonFactor(num1, num2-num1);
-    }
-    else {
+    } else {
         return num1
     }
 }
