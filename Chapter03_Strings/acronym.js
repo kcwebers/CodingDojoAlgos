@@ -10,12 +10,12 @@
 // ===================================
 function acronym(str) {
     var arr = str.split(" ");
-    var newStr = "";
+    var newArr = [];
 
     for (var i = 0; i < arr.length; i++) {
-        newStr += arr[i][0].toUpperCase();
+        newArr.push(arr[i][0].toUpperCase());
     }
-    return newStr;
+    return newArr.join("");
 }
 
 console.log(acronym("there's no free lunch - gotta pay yer way"));
