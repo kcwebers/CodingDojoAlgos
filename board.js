@@ -1,72 +1,86 @@
-// Create a function that, given a string, returns the string's acronym (first letter's only, capitalized) in string form.
-// Example: "there's no free lunch - gotta pay yer way" --> "TNFL-GPYW""
+// Create a function that returns as boolean of true/false for whether or not an input string is a strict pallindrome. Do not ignore whitespaces, casing matters!!
 
-// Things to consider: how to move through a string? How to capitalize letters? how to create/add to a new string?
+// Example 1: "racecar" --> true
+// Example 2: "Dud" --> false
+// Example 3: "oho!" --> false
 
-// ===================================
-// with Array
-// ===================================
-function acronym(str) {
-    var arr = str.split(" ");
-    var newArr = [];
+// pallidrome = reads the same forwards and back!
+// loop through our string
+// check each element with it's 'sister' element on the other side of the string
+// if elements don't match then return false
+// if we make it through our loop and never hit false, then return true
 
-    for (var i = 0; i < arr.length; i++) {
-        newArr.push(arr[i][0].toUpperCase());
-    }
-    return newArr.join("");
+function isPallindrome(str) {
+    // your code here
 }
 
-console.log(acronym("there's no free lunch - gotta pay yer way"));
+console.log(isPallindrome("racecar")); // true
+console.log(isPallindrome("e tacocat e"));; // true
+console.log(isPallindrome("Dud"));// false
+console.log(isPallindrome("oho!")); // false
+console.log(isPallindrome(" to ")); // false
 
-// ===================================
-// with new String only
-// ===================================
-function acronym(str) {
-    var newStr = str[0].toUpperCase();
 
-    for (var i = 0; i < str.length; i++) {
-        if (str[i] == " ") {
-            newStr += str[i + 1].toUpperCase();
+
+// Given a String, return the longest pallindromic substring. Given "hello dada", return "dad". Given "not much" return "n". Include spaces as well!
+
+// Example 1: "my favorite racecar erupted" --> "e racecar e"
+// Example 2: "nada" --> "ada"
+// Example 3: "nothing to see" --> "ee"
+// Given a String, return the longest pallindromic substring. Given "hello dada", return "dad". Given "not much" return "n". Include spaces as well!
+
+// Example 1: "my favorite racecar erupted" --> "e racecar e"
+// Example 2: "nada" --> "ada"
+// Example 3: "nothing to see" --> "ee"
+
+function isPallindrome(str) {
+    // loop through our string
+    for (var i = 0; i < str.length / 2; i++) {
+        // check each element with it's 'sister' element on the other side of the string
+        // if elements don't match then return false
+        if (str[i] != str[str.length - 1 - i]) {
+            return false;
         }
     }
-    return newStr;
+    // if we make it through our loop and never hit false, then return true
+    return true;
 }
 
-console.log(acronym("there's no free lunch - gotta pay yer way"));
+function longestPallindrome(str) {
+    var palli = "";
 
-
-// ==================================================================================================================
-// Implement reverseString(str) that takes in a String, and then returns a string of the same length, but with the characters reversed.
-// Example: "creature" ---> "erutaerc"
-// ** Don't use the built-in reverse() method!
-
-// ===================================
-// with Array
-// ===================================
-function reverseString(str) {
-    var arr = str.split("");
-    console.log(arr);
-
-    for (var i = 0 ; i < arr.length/2 ; i++) {
-        var temp = arr[i];
-        arr[i] = arr[arr.length - 1 - i];
-        arr[arr.length - 1 - i] = temp;
+    // edge case: what if the string is only 1 character long?
+    if (str.length <= 1) {
+        return str
     }
-    return arr.join("");
-}
 
-console.log(reverseString("creature")); // "erutaerc"
+    for (var i = 0; i < str.length - 1; i++) {
+        for (var j = i + 1; j <= str.length; j++) {
+            // check to see if this section of the string is a pallindrome
 
+            // construct a substring using the start and end points from the original string
+            // here's some pseudo code about how finding the substring would work in a manual way:
+            // var substring = "";
+            // for(var k = start ; k < end ; k ++) {
+            //     substring += str[k];
+            // }
+            // console.log(substring);
 
-// ===================================
-// with new String only
-// ===================================
-function reverseString(str) {
-    var newStr = "";
-    for (var i = str.length - 1 ; i > -1 ; i--) {
-        newStr += str[i];
+            // .slice() or .substring() are methods that can also be used!
+            // note that .slice() & .substring() exclude the end point! 
+            // so if i & j are sitting on the same spot, it won't return anything because it excludes the end
+            if (isPallindrome(str.slice(i, j)) === true) {
+                // is this new pallindrome's length greater than the existing 'longest pallindrome'?
+                if (str.slice(i, j).length > palli.length) {
+                    palli = str.slice(i, j);
+                }
+            }
+        }
     }
-    return newStr;
+    return palli;
 }
 
-console.log(reverseString("creature")); // "erutaerc"
+console.log(longestPallindrome("my favorite racecar erupted"));
+console.log(longestPallindrome("nada"));
+console.log(longestPallindrome("nothing to see"));
+console.log(longestPallindrome("v")); // edge case!

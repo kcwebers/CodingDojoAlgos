@@ -23,9 +23,11 @@ function parensValid(str) {
         // when we find opening parens, we will hold on to them in our array
         if(str[i] === "(") {
             checkParens.push(str[i]);
+
         } else if (str[i] === ")" && checkParens[checkParens.length - 1] === "(") {
             // when we find closing parens, we compare against the opening ones we have
             checkParens.pop();
+            
         } else if (str[i] === ")") {
             return false;
         }
@@ -57,10 +59,12 @@ function parensValid(str){
         }
     }
     // if the counter is greater than 0, or ingeneral not equal to zero, it means that not all parentheses found matches and should return false
-    if(counter > 0) {
-        return false;
-    }
-    return true;
+        // if(counter > 0) {
+        //     return false;
+        // }
+        // return true;
+
+    return counter > 0 ? false : true;
 }
 
 console.log(parensValid("y(3(p)p(3)r)s"));
