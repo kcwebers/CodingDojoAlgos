@@ -1,86 +1,31 @@
-// Create a function that returns as boolean of true/false for whether or not an input string is a strict pallindrome. Do not ignore whitespaces, casing matters!!
+// Write a function that given a sorted array of page numbers, return a string representing a book index. 
+// Combine consecutive pages to create ranges.
 
-// Example 1: "racecar" --> true
-// Example 2: "Dud" --> false
-// Example 3: "oho!" --> false
-
-// pallidrome = reads the same forwards and back!
-// loop through our string
-// check each element with it's 'sister' element on the other side of the string
-// if elements don't match then return false
-// if we make it through our loop and never hit false, then return true
-
-function isPallindrome(str) {
-    // your code here
-}
-
-console.log(isPallindrome("racecar")); // true
-console.log(isPallindrome("e tacocat e"));; // true
-console.log(isPallindrome("Dud"));// false
-console.log(isPallindrome("oho!")); // false
-console.log(isPallindrome(" to ")); // false
+// Example: [1,3,4,5,7,8,10,12] --> "1, 3-5, 7-8, 10, 12"
 
 
+function bookIndex(arr){
+    var str = "";
 
-// Given a String, return the longest pallindromic substring. Given "hello dada", return "dad". Given "not much" return "n". Include spaces as well!
-
-// Example 1: "my favorite racecar erupted" --> "e racecar e"
-// Example 2: "nada" --> "ada"
-// Example 3: "nothing to see" --> "ee"
-// Given a String, return the longest pallindromic substring. Given "hello dada", return "dad". Given "not much" return "n". Include spaces as well!
-
-// Example 1: "my favorite racecar erupted" --> "e racecar e"
-// Example 2: "nada" --> "ada"
-// Example 3: "nothing to see" --> "ee"
-
-function isPallindrome(str) {
-    // loop through our string
-    for (var i = 0; i < str.length / 2; i++) {
-        // check each element with it's 'sister' element on the other side of the string
-        // if elements don't match then return false
-        if (str[i] != str[str.length - 1 - i]) {
-            return false;
+    for (var i = 0 ; i < arr.length ; i++){
+        if (i < arr.length && i !== 0){
+            str += ", ";
         }
-    }
-    // if we make it through our loop and never hit false, then return true
-    return true;
-}
 
-function longestPallindrome(str) {
-    var palli = "";
-
-    // edge case: what if the string is only 1 character long?
-    if (str.length <= 1) {
-        return str
-    }
-
-    for (var i = 0; i < str.length - 1; i++) {
-        for (var j = i + 1; j <= str.length; j++) {
-            // check to see if this section of the string is a pallindrome
-
-            // construct a substring using the start and end points from the original string
-            // here's some pseudo code about how finding the substring would work in a manual way:
-            // var substring = "";
-            // for(var k = start ; k < end ; k ++) {
-            //     substring += str[k];
-            // }
-            // console.log(substring);
-
-            // .slice() or .substring() are methods that can also be used!
-            // note that .slice() & .substring() exclude the end point! 
-            // so if i & j are sitting on the same spot, it won't return anything because it excludes the end
-            if (isPallindrome(str.slice(i, j)) === true) {
-                // is this new pallindrome's length greater than the existing 'longest pallindrome'?
-                if (str.slice(i, j).length > palli.length) {
-                    palli = str.slice(i, j);
-                }
+        if (arr[i + 1] === arr[i] + 1){
+            var start = arr[i];
+            while (arr[i + 1] === arr[i] + 1){
+                i++;
             }
+            var end = arr[i];
+            str += start + "-" + end;
+        }
+        
+        else {
+            str += arr[i];
         }
     }
-    return palli;
+    return str;
 }
 
-console.log(longestPallindrome("my favorite racecar erupted"));
-console.log(longestPallindrome("nada"));
-console.log(longestPallindrome("nothing to see"));
-console.log(longestPallindrome("v")); // edge case!
+console.log(bookIndex([1,5,6,7,8,9,11]))
