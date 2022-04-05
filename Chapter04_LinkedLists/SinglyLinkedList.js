@@ -5,7 +5,6 @@ class Node{
     }
 }
 
-
 class SLList{
     constructor(){
         this.head = null

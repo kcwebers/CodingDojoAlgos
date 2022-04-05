@@ -214,8 +214,8 @@ class SLQueue {
             return true
         }
         // collect values into a stack so I can compare them to the items in the list
-        var midpt = Math.floor(this.size() / 2);
         var size = this.size();
+        var midpt = Math.floor(size / 2);
         var comp = new SLStack();
 
         for (var i = 1; i <= midpt; i++) {
