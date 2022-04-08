@@ -1,102 +1,121 @@
 /* 
-  Given an arr and a separator string, output a string of every item in the array separated by the separator.
-  No trailing separator at the end
-  Default the separator to a comma with a space after it if no separator is provided
-*/
+  String: Is Palindrome
+  Create a function that returns a boolean whether the string is a strict palindrome. 
+    - palindrome = string that is same forwards and backwards
+  
+  Do not ignore spaces, punctuation and capitalization
+ */
 
-const arr1 = [1, 2, 3];
-const separator1 = ", ";
-const expected1 = "1, 2, 3";
+const str1 = "a x a";
+const expected1 = true;
 
-const arr2 = [1, 2, 3];
-const separator2 = "-";
-const expected2 = "1-2-3";
+const str2 = "racecar";
+const expected2 = true;
 
-const arr3 = [1, 2, 3];
-const separator3 = " - ";
-const expected3 = "1 - 2 - 3";
+const str3 = "Dud";
+const expected3 = false;
 
-const arr4 = [1];
-const separator4 = ", ";
-const expected4 = "1";
-
-const arr5 = [];
-const separator5 = ", ";
-const expected5 = "";
+const str4 = "oho!";
+const expected4 = false;
 
 /**
- * Converts the given array into a string of items separated by the given separator.
+ * Determines if the given str is a palindrome (same forwards and backwards).
  * - Time: O(?).
  * - Space: O(?).
- * @param {Array<string|number|boolean>} arr The items to be joined as a string.
- * @param {string} separator To separate each item of the given arr.
- * @returns {string} The given array items as a string separated by the given separator.
+ * @param {string} str
+ * @returns {boolean} Whether the given str is a palindrome or not.
  */
-function join2(arr = [], separator = ", ") {
-    let joined = "";
-
-    if (!arr.length) {
-        return joined;
+function isPalindrome(str) {
+    // loop through our string
+    for (var i = 0; i < str.length / 2; i++) {
+        // check each element with it's 'sister' element on the other side of the string
+        // if elements don't match then return false
+        if (str[i] != str[str.length - 1 - i]) {
+            return false;
+        }
     }
-
-    joined += arr[0];
-
-    for (let i = 1; i < arr.length; i++) {
-        // Concatenate separator first to avoid trailing separator
-        joined += separator + arr[i];
-    }
-    return joined;
+    // if we make it through our loop and never hit false, then return true
+    return true;
 }
 
-// ========================================
-// Book Index
-// ========================================
+console.log(isPalindrome(str1))
+console.log(isPalindrome(str2))
+console.log(isPalindrome(str3))
+console.log(isPalindrome(str4))
+
+/*****************************************************************************/
 
 /* 
-Book Index
-Given an array of ints representing page numbers
-return a string with the page numbers formatted as page ranges when the nums
-span a consecutive range.
+  Longest Palindrome
+  For this challenge, we will look not only at the entire string provided,
+  but also at the substrings within it.
+  Return the longest palindromic substring. 
+  Strings longer or shorter than complete words are OK.
+  All the substrings of "abc" are:
+  a, ab, abc, b, bc, c
 */
 
-const nums1 = [1, 13, 14, 15, 37, 38, 70];
-const expected1 = "1, 13-15, 37-38, 70";
+const { isPalindrome } = require("../isPalindrome"); // make use of the isPallindrome you made above!
 
-const nums2 = [5, 6, 7, 8, 9];
-const expected2 = "5-9";
+// const str1 = "what up, daddy-o?";
+// const expected1 = "dad";
 
-const nums3 = [1, 2, 3, 7, 9, 15, 16, 17];
-const expected3 = "1-3, 7, 9, 15-17";
+// const str2 = "uh, not much";
+// const expected2 = "u";
+
+// const str3 = "Yikes! my favorite racecar erupted!";
+// const expected3 = "e racecar e";
+
+// const str4 = "a1001x20002y5677765z";
+// const expected4 = "5677765";
+
+// const str5 = "a1001x20002y567765z";
+// const expected5 = "567765";
 
 /**
- * Turns the given arr of page numbers into a string of comma hyphenated
- * page ranges.
+ * Finds the longest palindromic substring in the given string.
  * - Time: O(?).
  * - Space: O(?).
- * @param {Array<number>} nums Page numbers.
- * @returns {string} The given page numbers as comma separated hyphenated
- *    page ranges.
+ * @param {string} str
+ * @returns {string} The longest palindromic substring from the given string.
  */
-function bookIndex(arr) {
-    var str = "";
+function longestPalindrome(str) {
+    var palli = "";
 
-    for (var i = 0 ; i < arr.length ; i++){
-        if (i < arr.length && i !== 0){
-            str += ", ";
-        }
+    // edge case: what if the string is only 1 character long?
+    if (str.length <= 1) {
+        return str
+    }
 
-        if (arr[i + 1] === arr[i] + 1){
-            var start = arr[i];
-            while (arr[i + 1] === arr[i]+1){
-                i++;
+    for (var i = 0; i < str.length - 1; i++) {
+        for (var j = i + 1; j <= str.length; j++) {
+            // check to see if this section of the string is a pallindrome
+
+            // construct a substring using the start and end points from the original string
+            // here's some pseudo code about how finding the substring would work in a manual way:
+            // var substring = "";
+            // for(var k = start ; k < end ; k ++) {
+            //     substring += str[k];
+            // }
+            // console.log(substring);
+
+            // .slice() or .substring() are methods that can also be used!
+            // note that .slice() & .substring() exclude the end point! 
+            // so if i & j are sitting on the same spot, it won't return anything because it excludes the end
+            var substring = str.slice(i, j)
+            if (isPallindrome(substring) === true) {
+                // is this new pallindrome's length greater than the existing 'longest pallindrome'?
+                if (substring.length > palli.length) {
+                    palli = substring;
+                }
             }
-            var end = arr[i];
-            str += start + "-" + end;
-        }
-        
-        else {
-            str += arr[i];
         }
     }
-    return str;
-}
+    return palli;
+// }
+
+// console.log(longestPalindrome(str1))
+// console.log(longestPalindrome(str2))
+// console.log(longestPalindrome(str3))
+// console.log(longestPalindrome(str4))
+// console.log(longestPalindrome(str5))
