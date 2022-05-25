@@ -1,121 +1,57 @@
-/* 
-  String: Is Palindrome
-  Create a function that returns a boolean whether the string is a strict palindrome. 
-    - palindrome = string that is same forwards and backwards
-  
-  Do not ignore spaces, punctuation and capitalization
- */
+const keys1 = ["abc", 3, "yo"];
+const vals1 = [42, "wassup", true];
+const expected1 = {
+    "abc": 42,
+    "3": "wassup",
+    "yo": true,
+};
 
-const str1 = "a x a";
-const expected1 = true;
-
-const str2 = "racecar";
-const expected2 = true;
-
-const str3 = "Dud";
-const expected3 = false;
-
-const str4 = "oho!";
-const expected4 = false;
+const keys2 = [];
+const vals2 = [];
+const expected2 = {};
 
 /**
- * Determines if the given str is a palindrome (same forwards and backwards).
+ * Converts the given arrays of keys and values into an object.
  * - Time: O(?).
  * - Space: O(?).
- * @param {string} str
- * @returns {boolean} Whether the given str is a palindrome or not.
+ * @param {Array<string>} keys
+ * @param {Array<any>} values
+ * @returns {Object} The object with the given keys and values.
  */
-function isPalindrome(str) {
-    // loop through our string
-    for (var i = 0; i < str.length / 2; i++) {
-        // check each element with it's 'sister' element on the other side of the string
-        // if elements don't match then return false
-        if (str[i] != str[str.length - 1 - i]) {
-            return false;
-        }
+function zipArraysIntoMap(keys, values) {
+    var hashMap = {};
+    for (var i = 0; i < keys.length; i++) {
+        hashMap[keys[i]] = values[i];
     }
-    // if we make it through our loop and never hit false, then return true
-    return true;
+    return hashMap;
 }
 
-console.log(isPalindrome(str1))
-console.log(isPalindrome(str2))
-console.log(isPalindrome(str3))
-console.log(isPalindrome(str4))
+console.log(zipArraysIntoMap(keys1, vals1));
 
-/*****************************************************************************/
+/*************************************/
 
 /* 
-  Longest Palindrome
-  For this challenge, we will look not only at the entire string provided,
-  but also at the substrings within it.
-  Return the longest palindromic substring. 
-  Strings longer or shorter than complete words are OK.
-  All the substrings of "abc" are:
-  a, ab, abc, b, bc, c
+  Invert Hash
+  A hash table / hash map is an obj / dictionary
+  Given an object / dict,
+  return a new object / dict that has the keys and the values swapped so that the keys become the values and the values become the keys
 */
 
-const { isPalindrome } = require("../isPalindrome"); // make use of the isPallindrome you made above!
-
-// const str1 = "what up, daddy-o?";
-// const expected1 = "dad";
-
-// const str2 = "uh, not much";
-// const expected2 = "u";
-
-// const str3 = "Yikes! my favorite racecar erupted!";
-// const expected3 = "e racecar e";
-
-// const str4 = "a1001x20002y5677765z";
-// const expected4 = "5677765";
-
-// const str5 = "a1001x20002y567765z";
-// const expected5 = "567765";
+const obj1 = { name: "Zaphod", charm: "high", morals: "dicey" };
+const expected1 = { Zaphod: "name", high: "charm", dicey: "morals" };
 
 /**
- * Finds the longest palindromic substring in the given string.
+ * Inverts the given object's key value pairs so that the original values
+ * become the keys and the original keys become the values.
  * - Time: O(?).
  * - Space: O(?).
- * @param {string} str
- * @returns {string} The longest palindromic substring from the given string.
+ * @param {Object<string, any>} obj
+ * @return The given object with key value pairs inverted.
  */
-function longestPalindrome(str) {
-    var palli = "";
-
-    // edge case: what if the string is only 1 character long?
-    if (str.length <= 1) {
-        return str
+function invertObj(obj) {
+    var inverted = {};
+    for (var key in obj) {
+        inverted[obj[key]] = key;
     }
-
-    for (var i = 0; i < str.length - 1; i++) {
-        for (var j = i + 1; j <= str.length; j++) {
-            // check to see if this section of the string is a pallindrome
-
-            // construct a substring using the start and end points from the original string
-            // here's some pseudo code about how finding the substring would work in a manual way:
-            // var substring = "";
-            // for(var k = start ; k < end ; k ++) {
-            //     substring += str[k];
-            // }
-            // console.log(substring);
-
-            // .slice() or .substring() are methods that can also be used!
-            // note that .slice() & .substring() exclude the end point! 
-            // so if i & j are sitting on the same spot, it won't return anything because it excludes the end
-            var substring = str.slice(i, j)
-            if (isPallindrome(substring) === true) {
-                // is this new pallindrome's length greater than the existing 'longest pallindrome'?
-                if (substring.length > palli.length) {
-                    palli = substring;
-                }
-            }
-        }
-    }
-    return palli;
-// }
-
-// console.log(longestPalindrome(str1))
-// console.log(longestPalindrome(str2))
-// console.log(longestPalindrome(str3))
-// console.log(longestPalindrome(str4))
-// console.log(longestPalindrome(str5))
+    return inverted;
+}

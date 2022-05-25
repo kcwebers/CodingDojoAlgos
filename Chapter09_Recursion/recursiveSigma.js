@@ -15,8 +15,9 @@ function sigma(num) {
 }
 
 function recursiveSigma(num) {
-    if (num <= 1) {
-        return 1
+    num = Math.floor(num)
+    if (num == 0) {
+        return 0
     }
     return num + recursiveSigma(num - 1)
 }

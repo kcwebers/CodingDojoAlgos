@@ -15,7 +15,3 @@
 // the vampires would divvy up the man to eat him? Nope! Only one vampire can eat at once (assume they don't get along per se... there was great turmoil in the vampire community after the fall of Dracula)
 // the vampires are vegetarians... nope they are not
 // they kill the sleeping man then eat him, nope
-
-// ===========================
-// Solution
-// ===========================
